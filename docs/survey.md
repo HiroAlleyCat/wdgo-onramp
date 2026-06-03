@@ -151,6 +151,8 @@ Tiers reframed as form-factor + skill investment:
 | **CYD 2.8"** | ESP32-2432S028 board + GPS, flash Marauder OR Bruce | small display | Cheap second device. Either firmware works. |
 | **M5 Tab5 Wardriver** | M5Stack Tab5 + M5 GPS/BDS Unit, custom firmware | tablet | High-end purchased option. Firmware is custom — Hackster post is the recipe. |
 | **Hak5 Pineapple Pager** | Pager + u-blox 7 USB GPS, [LOCOSP Pineapple payload](https://github.com/LOCOSP/pineapple_pager_wdgwars) | pocket | Second confirmed on-device WDGoWars uploader. APP_HANDOFF-compatible per README. |
+| **Flipper Zero + WiFi DevBoard** | Flipper Zero + Flipper WiFi DevBoard (ESP32-S2) + GPS module, flash Marauder `flipper.bin` to the DevBoard | handheld | Flipper itself has no 2.4 GHz radio — the DevBoard is what scans Wi-Fi. SD output → wigle-to-wdgwars. |
+| **Pwnagotchi (handshake build, not WiGLE-CSV native)** | Pi Zero 2 W + Waveshare 2.13" e-paper HAT + PiSugar 3 + USB GPS, [jayofelony/pwnagotchi](https://github.com/jayofelony/pwnagotchi) | handheld | Captures PCAP handshakes (WPA), not WiGLE CSV. Conversion to WDGoWars is not a one-liner. Don't expect Marauder-rig parity. |
 | **Raspberry Pi + Kismet** | Pi 4 + monitor-mode USB WiFi + GPS + battery | small box / car-mount | Linux familiarity. Best capture quality. Capture → wigle-to-wdgwars. |
 | **SDR add-on (ADS-B)** | RTL-SDR + 1090 MHz antenna + Pi → Muninn | small box | Different game — feeds `aircraft` slot. |
 | **MeshCore radio** | LoRa node (Heltec / TTGO / similar) → Heimdall | pocket | Feeds `meshcore_nodes` slot. |

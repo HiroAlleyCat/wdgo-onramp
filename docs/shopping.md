@@ -113,6 +113,36 @@ Best for: someone who'd rather pay extra to skip the GPS soldering.
 |---|---|
 | Apex 5 module | search [Tindie](https://www.tindie.com) for "Apex 5"; [CNX Software writeup](https://www.cnx-software.com/2026/02/11/esp32-marauder-5g-apex-5-module-for-flipper-zero-combines-esp32-c5-two-sub-ghz-radios-nrf24-and-gps/) covers the spec |
 
+### Flipper Zero + WiFi DevBoard (Marauder)
+
+Best for: someone who already owns a Flipper Zero and wants to use it as the controller for a wardriving rig. The Flipper itself doesn't have a 2.4 GHz Wi-Fi radio; the WiFi DevBoard plugs into the GPIO header and adds an ESP32-S2 running Marauder.
+
+| Item | Where |
+|---|---|
+| Flipper Zero | [shop.flipperzero.one](https://shop.flipperzero.one) |
+| Flipper WiFi DevBoard (ESP32-S2) | [Flipper Zero shop](https://shop.flipperzero.one) — official; third-party clones on AliExpress |
+| Marauder firmware for the DevBoard | [GitHub `v1.12.1` release](https://github.com/justcallmekoko/ESP32Marauder/releases/tag/v1.12.1) — pick the `flipper.bin` asset |
+| GPS module (NEO-6M / ATGM336H) wired to the DevBoard headers | per the [Marauder GPS wiki](https://github.com/justcallmekoko/ESP32Marauder/wiki/gps-modification) — same pin tables as the bare-ESP32 path above |
+| microSD card | any |
+| Optional: Flipper custom firmware (Momentum / Xtreme) | [Momentum](https://github.com/Next-Flip/Momentum-Firmware) — adds the Marauder companion app baked-in; not strictly required since the Marauder firmware runs on the DevBoard itself |
+| wigle-to-wdgwars (for SD pulls) | [GitHub](https://github.com/HiroAlleyCat/wigle-to-wdgwars) |
+
+Same GPS rule as bare Marauder: no module, no wardrive lines. The Flipper provides display + power + UI; the DevBoard does the actual Wi-Fi scanning.
+
+### Pwnagotchi (handshake-focused, not WiGLE-CSV native)
+
+Best for: someone who specifically wants the Pwnagotchi build for the WPA handshake side of the hobby. Listed here because newcomers ask about it constantly. **Pwnagotchi does NOT produce WigleWifi-1.6 CSV out of the box** — it captures PCAP handshakes and (with the GPS plugin) location-tagged metadata. Conversion path to WDGoWars exists but isn't a one-liner. Don't buy a Pwnagotchi expecting points-per-mile parity with a Marauder rig.
+
+| Item | Where |
+|---|---|
+| Raspberry Pi Zero 2 W (recommended) **OR** original Pi Zero W | [Adafruit](https://www.adafruit.com) / [CanaKit](https://www.canakit.com) |
+| Waveshare 2.13" e-paper HAT (the iconic Pwnagotchi screen) | [waveshare.com](https://www.waveshare.com) — V2 or V4 |
+| PiSugar 3 / PiSugar S Plus (LiPo + UPS HAT) | [pisugar.com](https://www.pisugar.com) — keeps it portable |
+| microSD card (16 GB or larger) | any |
+| External USB GPS or [bettercap-gps plugin](https://github.com/jayofelony/pwnagotchi) | for any chance of location-tagged output |
+| Pwnagotchi firmware — jayofelony fork | [github.com/jayofelony/pwnagotchi](https://github.com/jayofelony/pwnagotchi) — the actively-maintained fork as of 2026 |
+| Case (3D-printed or official) | various — Etsy / Thingiverse / Printables |
+
 ## Tier 3 — High-end purchased option
 
 ### M5 Tab5 Wardriver
@@ -147,7 +177,7 @@ Stationary capture rig. Mount the antenna where it has sky view.
 
 ### MeshCore LoRa nodes (Heimdall feeder)
 
-Pocket-portable, captures other LoRa nodes within radio range.
+Pocket-portable, captures other LoRa nodes within radio range. **MeshCore is the supported protocol for Heimdall today — Meshtastic exports need a parser nobody's written yet (see [Hardware survey](survey.md) §9).** If your goal is feeding the `meshcore_nodes` slot, buy hardware you can run MeshCore-compatible firmware on.
 
 | Item | Where |
 |---|---|
@@ -156,6 +186,23 @@ Pocket-portable, captures other LoRa nodes within radio range.
 | **OR:** RAK Wireless WisBlock | [store.rakwireless.com](https://store.rakwireless.com) |
 | MeshMapper export or compatible CSV writer | per device firmware |
 | Heimdall feeder | [GitHub](https://github.com/HiroAlleyCat/meshcore-to-wdgwars) |
+
+### Meshtastic-ecosystem gear (related but different protocol)
+
+If you're getting into the broader LoRa scene rather than specifically chasing the WDGoWars MeshCore slot, Meshtastic is the more popular mesh protocol. The hardware below runs both Meshtastic and (on most boards) MeshCore — pick the firmware after picking the goal. Re-flash to MeshCore if you want Heimdall to ingest it today.
+
+| Item | Where |
+|---|---|
+| LilyGO T-Echo (nRF52840 + SX1262, e-paper) | [LilyGO](https://lilygo.cc) — popular keychain-sized Meshtastic node |
+| LilyGO T-Deck Plus (ESP32-S3 + keyboard + screen) | [LilyGO](https://lilygo.cc) — handheld Meshtastic with input |
+| LilyGO T-Beam Supreme | [LilyGO](https://lilygo.cc) — newer T-Beam with U-blox GPS + 18650 holder |
+| LilyGO Station G2 | [LilyGO](https://lilygo.cc) — solar-friendly stationary node |
+| Heltec Vision Master T190 | [heltec.org](https://heltec.org) — newer Heltec with E-ink |
+| RAK Wireless WisMesh Pocket | [store.rakwireless.com](https://store.rakwireless.com) — RAK's Meshtastic-ready pocket node |
+| RAK4631 (nRF52840 + SX1262 core module) | [store.rakwireless.com](https://store.rakwireless.com) — the silicon most other Meshtastic builds share |
+| Nano-G1 / Nano-G1 Explorer | [B&Q Consulting](https://www.bnqconsulting.com) — minimalist credit-card-sized Meshtastic node |
+| Meshtastic firmware | [meshtastic.org](https://meshtastic.org) — official documentation + flashing tool |
+| MeshCore firmware (the WDGoWars-supported alternative) | [meshcore.co.uk](https://meshcore.co.uk) — flash this instead if your goal is the Heimdall feed |
 
 ## Tier 5 — Always-on capture lab
 

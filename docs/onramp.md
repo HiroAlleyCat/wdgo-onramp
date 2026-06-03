@@ -132,6 +132,9 @@ See [Shopping list](shopping.md) Tiers 6–8 for the gear list at each step (inc
 | Pitfall | What's actually going on |
 |---|---|
 | Bought a bare ESP32-C3 and can't find good firmware | Marauder has no C3 binary. Bruce has no C3 port. GhostESP has a C3 binary but the output lacks BSSID on some commands. C3 is poorly served by stock firmware — avoid unless you want to write your own. |
+| Bought a Flipper Zero expecting it to wardrive on its own | The Flipper has no 2.4 GHz radio. You need the WiFi DevBoard (or a side device like the Apex 5) running Marauder, plus a GPS module, plus an SD pull → wigle-to-wdgwars. See [Shopping list](shopping.md) Tier 3b. |
+| Bought a Pwnagotchi expecting WiGLE CSV / WDGoWars parity | Pwnagotchi captures PCAP handshakes, not the WigleWifi-1.6 CSV that wigle-to-wdgwars ingests. Use it for the handshake side of the hobby; pair it with a Marauder/Bruce rig if you also want leaderboard points. |
+| Bought Meshtastic gear expecting Heimdall to ingest it | Heimdall is MeshCore-specific today. Most modern LoRa boards run either firmware — re-flash to MeshCore if your goal is the `meshcore_nodes` slot. The Meshtastic-native parser is on the gap list at [Hardware survey](survey.md) §9. |
 | Bought Marauder without a GPS module | Wardrive dumps will be empty. GPS is mandatory, not optional. |
 | Same API key on multiple devices | All captures attribute to one driver. Need separate keys for split-driver attribution. |
 | Phone app reports "wrong password" | Could actually be Cloudflare returning 429 on a cold IP, not an auth failure. Try again after a minute. |
