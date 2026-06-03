@@ -1,3 +1,7 @@
+---
+title: WDGoWars feeder spec
+description: Implementation specification for the signed-JSON envelope, with a verified golden test vector
+---
 
 # WDGoWars feeder specification (signed-JSON envelope)
 

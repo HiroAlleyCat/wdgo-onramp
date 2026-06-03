@@ -72,3 +72,19 @@ flowchart LR
 - **The `/endpoint/*` mirror exists** as a Cloudflare-L7 bypass for clients that burst-POST. gungnir v0.1.2+ uses it by default. Hand-rolled clients should target `/endpoint/*` rather than `/api/*` if they POST in bursts.
 
 For the full progression with hardware suggestions and skill prerequisites at each level, see the [Newcomer onramp](onramp.md). For the firmware × chip support matrix behind each tier, see the [Hardware survey](survey.md).
+
+<script type="module">
+  // GitHub Pages with the cayman theme doesn't include Mermaid JS by default.
+  // This bootstrap finds ```mermaid``` fenced code blocks (which Jekyll renders
+  // as <pre><code class="language-mermaid">) and re-renders them as diagrams.
+  // On the GitHub repo browser, this script is stripped — GitHub's native
+  // Markdown renderer already shows the diagram. So both contexts render.
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+  document.querySelectorAll('pre > code.language-mermaid').forEach((el) => {
+    const div = document.createElement('div');
+    div.className = 'mermaid';
+    div.textContent = el.textContent;
+    el.parentElement.replaceWith(div);
+  });
+  mermaid.initialize({ startOnLoad: true, theme: 'default' });
+</script>

@@ -1,3 +1,7 @@
+---
+title: WDGoWars onramp
+description: Five-step progression from WiGLE on your phone to advanced multi-source capture
+---
 
 # WDGoWars onramp — from WiGLE to advanced
 

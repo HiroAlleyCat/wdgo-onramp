@@ -1,0 +1,18 @@
+# Force LF line endings for text files across all platforms.
+# Without this, Windows committers introduce CRLF which makes diffs noisy
+# and breaks tooling that expects POSIX line endings.
+
+* text=auto eol=lf
+
+# Treat .canvas as text (it's JSON) so it diffs cleanly
+*.canvas text eol=lf
+
+# Markdown
+*.md text eol=lf
+
+# Explicit binary types — never run line-ending conversion on these
+*.png binary
+*.jpg binary
+*.svg binary
+*.gif binary
+*.ico binary

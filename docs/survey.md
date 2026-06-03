@@ -1,3 +1,7 @@
+---
+title: Hardware survey
+description: Firmware × chip support matrix, community tools catalog, decision tree, API gotchas
+---
 
 # Wardriving hardware + firmware survey for WDGoWars
 
