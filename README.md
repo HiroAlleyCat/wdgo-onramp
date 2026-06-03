@@ -43,4 +43,4 @@ Issues + pull requests welcome, especially:
 - A community tool that should be listed in the survey
 - A gotcha worth adding to the newcomer-pitfalls section
 
-Please cite a primary source (release page, repo commit, official wiki) in any pull request that adds or modifies a claim.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for the full guide — what's welcome, what's not, primary-source citation rules, the sync process for the dual-flavor (Obsidian + vanilla) docs, and the dual-format (canvas + Mermaid) diagram.
