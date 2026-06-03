@@ -163,8 +163,10 @@ Tiers reframed as form-factor + skill investment:
 | **ClockworkPi uConsole** | CM4 / CM5 + USB Wi-Fi adapter + USB GPS (+ optional LoRa / 4G expansion boards) | handheld Linux | Named in [LOCOSP/WatchDogsGo](https://github.com/LOCOSP/WatchDogsGo)'s repo description as a target platform for the game itself. Capture + play on one device. |
 | **ClockworkPi DevTerm** | Same compute-module socket as uConsole, BB-keyboard form | small box w/ keyboard | Older sibling. Same compute story; different ergonomics. |
 | **Steam Deck (Desktop Mode)** | USB Wi-Fi adapter + USB GPS, run Kismet from Konsole | handheld | Reuses hardware many gamers already own. Built-in radio doesn't do monitor mode reliably — bring an external adapter. |
-| **High-end SDR (AirSpy / SDRplay / HackRF / KrakenSDR)** | Replaces RTL-SDR in the Muninn chain | small box | Better dynamic range; KrakenSDR's 5 coherent channels enable direction-finding / AoA. |
-| **Outdoor ADS-B antenna chain** | FlightAware 26" antenna + Uputronics 1090 LNA at antenna + LMR-400 + lightning arrestor → Muninn | mast install | Hundreds of NM of range vs the basic dongle setup. |
+| **High-end SDR (computer-attached)** | AirSpy R2 / HF+ Discovery, SDRplay RSPdx-R2 / RSPduo, ADALM-Pluto, LimeSDR Mini 2.0 / USB, bladeRF 2.0 micro, Ettus USRP B200mini — replaces RTL-SDR in the Muninn chain | small box | Better dynamic range than the bare RTL-SDR; the Lime/Pluto/bladeRF/USRP family adds TX. |
+| **KrakenSDR + antenna array** | KrakenSDR (5× coherent RTL-SDRs) + 5-antenna calibrated array kit + KrakenSDR DOA-DSP / KrakenRDF / DragonOS DF stack | small box + roof array | Phase-coherent direction-finding / angle-of-arrival. Different game from raw capture — gives you AoA on signals. |
+| **HackRF PortaPack (standalone handheld)** | HackRF One + PortaPack H4M / H2M shell + screen + keypad + battery + Mayhem firmware | handheld | Captures and transmits 1 MHz–6 GHz without a computer. SD output flows to Muninn / wigle-to-wdgwars on a PC afterward. |
+| **Outdoor antenna chain** | FlightAware 26" + Uputronics 1090 LNA at antenna + LMR-400 + lightning arrestor → Muninn; or discone / log-periodic / Yagi for wider-band or directional work | mast install | Hundreds of NM of range vs the basic dongle setup. Filter-and-LNA placement matters as much as the antenna. |
 | **Vehicle install** | 12V→USB-C PD + roof magmount Wi-Fi + magmount 1090 MHz blade + external GPS | car-permanent | Listed for tier-ladder completeness; not bench-tested by this repo. |
 
 ## 7. Decision tree for newcomers

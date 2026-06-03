@@ -126,9 +126,11 @@ If you've gone through Steps 1–5 and still want more headroom, the hobby has t
 
 **Run the game + capture on the same handheld.** The LOCOSP [WatchDogsGo](https://github.com/LOCOSP/WatchDogsGo) game frontend is open source and the repo description names the [ClockworkPi uConsole](https://www.clockworkpi.com/product-page/uconsole-kit-rpi-cm4-lite) as a target platform. Pair the uConsole with a monitor-mode USB Wi-Fi adapter, a USB GPS receiver, and Kismet, and one handheld covers both sides of the hobby. A Steam Deck in Desktop Mode does roughly the same job if you already own one; a ClockworkPi DevTerm is the same compute platform in a keyboard-forward form factor.
 
-**Upgrade the RF chain.** A bare RTL-SDR + the included whip antenna typically maxes out around 20–50 nm of ADS-B range. A real outdoor antenna (FlightAware 26"), an LNA mounted at the antenna, LMR-400 coax, and a lightning arrestor push that into the hundreds of nautical miles. Higher-tier SDRs — AirSpy R2, SDRplay RSPdx-R2, HackRF One, or the 5-channel KrakenSDR for direction-finding — replace the RTL-SDR in the existing Muninn chain without changing the upload path.
+**Upgrade the RF chain.** A bare RTL-SDR + the included whip antenna typically maxes out around 20–50 nm of ADS-B range. A real outdoor antenna (FlightAware 26"), an LNA mounted at the antenna, LMR-400 coax, and a lightning arrestor push that into the hundreds of nautical miles. The computer-attached SDR ladder runs AirSpy R2 / HF+ Discovery → SDRplay RSPdx-R2 / RSPduo → ADALM-Pluto → LimeSDR Mini 2.0 / USB → bladeRF 2.0 micro → Ettus USRP B200mini, with TX capability appearing from the Pluto onward. KrakenSDR + its 5-antenna array kit is the dedicated direction-finding option.
 
-See [[shopping-list]] Tiers 6–8 for the gear list at each step. The associated form factors are also in [[wardriving-hardware-survey]] §6.
+**Go handheld with the HackRF PortaPack.** A HackRF One in a PortaPack H4M / H2M shell with [Mayhem firmware](https://github.com/portapack-mayhem/mayhem-firmware) becomes a standalone capture + TX tool across 1 MHz–6 GHz with no computer attached. It doesn't upload to WDGoWars on its own, but SD output flows to Muninn or wigle-to-wdgwars on a PC afterward.
+
+See [[shopping-list]] Tiers 6–8 for the gear list at each step (including discone, log-periodic, Yagi antennas, RF filters, GPSDO, and [DragonOS Focal](https://sourceforge.net/projects/dragonos-focal/) for the software side). The associated form factors are also in [[wardriving-hardware-survey]] §6.
 
 ## Common newcomer pitfalls
 

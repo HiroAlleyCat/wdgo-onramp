@@ -216,28 +216,65 @@ Best for: someone who already owns a Deck and wants to wardrive without buying n
 
 ## Tier 7 — High-end SDR + outdoor antenna chain
 
-Stepping up from a basic RTL-SDR dongle to serious RF capture. Feeds Muninn the same way an RTL-SDR does — decode with dump1090-fa or readsb, point Muninn at the output directory.
+Stepping up from a basic RTL-SDR dongle to serious RF capture. Most of these feed Muninn the same way an RTL-SDR does — decode with dump1090-fa or readsb, point Muninn at the output directory. The TX-capable ones extend into transmit work (know the legalities for your region before you key up).
 
-### Higher-tier SDRs
+### Handheld standalone SDR — HackRF PortaPack
+
+A HackRF One with a screen, keypad, and battery sled. Runs the [Mayhem](https://github.com/portapack-mayhem/mayhem-firmware) open firmware so it captures, replays, and transmits across 1 MHz–6 GHz without a computer attached. Closest thing the SDR scene has to a "tricorder" form factor.
 
 | Item | Where |
 |---|---|
-| AirSpy Mini / R2 | [airspy.us](https://airspy.us) — better dynamic range than RTL-SDR, still cheap |
+| HackRF One | [greatscottgadgets.com/hackrf](https://greatscottgadgets.com/hackrf/one/) — half-duplex 1 MHz–6 GHz, 20 Msps |
+| PortaPack H4M (current rev) or H2M | search vendors for "HackRF PortaPack H4M" / "H2M" — shell + screen + keypad + battery housing for the HackRF |
+| Mayhem firmware | [portapack-mayhem/mayhem-firmware](https://github.com/portapack-mayhem/mayhem-firmware) — flash via DFU, replaces the stock Havok/PortaPack firmware |
+| Optional: extra LiPo packs + telescoping whip | any | for field use |
+
+Standalone use cases: ADS-B / AIS / POCSAG capture in the field, sub-GHz capture (315/433/868 MHz), GSM survey, Wi-Fi beacon spotter, recordings to microSD. Not a WDGoWars uploader on its own — pull the SD output to a PC and run it through Muninn (aircraft) or wigle-to-wdgwars (Wi-Fi CSV).
+
+### Higher-tier SDRs (computer-attached)
+
+| Item | Where |
+|---|---|
+| AirSpy R2 / Mini | [airspy.us](https://airspy.us) — better dynamic range than RTL-SDR, still cheap |
+| AirSpy HF+ Discovery | [airspy.us](https://airspy.us) — HF-specialist (9 kHz–31 MHz + 60–260 MHz). Different game from ADS-B, but the buyer at this tier often wants both |
 | SDRplay RSPdx-R2 | [sdrplay.com](https://www.sdrplay.com) — 14-bit, 1 kHz–2 GHz, popular for combined ADS-B + HF work |
-| HackRF One | [greatscottgadgets.com/hackrf](https://greatscottgadgets.com/hackrf/one/) — half-duplex 1 MHz–6 GHz. TX-capable; know the legalities for your region before transmitting |
-| KrakenSDR (5× phase-coherent RTL-SDRs) | [krakenrf.com](https://www.krakenrf.com) — 5 coherent channels for direction-finding / angle-of-arrival. Overkill unless that's specifically the goal |
+| SDRplay RSPduo | [sdrplay.com](https://www.sdrplay.com) — dual-tuner, two coherent channels in one box |
+| Nooelec NESDR SMArt v5 | [nooelec.com/store](https://www.nooelec.com/store) — RTL-SDR with built-in 0.5 ppm TCXO, SMA, metal case. Cheap, solid baseline |
+| RTL-SDR Blog v4 | [rtl-sdr.com/buy](https://www.rtl-sdr.com/buy-rtl-sdr-dvb-t-dongles/) — the current generation of the RTL-SDR Blog dongle |
+| ADALM-Pluto (PlutoSDR) | [analog.com/pluto](https://www.analog.com/en/resources/evaluation-hardware-and-software/evaluation-boards-kits/adalm-pluto.html) — TX-capable 70 MHz–6 GHz (with the standard hack), AD9363. Education-priced, popular with the SDR-learning crowd |
+| LimeSDR Mini 2.0 | [crowdsupply.com/lime-micro](https://www.crowdsupply.com/lime-micro) — TX/RX 10 MHz–3.5 GHz, full duplex |
+| LimeSDR USB | [crowdsupply.com/lime-micro](https://www.crowdsupply.com/lime-micro) — TX/RX 100 kHz–3.8 GHz, 2×2 MIMO |
+| Nuand bladeRF 2.0 micro xA4 / xA9 | [nuand.com](https://www.nuand.com) — TX/RX 47 MHz–6 GHz, 2×2 MIMO. xA9 has the bigger FPGA |
+| Ettus USRP B200mini / B205mini-i | [ettus.com](https://www.ettus.com) — research-grade SDR. Pricey; usually overkill unless you have a specific reason to spec it |
+| KrakenSDR (5× phase-coherent RTL-SDRs) | [krakenrf.com](https://www.krakenrf.com) — 5 coherent channels for direction-finding / angle-of-arrival |
+| KrakenSDR antenna array kit | [krakenrf.com](https://www.krakenrf.com) — 5 calibrated magnetic-mount antennas + ground plane + KrakenSDR DOA-DSP / KrakenRDF / DragonOS software. Buy the kit with the SDR — separate antennas have to be phase-matched yourself |
 
-### Outdoor 1090 MHz antenna chain (for serious ADS-B range)
+### Outdoor antennas
 
-Pushes ADS-B reception from the ~20–50 nm a desktop dongle gets into the hundreds-of-nautical-miles range.
+Different antenna types for different jobs. Most ADS-B feeders just need the FlightAware blade; the rest are for wider-band work.
 
 | Item | Where |
 |---|---|
-| FlightAware 26" outdoor antenna | [FlightAware store](https://flightaware.com/adsb/) — the hobby standard |
+| FlightAware 26" outdoor antenna | [FlightAware store](https://flightaware.com/adsb/) — the hobby standard for 1090 MHz |
 | FlightAware Pro Stick Plus (1090 SAW filter + LNA built in) | [FlightAware store](https://flightaware.com/adsb/) — alternative to RTL-SDR Blog v4 if you specifically want pre-filtered ADS-B |
+| Discone (25 MHz–1.3 GHz, omnidirectional) | search vendors for "discone antenna" — Diamond D3000N, Comet DS150S, etc. Wideband all-rounder |
+| Log-periodic (directional wideband) | various — for pointed surveys across a wide band |
+| Yagi 1090 MHz (directional ADS-B) | various — for serious gain in one heading, e.g. an airport corridor |
+| Yagi 2.4 / 5 GHz (directional Wi-Fi) | TP-Link / Alfa / various — for distance Wi-Fi capture |
+| Diamond X300 / Comet GP-9 (vertical, 2m / 70cm) | various — for amateur-band monitoring alongside the wardriving rig |
 | External LNA — Uputronics 1090 MHz | [store.uputronics.com](https://store.uputronics.com) — mount at the antenna, not the receiver, for best gain |
 | LMR-400 coax + N-type-to-SMA pigtails | any RF distributor — keep the run as short as your install allows |
 | Lightning arrestor (N-type, gas-discharge) | any RF distributor — if the antenna is mast-mounted outdoors |
+
+### RF accessories worth owning at this tier
+
+| Item | Where |
+|---|---|
+| 1090 MHz SAW bandpass filter (inline) | [Uputronics](https://store.uputronics.com) / [Nooelec](https://www.nooelec.com/store) — cleans ADS-B from FM-broadcast desense |
+| FM broadcast notch filter (88–108 MHz) | [Nooelec FM Bandstop](https://www.nooelec.com/store) — adjacent fix when the local FM stations are overloading the front end |
+| Bias-T injector (5V or 12V) | various — for powering a remote LNA over the coax |
+| Step attenuator | various — for taming over-strong signals during testing |
+| GPSDO (GPS-disciplined oscillator) | Leo Bodnar Mini Precision / various — frequency reference for SDRs that accept an external 10 MHz clock |
 
 ### Better monitor-mode Wi-Fi adapters
 
@@ -246,6 +283,15 @@ Pushes ADS-B reception from the ~20–50 nm a desktop dongle gets into the hundr
 | Alfa AWUS1900 (quad-band 802.11ac, four external antennas) | [alfa.com.tw](https://www.alfa.com.tw) — 2.4 + 5 GHz, heavyweight option |
 | Alfa AWUS036ACM (mt7612u, dual-band) | [alfa.com.tw](https://www.alfa.com.tw) — smaller, very well-supported monitor mode |
 | Panda Wireless PAU09 (RT5572) | [pandawireless.com](https://pandawireless.com) — old reliable for monitor-mode dev work |
+
+### Software that matches the gear
+
+| Tool | Where |
+|---|---|
+| DragonOS Focal | [sourceforge.net/projects/dragonos-focal](https://sourceforge.net/projects/dragonos-focal/) — Ubuntu spin pre-loaded with most SDR tooling (GNU Radio, gqrx, dump1090, kalibrate-rtl, OpenWebRX, KrakenSDR stack, etc.). Saves a day of install work |
+| GNU Radio | [gnuradio.org](https://www.gnuradio.org) — flowgraph-based DSP framework underneath most of the above |
+| OpenWebRX | [openwebrx.de](https://www.openwebrx.de) — browser-served SDR receiver, multi-user |
+| gqrx | [gqrx.dk](https://gqrx.dk) — desktop SDR scanner, good first tool |
 
 ## Tier 8 — Vehicle install (always-on roaming capture)
 
