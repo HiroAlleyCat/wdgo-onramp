@@ -72,34 +72,43 @@ A change to one must include the matching change to the other. Diagrams drifting
 
 Each doc exists in **two flavors**:
 
-| Root (Obsidian) | docs/ (vanilla) | Notes |
-|---|---|---|
-| [`wdgo-newcomer-progression.md`](wdgo-newcomer-progression.md) | [`docs/onramp.md`](docs/onramp.md) | |
-| [`wardriving-hardware-survey.md`](wardriving-hardware-survey.md) | [`docs/survey.md`](docs/survey.md) | |
-| [`wdgo-feeder-spec.md`](wdgo-feeder-spec.md) | [`docs/spec.md`](docs/spec.md) | |
+| Root (Obsidian) | docs/ (vanilla) |
+|---|---|
+| [`wdgo-newcomer-progression.md`](wdgo-newcomer-progression.md) | [`docs/onramp.md`](docs/onramp.md) |
+| [`shopping-list.md`](shopping-list.md) | [`docs/shopping.md`](docs/shopping.md) |
+| [`wardriving-hardware-survey.md`](wardriving-hardware-survey.md) | [`docs/survey.md`](docs/survey.md) |
+| [`wdgo-feeder-spec.md`](wdgo-feeder-spec.md) | [`docs/spec.md`](docs/spec.md) |
+| [`CREDITS.md`](CREDITS.md) | [`docs/credits.md`](docs/credits.md) |
 
 Process:
 
 1. Edit the **root** file first (Obsidian flavor, `[[wikilinks]]` allowed).
-2. Re-derive the `docs/` version by running this from the repo root:
+2. Re-derive the `docs/` version by running this from the repo root. The script strips frontmatter AND prepends Jekyll-specific frontmatter (title + description) in one pass — fill in the title/desc per file:
 
    ```bash
-   for pair in "wdgo-newcomer-progression:onramp" \
-               "wardriving-hardware-survey:survey" \
-               "wdgo-feeder-spec:spec"; do
-     src="${pair%%:*}.md"
-     dst="docs/${pair##*:}.md"
-     awk '/^---$/{c++; next} c>=2' "$src" | sed -E \
-       -e 's|\[\[wdgo-newcomer-progression\]\]|[Newcomer onramp](onramp.md)|g' \
-       -e 's|\[\[wardriving-hardware-survey\]\]|[Hardware survey](survey.md)|g' \
-       -e 's|\[\[wdgo-feeder-spec\]\]|[Feeder spec](spec.md)|g' \
-       -e 's|\[\[wdgo-capture-flow\]\]|[Capture flow diagram](flow.md)|g' \
-       > "$dst"
+   # title + description are colon-separated after the dst slug
+   for pair in "wdgo-newcomer-progression:onramp:WDGoWars onramp:Five-step progression from WiGLE on your phone to advanced multi-source capture" \
+               "shopping-list:shopping:Shopping list:Buyer's checklist for each tier of the WDGoWars onramp" \
+               "wardriving-hardware-survey:survey:Hardware survey:Firmware × chip support matrix, community tools catalog, decision tree, API gotchas" \
+               "wdgo-feeder-spec:spec:WDGoWars feeder spec:Implementation specification for the signed-JSON envelope, with a verified golden test vector" \
+               "CREDITS:credits:Credits & acknowledgments:The maintainers, projects, and vendors that make the WDGoWars ecosystem possible"; do
+     IFS=: read -r src dst title desc <<< "$pair"
+     out="docs/${dst}.md"
+     { echo "---"; echo "title: ${title}"; echo "description: ${desc}"; echo "---"; echo; \
+       awk '/^---$/{c++; next} c>=2' "${src}.md" | sed -E \
+         -e 's|\[\[wdgo-newcomer-progression\]\]|[Newcomer onramp](onramp.md)|g' \
+         -e 's|\[\[wardriving-hardware-survey\]\]|[Hardware survey](survey.md)|g' \
+         -e 's|\[\[wdgo-feeder-spec\]\]|[Feeder spec](spec.md)|g' \
+         -e 's|\[\[wdgo-capture-flow\]\]|[Capture flow diagram](flow.md)|g' \
+         -e 's|\[\[shopping-list\]\]|[Shopping list](shopping.md)|g' \
+         -e 's|\[\[CREDITS\]\]|[Credits](credits.md)|g'; \
+     } > "$out"
    done
    ```
 
-3. Manually re-add Jekyll frontmatter to the regenerated `docs/` file (title + description). The shell script strips frontmatter cleanly but doesn't add the docs-specific frontmatter back.
-4. Commit both changes together.
+3. Commit both changes together.
+
+Verify with `grep -rn '\[\[' docs/` after running — output should be `clean` (no leftover wikilinks).
 
 ## PR style
 
