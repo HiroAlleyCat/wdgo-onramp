@@ -371,25 +371,6 @@ If your daily commute is the capture run. Listed for completeness so the tier la
 | External GPS antenna + receiver | u-blox — roof-mount for clean sky view |
 | Mounting plate / RAM mount for the Pi or handheld | any |
 
-## Sidebar — Aerial SDR (drone-mounted)
-
-Putting a lightweight SDR on a quadcopter for aerial Wi-Fi / ADS-B capture. Sidebar rather than a tier because regulatory load is real and most readers won't want it. Output is the same WigleWifi-1.6 CSV / `aircraft.json` your ground rig produces, just from altitudes a street-level capture can't reach.
-
-**Read the legal section first.** In the US: FAA Part 107 (commercial) or §44809 (recreational with restrictions) applies. No-fly zones around airports + critical infrastructure. LAANC authorization for controlled airspace. The [B4UFLY](https://www.faa.gov/uas/recreational_flyers/where_can_i_fly/b4ufly/) app is the authoritative check. Overflying private property at low altitude has trespass and privacy implications independent of FAA rules. Check your jurisdiction.
-
-| Item | Where | Notes |
-|---|---|---|
-| Quadcopter frame with ~200-300g payload budget | Holybro, Diatone, custom — or DJI prosumer with the camera removed | The capture stack rides where the gimbal used to live |
-| Raspberry Pi Zero 2 W or CM4 carrier | [Adafruit](https://www.adafruit.com) | Brain of the airborne capture box |
-| RTL-SDR Blog v4 (lightweight) **OR** HackRF Nano-class | [rtl-sdr.com](https://www.rtl-sdr.com) / [greatscottgadgets.com](https://greatscottgadgets.com/hackrf/one/) | RTL-SDR is the lighter pick; HackRF gives you wider band coverage if weight allows |
-| Monitor-mode USB Wi-Fi adapter (lightweight) | small mPCIe-to-USB Atheros / mt76 boards | Strip the case to save weight |
-| Lightweight active GPS antenna | u-blox MAX-M10S module | The drone already has GPS; pulling its NMEA stream over UART is the cleanest path |
-| LiPo + UBEC for the capture payload | per drone build | Don't share with the flight controller |
-| Kismet + dump1090-fa (Pi-side) | install via apt | Same software as the ground rig |
-| DragonOS Focal Pi image | [SourceForge](https://sourceforge.net/projects/dragonos-focal/) | Saves hours of install work |
-
-After the flight, pull the SD card and run through the same wigle-to-wdgwars + Muninn pipeline as ground capture. Aerial captures aren't a separate slot — they score against the same `aps` and `aircraft` tables.
-
 ## What NOT to buy (newcomer trap)
 
 - **Bare ESP32-C3 boards as a wardriving target.** Marauder has no C3 binary, Bruce has no C3 port, GhostESP runs but the output lacks BSSID on some commands. C3 is poorly served by stock firmware. If you have one, treat it as a "build your own ESPHome probe firmware" project, not a turnkey wardriver. Details in [Hardware survey](survey.md) §3.
