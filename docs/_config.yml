@@ -1,0 +1,29 @@
+title: WDGoWars Onramp
+description: A leveled guide for new wardrivers — from WiGLE on your phone to advanced multi-source capture
+url: ""
+baseurl: ""
+theme: jekyll-theme-cayman
+
+# GitHub Pages allowlist plugins only
+plugins:
+  - jekyll-relative-links
+  - jekyll-default-layout
+  - jekyll-readme-index
+  - jekyll-titles-from-headings
+
+# Render .md links as clickable in docs/
+relative_links:
+  enabled: true
+  collections: true
+
+# Don't process the parent repo's Obsidian markdown files
+exclude:
+  - README.md
+  - LICENSE
+  - .gitignore
+  - "*.canvas"
+  - wdgo-newcomer-progression.md
+  - wardriving-hardware-survey.md
+  - wdgo-feeder-spec.md
+  - .obsidian/
+  - lab/

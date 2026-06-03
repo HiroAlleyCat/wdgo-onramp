@@ -1,0 +1,20 @@
+# Lab-only operational glue — never publish
+lab/
+
+# Obsidian workspace state (vault metadata that shouldn't ship)
+.obsidian/workspace*
+.obsidian/cache
+.obsidian/community-plugins.json
+.trash/
+
+# Jekyll build artifacts (docs/ subdir)
+docs/_site/
+docs/.jekyll-cache/
+docs/.jekyll-metadata
+docs/Gemfile.lock
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+*.swp
+*~

@@ -1,0 +1,90 @@
+{
+  "nodes": [
+    {"id": "a1b2c3d4e5f60001", "type": "group", "x": -20, "y": -20, "width": 1620, "height": 280, "label": "Step 1 — Phone only (free)", "color": "4"},
+    {"id": "a1b2c3d4e5f60002", "type": "text", "x": 20, "y": 60, "width": 280, "height": 140, "text": "## Android phone\n\nWi-Fi + BT radios\nbuilt-in GPS\nzero hardware spend"},
+    {"id": "a1b2c3d4e5f60003", "type": "text", "x": 380, "y": 60, "width": 280, "height": 140, "text": "## WiGLE Wifi Wardriving\n\nofficial Android app\nlogs networks + locations\nuploads when on Wi-Fi", "color": "4"},
+
+    {"id": "a1b2c3d4e5f60010", "type": "group", "x": -20, "y": 300, "width": 1620, "height": 280, "label": "Step 2 — Cross-post the same captures to WDGoWars (free, ~15 min setup)", "color": "5"},
+    {"id": "a1b2c3d4e5f60011", "type": "text", "x": 20, "y": 380, "width": 280, "height": 140, "text": "## Android phone\n\n*(same as Step 1)*\nWiGLE Wifi Wardriving app"},
+    {"id": "a1b2c3d4e5f60012", "type": "text", "x": 380, "y": 380, "width": 280, "height": 140, "text": "## .wiglecsv.gz\n\nWiGLE Android export\nShare → save file\nWigleWifi-1.6 format"},
+    {"id": "a1b2c3d4e5f60013", "type": "text", "x": 740, "y": 380, "width": 280, "height": 140, "text": "## wigle-to-wdgwars\n\nv1.2.0 — `--setup` wizard\n`--schedule` for daily auto\nPython, cross-platform", "color": "5"},
+
+    {"id": "a1b2c3d4e5f60020", "type": "group", "x": -20, "y": 620, "width": 1620, "height": 720, "label": "Step 3a — Dedicated device with on-device upload (small spend)", "color": "3"},
+    {"id": "a1b2c3d4e5f60021", "type": "text", "x": 20, "y": 700, "width": 280, "height": 120, "text": "## M5 Cardputer + GPS\n\nhandheld w/ screen + keyboard"},
+    {"id": "a1b2c3d4e5f60022", "type": "text", "x": 380, "y": 700, "width": 280, "height": 120, "text": "## LOCOSP Bruce fork\n\ntag `v1.0-wdgwars`\nset key in device config\nuploads when on Wi-Fi", "color": "3"},
+
+    {"id": "a1b2c3d4e5f60023", "type": "text", "x": 20, "y": 860, "width": 280, "height": 120, "text": "## XIAO ESP32-C5 / S3 / C6\n\nor T-Dongle C5\nsmall dev board + GPS"},
+    {"id": "a1b2c3d4e5f60024", "type": "text", "x": 380, "y": 860, "width": 280, "height": 120, "text": "## Piglet firmware\n\nhamspiced/piglet (148★)\nweb UI → paste key → upload\nC++ Arduino", "color": "3"},
+
+    {"id": "a1b2c3d4e5f60025", "type": "text", "x": 20, "y": 1020, "width": 280, "height": 120, "text": "## Hak5 Pineapple Pager\n\n+ u-blox 7 USB GPS\npocket form factor"},
+    {"id": "a1b2c3d4e5f60026", "type": "text", "x": 380, "y": 1020, "width": 280, "height": 120, "text": "## LOCOSP Pineapple payload\n\nWigleWifi-1.6 CSV\nSYNC NOW button\nGPS 3D fix required", "color": "3"},
+
+    {"id": "a1b2c3d4e5f60027", "type": "text", "x": 20, "y": 1180, "width": 280, "height": 120, "text": "## Raspberry Pi + LCD 1.44\"\n\nRaspyjack base rig"},
+    {"id": "a1b2c3d4e5f60028", "type": "text", "x": 380, "y": 1180, "width": 280, "height": 120, "text": "## wdgwars_upload.py\n\n7h30th3r0n3/Raspyjack\nin `payloads/exfiltration/`\nmultipart Wigle CSV", "color": "3"},
+
+    {"id": "a1b2c3d4e5f60030", "type": "group", "x": -20, "y": 1380, "width": 1620, "height": 280, "label": "Step 3b — Cheapest: capture-only, upload from PC", "color": "2"},
+    {"id": "a1b2c3d4e5f60031", "type": "text", "x": 20, "y": 1460, "width": 280, "height": 140, "text": "## Classic ESP32 / CYD\n+ GPS module\n\nTeyleten ATGM336H or\nDWEII GY-NEO6MV2"},
+    {"id": "a1b2c3d4e5f60032", "type": "text", "x": 380, "y": 1460, "width": 280, "height": 140, "text": "## Marauder v1.12.1\n\njustcallmekoko/ESP32Marauder\n**writes WigleWifi-1.4 to SD**\n(11 cols, missing 3)", "color": "2"},
+    {"id": "a1b2c3d4e5f60033", "type": "text", "x": 740, "y": 1460, "width": 280, "height": 140, "text": "## SD card pull\n\nthen feed to\n**wigle-to-wdgwars**\n(pads 1.4 → 1.6)"},
+
+    {"id": "a1b2c3d4e5f60040", "type": "group", "x": -20, "y": 1700, "width": 1620, "height": 460, "label": "Step 4 — WDGoWars-only data slots (aircraft + LoRa mesh)", "color": "6"},
+    {"id": "a1b2c3d4e5f60041", "type": "text", "x": 20, "y": 1780, "width": 280, "height": 140, "text": "## RTL-SDR + 1090 MHz antenna\n\nstationary, sky view\nsmall Linux box (Pi works)"},
+    {"id": "a1b2c3d4e5f60042", "type": "text", "x": 380, "y": 1780, "width": 280, "height": 140, "text": "## dump1090 / readsb\n\ndecodes ADS-B\nwrites aircraft.json"},
+    {"id": "a1b2c3d4e5f60043", "type": "text", "x": 740, "y": 1780, "width": 280, "height": 140, "text": "## Muninn (adsb-to-wdgwars)\n\nv2.0.10, CLI + Pyodide\nwatches dir, uploads", "color": "6"},
+
+    {"id": "a1b2c3d4e5f60044", "type": "text", "x": 20, "y": 1960, "width": 280, "height": 140, "text": "## LoRa node\n\nHeltec / TTGO / similar\npocket-portable"},
+    {"id": "a1b2c3d4e5f60045", "type": "text", "x": 380, "y": 1960, "width": 280, "height": 140, "text": "## MeshMapper export\n\nMeshCore LoRa CSV"},
+    {"id": "a1b2c3d4e5f60046", "type": "text", "x": 740, "y": 1960, "width": 280, "height": 140, "text": "## Heimdall (meshcore-to-wdgwars)\n\nv0.2.2, CLI + Pyodide", "color": "6"},
+
+    {"id": "a1b2c3d4e5f60050", "type": "text", "x": 1100, "y": 1780, "width": 220, "height": 320, "text": "## gungnir v0.1.2\n\nshared HMAC transport\nretry + cooldown\nsilent-drop detection\n\n*used by Muninn,\nHeimdall, wigle-to-wdgwars*", "color": "1"},
+
+    {"id": "a1b2c3d4e5f60060", "type": "group", "x": 1680, "y": -20, "width": 540, "height": 580, "label": "WiGLE.net destination", "color": "4"},
+    {"id": "a1b2c3d4e5f60061", "type": "link", "x": 1720, "y": 100, "width": 460, "height": 240, "url": "https://wigle.net"},
+    {"id": "a1b2c3d4e5f60062", "type": "text", "x": 1720, "y": 360, "width": 460, "height": 180, "text": "### What it accepts\n- Wi-Fi APs + BT/BLE devices\n- WigleWifi-1.6 CSV\n- via Android app, web upload, or API\n\n### What it does NOT accept\n- aircraft / ADS-B\n- LoRa mesh nodes"},
+
+    {"id": "a1b2c3d4e5f60070", "type": "group", "x": 1680, "y": 620, "width": 540, "height": 1540, "label": "wdgwars.pl destinations", "color": "1"},
+    {"id": "a1b2c3d4e5f60071", "type": "link", "x": 1720, "y": 720, "width": 460, "height": 200, "url": "https://wdgwars.pl"},
+    {"id": "a1b2c3d4e5f60072", "type": "text", "x": 1720, "y": 940, "width": 460, "height": 200, "text": "### POST /api/upload-csv\n\nbulk Wi-Fi/BLE upload\nWigleWifi-1.6 CSV multipart\nX-API-Key header\n\nused by Bruce / Piglet / Pager / Raspyjack / wigle-to-wdgwars", "color": "1"},
+    {"id": "a1b2c3d4e5f60073", "type": "text", "x": 1720, "y": 1160, "width": 460, "height": 200, "text": "### POST /api/upload/\n(or /endpoint/upload/ — CF bypass)\n\nsigned JSON envelope\nHMAC-SHA256 + nonce\n\nused by Muninn / Heimdall", "color": "1"},
+    {"id": "a1b2c3d4e5f60074", "type": "text", "x": 1720, "y": 1380, "width": 460, "height": 200, "text": "### Game mechanics\n\n- cell grid 0.02° lat × 0.03° lon\n- rebuilds every 5 min\n- one API key = one driver\n- caller-scope reads only"},
+    {"id": "a1b2c3d4e5f60075", "type": "text", "x": 1720, "y": 1600, "width": 460, "height": 200, "text": "### Watch out\n\n- CF L7 → 429 on /api/* cold-IP bursts\n- pin gungnir ≥ 0.1.2 OR use /endpoint/*\n- 429 mid-batch → ABORT whole batch\n- silent drops: 200 + 0 records = malformed payload"},
+
+    {"id": "a1b2c3d4e5f60080", "type": "text", "x": -20, "y": 2200, "width": 800, "height": 200, "text": "## Legend\n\n- **Green** = on-device upload, no PC step\n- **Cyan** = PC-side feeder path\n- **Yellow** = dedicated device w/ direct upload\n- **Orange** = capture-only, you upload from PC\n- **Purple** = WDGoWars-only data slots (ADS-B / LoRa)\n- **Red** = shared transport library / API gotchas"},
+    {"id": "a1b2c3d4e5f60081", "type": "file", "x": 820, "y": 2200, "width": 780, "height": 200, "file": "wdgo-newcomer-progression.md"}
+  ],
+  "edges": [
+    {"id": "b0000000000000e1", "fromNode": "a1b2c3d4e5f60002", "fromSide": "right", "toNode": "a1b2c3d4e5f60003", "toSide": "left", "toEnd": "arrow"},
+    {"id": "b0000000000000e2", "fromNode": "a1b2c3d4e5f60003", "fromSide": "right", "toNode": "a1b2c3d4e5f60061", "toSide": "left", "toEnd": "arrow", "label": "auto-upload"},
+
+    {"id": "b0000000000000e3", "fromNode": "a1b2c3d4e5f60011", "fromSide": "right", "toNode": "a1b2c3d4e5f60012", "toSide": "left", "toEnd": "arrow"},
+    {"id": "b0000000000000e4", "fromNode": "a1b2c3d4e5f60012", "fromSide": "right", "toNode": "a1b2c3d4e5f60013", "toSide": "left", "toEnd": "arrow"},
+    {"id": "b0000000000000e5", "fromNode": "a1b2c3d4e5f60013", "fromSide": "right", "toNode": "a1b2c3d4e5f60072", "toSide": "left", "toEnd": "arrow", "label": "POST /api/upload-csv"},
+    {"id": "b0000000000000e6", "fromNode": "a1b2c3d4e5f60012", "fromSide": "right", "toNode": "a1b2c3d4e5f60061", "toSide": "left", "toEnd": "arrow", "label": "or upload to WiGLE direct", "color": "4"},
+
+    {"id": "b0000000000000e7", "fromNode": "a1b2c3d4e5f60021", "fromSide": "right", "toNode": "a1b2c3d4e5f60022", "toSide": "left", "toEnd": "arrow"},
+    {"id": "b0000000000000e8", "fromNode": "a1b2c3d4e5f60022", "fromSide": "right", "toNode": "a1b2c3d4e5f60072", "toSide": "left", "toEnd": "arrow", "label": "direct"},
+
+    {"id": "b0000000000000e9", "fromNode": "a1b2c3d4e5f60023", "fromSide": "right", "toNode": "a1b2c3d4e5f60024", "toSide": "left", "toEnd": "arrow"},
+    {"id": "b0000000000000ea", "fromNode": "a1b2c3d4e5f60024", "fromSide": "right", "toNode": "a1b2c3d4e5f60072", "toSide": "left", "toEnd": "arrow", "label": "direct"},
+
+    {"id": "b0000000000000eb", "fromNode": "a1b2c3d4e5f60025", "fromSide": "right", "toNode": "a1b2c3d4e5f60026", "toSide": "left", "toEnd": "arrow"},
+    {"id": "b0000000000000ec", "fromNode": "a1b2c3d4e5f60026", "fromSide": "right", "toNode": "a1b2c3d4e5f60072", "toSide": "left", "toEnd": "arrow", "label": "direct"},
+
+    {"id": "b0000000000000ed", "fromNode": "a1b2c3d4e5f60027", "fromSide": "right", "toNode": "a1b2c3d4e5f60028", "toSide": "left", "toEnd": "arrow"},
+    {"id": "b0000000000000ee", "fromNode": "a1b2c3d4e5f60028", "fromSide": "right", "toNode": "a1b2c3d4e5f60072", "toSide": "left", "toEnd": "arrow", "label": "direct"},
+
+    {"id": "b0000000000000ef", "fromNode": "a1b2c3d4e5f60031", "fromSide": "right", "toNode": "a1b2c3d4e5f60032", "toSide": "left", "toEnd": "arrow"},
+    {"id": "b0000000000000f0", "fromNode": "a1b2c3d4e5f60032", "fromSide": "right", "toNode": "a1b2c3d4e5f60033", "toSide": "left", "toEnd": "arrow", "label": "SD pull"},
+    {"id": "b0000000000000f1", "fromNode": "a1b2c3d4e5f60033", "fromSide": "right", "toNode": "a1b2c3d4e5f60072", "toSide": "left", "toEnd": "arrow"},
+
+    {"id": "b0000000000000f2", "fromNode": "a1b2c3d4e5f60041", "fromSide": "right", "toNode": "a1b2c3d4e5f60042", "toSide": "left", "toEnd": "arrow"},
+    {"id": "b0000000000000f3", "fromNode": "a1b2c3d4e5f60042", "fromSide": "right", "toNode": "a1b2c3d4e5f60043", "toSide": "left", "toEnd": "arrow"},
+    {"id": "b0000000000000f4", "fromNode": "a1b2c3d4e5f60043", "fromSide": "right", "toNode": "a1b2c3d4e5f60050", "toSide": "left", "toEnd": "arrow"},
+
+    {"id": "b0000000000000f5", "fromNode": "a1b2c3d4e5f60044", "fromSide": "right", "toNode": "a1b2c3d4e5f60045", "toSide": "left", "toEnd": "arrow"},
+    {"id": "b0000000000000f6", "fromNode": "a1b2c3d4e5f60045", "fromSide": "right", "toNode": "a1b2c3d4e5f60046", "toSide": "left", "toEnd": "arrow"},
+    {"id": "b0000000000000f7", "fromNode": "a1b2c3d4e5f60046", "fromSide": "right", "toNode": "a1b2c3d4e5f60050", "toSide": "left", "toEnd": "arrow"},
+
+    {"id": "b0000000000000f8", "fromNode": "a1b2c3d4e5f60050", "fromSide": "right", "toNode": "a1b2c3d4e5f60073", "toSide": "left", "toEnd": "arrow", "label": "signed JSON via /endpoint/upload/"}
+  ]
+}
