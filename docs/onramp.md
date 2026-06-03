@@ -148,7 +148,7 @@ See [Shopping list](shopping.md) Tiers 6–8 for the gear list at each step (inc
 ## Where to go next
 
 - [Hardware survey](survey.md) — the reference doc behind this onramp. Full firmware × chip matrix, every community tool I could verify, decision tree.
-- [Feeder spec](spec.md) — implementation spec for writing your own feeder in any language. Includes a verified golden test vector.
+- Writing a feeder in a new language? Read [gungnir](https://github.com/HiroAlleyCat/gungnir) (Python transport) and LOCOSP's [WatchDogsGo `plugins/wardrive_upload.py`](https://github.com/LOCOSP/WatchDogsGo/blob/main/plugins/wardrive_upload.py) side by side — between them they cover the auth header, HMAC construction, retry/cooldown, and the slot-typed payload shape.
 - [WDGoWars portal](https://wdgwars.pl) and [API help](https://wdgwars.pl/help/) — the source of truth for game mechanics and the API surface.
 
 

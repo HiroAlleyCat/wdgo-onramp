@@ -4,7 +4,6 @@ created: 2026-06-02
 last-verified: 2026-06-02
 related:
   - "[[wdgo-newcomer-progression]]"
-  - "[[wdgo-feeder-spec]]"
   - "[[wdgo-capture-flow]]"
 ---
 
@@ -68,7 +67,7 @@ The HiroAlleyCat WDGoWars family — sibling repos to this one. All Python. The 
 
 | Tool | Latest | Purpose |
 |---|---|---|
-| [**gungnir**](https://github.com/HiroAlleyCat/gungnir) | [v0.1.2](https://github.com/HiroAlleyCat/gungnir/releases/tag/v0.1.2) (2026-05-31) | Python library: HMAC envelope, retry, cooldown, silent-drop detection. The signed-JSON transport for Muninn, Heimdall, and wigle-to-wdgwars. v0.1.2 flipped the default base URL to `/endpoint/*` for Cloudflare L7 bypass — pin >= v0.1.2 to inherit the fix. **Writing a feeder in another language?** See [[wdgo-feeder-spec]] — the language-agnostic envelope spec derived from gungnir + WatchDogsGo's reference plugin. |
+| [**gungnir**](https://github.com/HiroAlleyCat/gungnir) | [v0.1.2](https://github.com/HiroAlleyCat/gungnir/releases/tag/v0.1.2) (2026-05-31) | Python library: HMAC envelope, retry, cooldown, silent-drop detection. The signed-JSON transport for Muninn, Heimdall, and wigle-to-wdgwars. v0.1.2 flipped the default base URL to `/endpoint/*` for Cloudflare L7 bypass — pin >= v0.1.2 to inherit the fix. **Writing a feeder in another language?** Read gungnir's source plus LOCOSP's reference plugin at [`plugins/wardrive_upload.py`](https://github.com/LOCOSP/WatchDogsGo/blob/main/plugins/wardrive_upload.py) side by side — between them they cover the auth header, HMAC construction, retry/cooldown, and the slot-typed payload shape. |
 
 #### Observability
 
@@ -209,7 +208,7 @@ From WDGoWars portal docs + field-tested integrations:
 
 ## 9. Known WDGoWars feeder gaps
 
-Cross-ref: [[wdgo-feeder-spec]] §9 has the same list with implementation hints for anyone writing a new feeder.
+Anyone writing a new feeder should read [gungnir](https://github.com/HiroAlleyCat/gungnir) (Python transport) and LOCOSP's [WatchDogsGo `plugins/wardrive_upload.py`](https://github.com/LOCOSP/WatchDogsGo/blob/main/plugins/wardrive_upload.py) side by side — those two cover the envelope, HMAC, retry/cooldown, and the slot-typed payload shape.
 
 | Gap | Status |
 |---|---|

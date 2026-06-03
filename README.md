@@ -23,8 +23,9 @@ git clone https://github.com/HiroAlleyCat/wdgo-onramp.git
 | [wdgo-capture-flow.canvas](wdgo-capture-flow.canvas) | The same progression as an Obsidian canvas flow diagram. |
 | [shopping-list.md](shopping-list.md) | Buyer's checklist for each tier — hardware, software, and where to get it. Vendor links, no fabricated prices. |
 | [wardriving-hardware-survey.md](wardriving-hardware-survey.md) | Reference: full firmware × chip support matrix, all WDGoWars community tools, decision tree, API gotchas. |
-| [wdgo-feeder-spec.md](wdgo-feeder-spec.md) | Language-agnostic implementation spec for the signed-JSON envelope, with a verified golden test vector. For people writing their own feeder. |
 | [CREDITS.md](CREDITS.md) | Acknowledgments for the maintainers, projects, and vendors that make this whole ecosystem possible. Also the comprehensive repo + vendor index. |
+
+For developers writing a feeder in a new language, the signed-JSON envelope shape is implemented in [gungnir](https://github.com/HiroAlleyCat/gungnir) (Python) and mirrored by LOCOSP's reference uploader at [`plugins/wardrive_upload.py`](https://github.com/LOCOSP/WatchDogsGo/blob/main/plugins/wardrive_upload.py) in [WatchDogsGo](https://github.com/LOCOSP/WatchDogsGo). Read both — between them they cover the auth header, HMAC construction, retry/cooldown, and the slot-typed payload shape.
 
 The `docs/` directory contains vanilla-markdown versions of the same content, served as a static site via GitHub Pages. The `flow.md` page renders the flow diagram as Mermaid for browsers that don't support `.canvas`.
 

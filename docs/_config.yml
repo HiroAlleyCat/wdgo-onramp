@@ -24,6 +24,5 @@ exclude:
   - "*.canvas"
   - wdgo-newcomer-progression.md
   - wardriving-hardware-survey.md
-  - wdgo-feeder-spec.md
   - .obsidian/
   - lab/

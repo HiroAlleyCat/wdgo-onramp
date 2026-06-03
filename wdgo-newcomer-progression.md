@@ -4,7 +4,6 @@ created: 2026-06-02
 last-verified: 2026-06-02
 related:
   - "[[wardriving-hardware-survey]]"
-  - "[[wdgo-feeder-spec]]"
   - "[[wdgo-capture-flow]]"
 ---
 
@@ -153,7 +152,7 @@ See [[shopping-list]] Tiers 6–8 for the gear list at each step (including disc
 ## Where to go next
 
 - [[wardriving-hardware-survey]] — the reference doc behind this onramp. Full firmware × chip matrix, every community tool I could verify, decision tree.
-- [[wdgo-feeder-spec]] — implementation spec for writing your own feeder in any language. Includes a verified golden test vector.
+- Writing a feeder in a new language? Read [gungnir](https://github.com/HiroAlleyCat/gungnir) (Python transport) and LOCOSP's [WatchDogsGo `plugins/wardrive_upload.py`](https://github.com/LOCOSP/WatchDogsGo/blob/main/plugins/wardrive_upload.py) side by side — between them they cover the auth header, HMAC construction, retry/cooldown, and the slot-typed payload shape.
 - [WDGoWars portal](https://wdgwars.pl) and [API help](https://wdgwars.pl/help/) — the source of truth for game mechanics and the API surface.
 
 ---

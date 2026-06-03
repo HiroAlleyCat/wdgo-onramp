@@ -77,7 +77,6 @@ Each doc exists in **two flavors**:
 | [`wdgo-newcomer-progression.md`](wdgo-newcomer-progression.md) | [`docs/onramp.md`](docs/onramp.md) |
 | [`shopping-list.md`](shopping-list.md) | [`docs/shopping.md`](docs/shopping.md) |
 | [`wardriving-hardware-survey.md`](wardriving-hardware-survey.md) | [`docs/survey.md`](docs/survey.md) |
-| [`wdgo-feeder-spec.md`](wdgo-feeder-spec.md) | [`docs/spec.md`](docs/spec.md) |
 | [`CREDITS.md`](CREDITS.md) | [`docs/credits.md`](docs/credits.md) |
 
 Process:
@@ -90,7 +89,6 @@ Process:
    for pair in "wdgo-newcomer-progression:onramp:WDGoWars onramp:Five-step progression from WiGLE on your phone to advanced multi-source capture" \
                "shopping-list:shopping:Shopping list:Buyer's checklist for each tier of the WDGoWars onramp" \
                "wardriving-hardware-survey:survey:Hardware survey:Firmware × chip support matrix, community tools catalog, decision tree, API gotchas" \
-               "wdgo-feeder-spec:spec:WDGoWars feeder spec:Implementation specification for the signed-JSON envelope, with a verified golden test vector" \
                "CREDITS:credits:Credits & acknowledgments:The maintainers, projects, and vendors that make the WDGoWars ecosystem possible"; do
      IFS=: read -r src dst title desc <<< "$pair"
      out="docs/${dst}.md"
@@ -98,7 +96,6 @@ Process:
        awk '/^---$/{c++; next} c>=2' "${src}.md" | sed -E \
          -e 's|\[\[wdgo-newcomer-progression\]\]|[Newcomer onramp](onramp.md)|g' \
          -e 's|\[\[wardriving-hardware-survey\]\]|[Hardware survey](survey.md)|g' \
-         -e 's|\[\[wdgo-feeder-spec\]\]|[Feeder spec](spec.md)|g' \
          -e 's|\[\[wdgo-capture-flow\]\]|[Capture flow diagram](flow.md)|g' \
          -e 's|\[\[shopping-list\]\]|[Shopping list](shopping.md)|g' \
          -e 's|\[\[CREDITS\]\]|[Credits](credits.md)|g'; \
