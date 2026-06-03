@@ -175,6 +175,90 @@ A scaled-up rig for serious coverage. Most of these you already have if you've r
 | Multiple ESP32 fleet (mix of Bruce + Marauder + Piglet on different channels) | per Tier 3 paths |
 | Separate WDGoWars API key per attribution stream | [wdgwars.pl/profile](https://wdgwars.pl/profile) — one key = one driver |
 
+## Tier 6 — Portable Linux rigs (run the game + capture on one device)
+
+Handheld Linux computers that can run both the WatchDogsGo game itself and the capture stack (Kismet, dump1090, Muninn, Heimdall). The "high-tier player" form factor.
+
+### Path A — ClockworkPi uConsole (LOCOSP's reference platform for the game)
+
+Best for: someone who wants the hardware [LOCOSP/WatchDogsGo](https://github.com/LOCOSP/WatchDogsGo) names in its repo description. Capture + play on one handheld.
+
+| Item | Where |
+|---|---|
+| ClockworkPi uConsole kit | [clockworkpi.com](https://www.clockworkpi.com/product-page/uconsole-kit-rpi-cm4-lite) — kit minus the compute module |
+| Raspberry Pi Compute Module 4 Lite (no eMMC) | [Adafruit](https://www.adafruit.com) / [CanaKit](https://www.canakit.com) — mainstream pairing, SD card holds the OS. CM5 is the newer + faster + pricier alternative. |
+| ClockworkPi uConsole LoRa expansion board | [clockworkpi.com](https://www.clockworkpi.com) — optional, pairs with the MeshCore slot |
+| ClockworkPi uConsole 4G expansion board | [clockworkpi.com](https://www.clockworkpi.com) — optional, lets the rig upload from the field without tethering |
+| Monitor-mode USB Wi-Fi adapter | [Alfa AWUS036ACM (mt7612u)](https://www.alfa.com.tw) — well-supported monitor-mode driver on Linux |
+| USB GPS receiver (u-blox-based) | [Adafruit](https://www.adafruit.com) |
+| WatchDogsGo game | [GitHub](https://github.com/LOCOSP/WatchDogsGo) — Pyxel frontend; uConsole is in the repo's hardware list |
+| Kismet | install via apt |
+
+### Path B — ClockworkPi DevTerm
+
+Best for: someone who prefers a BlackBerry-style keyboard form factor over the uConsole's handheld layout. Same compute-module socket as the uConsole, so the capture-side gear is identical.
+
+| Item | Where |
+|---|---|
+| ClockworkPi DevTerm kit | [clockworkpi.com](https://www.clockworkpi.com) |
+| (compute module + Wi-Fi adapter + GPS + Kismet + WatchDogsGo same as Path A) | |
+
+### Path C — Steam Deck as a portable warbox
+
+Best for: someone who already owns a Deck and wants to wardrive without buying new hardware.
+
+| Item | Where |
+|---|---|
+| Steam Deck (LCD or OLED) | [steamdeck.com](https://www.steamdeck.com) — switch to Desktop Mode for the capture session |
+| Monitor-mode USB Wi-Fi adapter | as Path A — the built-in radio doesn't do monitor mode reliably |
+| USB GPS receiver | as Path A |
+| Kismet | flatpak / distrobox |
+
+## Tier 7 — High-end SDR + outdoor antenna chain
+
+Stepping up from a basic RTL-SDR dongle to serious RF capture. Feeds Muninn the same way an RTL-SDR does — decode with dump1090-fa or readsb, point Muninn at the output directory.
+
+### Higher-tier SDRs
+
+| Item | Where |
+|---|---|
+| AirSpy Mini / R2 | [airspy.us](https://airspy.us) — better dynamic range than RTL-SDR, still cheap |
+| SDRplay RSPdx-R2 | [sdrplay.com](https://www.sdrplay.com) — 14-bit, 1 kHz–2 GHz, popular for combined ADS-B + HF work |
+| HackRF One | [greatscottgadgets.com/hackrf](https://greatscottgadgets.com/hackrf/one/) — half-duplex 1 MHz–6 GHz. TX-capable; know the legalities for your region before transmitting |
+| KrakenSDR (5× phase-coherent RTL-SDRs) | [krakenrf.com](https://www.krakenrf.com) — 5 coherent channels for direction-finding / angle-of-arrival. Overkill unless that's specifically the goal |
+
+### Outdoor 1090 MHz antenna chain (for serious ADS-B range)
+
+Pushes ADS-B reception from the ~20–50 nm a desktop dongle gets into the hundreds-of-nautical-miles range.
+
+| Item | Where |
+|---|---|
+| FlightAware 26" outdoor antenna | [FlightAware store](https://flightaware.com/adsb/) — the hobby standard |
+| FlightAware Pro Stick Plus (1090 SAW filter + LNA built in) | [FlightAware store](https://flightaware.com/adsb/) — alternative to RTL-SDR Blog v4 if you specifically want pre-filtered ADS-B |
+| External LNA — Uputronics 1090 MHz | [store.uputronics.com](https://store.uputronics.com) — mount at the antenna, not the receiver, for best gain |
+| LMR-400 coax + N-type-to-SMA pigtails | any RF distributor — keep the run as short as your install allows |
+| Lightning arrestor (N-type, gas-discharge) | any RF distributor — if the antenna is mast-mounted outdoors |
+
+### Better monitor-mode Wi-Fi adapters
+
+| Item | Where |
+|---|---|
+| Alfa AWUS1900 (quad-band 802.11ac, four external antennas) | [alfa.com.tw](https://www.alfa.com.tw) — 2.4 + 5 GHz, heavyweight option |
+| Alfa AWUS036ACM (mt7612u, dual-band) | [alfa.com.tw](https://www.alfa.com.tw) — smaller, very well-supported monitor mode |
+| Panda Wireless PAU09 (RT5572) | [pandawireless.com](https://pandawireless.com) — old reliable for monitor-mode dev work |
+
+## Tier 8 — Vehicle install (always-on roaming capture)
+
+If your daily commute is the capture run. Listed for completeness so the tier ladder doesn't dead-end; nothing here is bench-tested by this repo's author. Most wardrivers use ad-hoc car setups rather than permanent installs.
+
+| Item | Where |
+|---|---|
+| 12V → USB-C PD car adapter | any — enough wattage to run a Pi 4 / 5 + screen + adapters |
+| Roof magmount Wi-Fi antenna (2.4 / 5 GHz dual-band) | any — magnet base, N-type or SMA; pairs with the AWUS036ACM |
+| Magmount 1090 MHz blade antenna | [FlightAware](https://flightaware.com/adsb/) — for an in-vehicle ADS-B feeder |
+| External GPS antenna + receiver | u-blox — roof-mount for clean sky view |
+| Mounting plate / RAM mount for the Pi or handheld | any |
+
 ## What NOT to buy (newcomer trap)
 
 - **Bare ESP32-C3 boards as a wardriving target.** Marauder has no C3 binary, Bruce has no C3 port, GhostESP runs but the output lacks BSSID on some commands. C3 is poorly served by stock firmware. If you have one, treat it as a "build your own ESPHome probe firmware" project, not a turnkey wardriver. Details in [[wardriving-hardware-survey]] §3.

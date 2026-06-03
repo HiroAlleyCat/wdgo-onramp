@@ -155,6 +155,12 @@ Tiers reframed as form-factor + skill investment:
 | **SDR add-on (ADS-B)** | RTL-SDR + 1090 MHz antenna + Pi → Muninn | small box | Different game — feeds `aircraft` slot. |
 | **MeshCore radio** | LoRa node (Heltec / TTGO / similar) → Heimdall | pocket | Feeds `meshcore_nodes` slot. |
 | **LilyGO T-Watch Ultra** | T-Watch Ultra (ESP32-S3) + LOCOSP [WDGWatch](https://github.com/LOCOSP/WDGWatch) | wrist | LOCOSP companion firmware exists. Feature surface not audited in this pass. |
+| **ClockworkPi uConsole** | CM4 / CM5 + USB Wi-Fi adapter + USB GPS (+ optional LoRa / 4G expansion boards) | handheld Linux | Named in [LOCOSP/WatchDogsGo](https://github.com/LOCOSP/WatchDogsGo)'s repo description as a target platform for the game itself. Capture + play on one device. |
+| **ClockworkPi DevTerm** | Same compute-module socket as uConsole, BB-keyboard form | small box w/ keyboard | Older sibling. Same compute story; different ergonomics. |
+| **Steam Deck (Desktop Mode)** | USB Wi-Fi adapter + USB GPS, run Kismet from Konsole | handheld | Reuses hardware many gamers already own. Built-in radio doesn't do monitor mode reliably — bring an external adapter. |
+| **High-end SDR (AirSpy / SDRplay / HackRF / KrakenSDR)** | Replaces RTL-SDR in the Muninn chain | small box | Better dynamic range; KrakenSDR's 5 coherent channels enable direction-finding / AoA. |
+| **Outdoor ADS-B antenna chain** | FlightAware 26" antenna + Uputronics 1090 LNA at antenna + LMR-400 + lightning arrestor → Muninn | mast install | Hundreds of NM of range vs the basic dongle setup. |
+| **Vehicle install** | 12V→USB-C PD + roof magmount Wi-Fi + magmount 1090 MHz blade + external GPS | car-permanent | Listed for tier-ladder completeness; not bench-tested by this repo. |
 
 ## 7. Decision tree for newcomers
 
