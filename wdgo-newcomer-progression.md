@@ -61,7 +61,12 @@ That's it — one capture, two leaderboards.
 
 ## Step 3 — Dedicated capture device (small spend)
 
-A handheld or pocket device that captures continuously without draining your phone battery. Two paths: easy (uploads itself) or cheap (you upload from PC).
+A handheld or pocket device that captures continuously without draining your phone battery. Two splits matter when picking:
+
+1. **Does it upload on its own, or do you upload from PC?** (3a vs 3b below — affects workflow)
+2. **Does it require soldering, or is everything plug-in?** (affects skill / time-to-first-capture)
+
+If you don't solder and don't want to learn yet, the solderless paths are: M5 Cardputer + Bruce fork (3a Path A), Pineapple Pager (3a Path C), Raspyjack rig (3a Path D), Apex 5 (3b), Pwnagotchi (3b). The soldering paths add a 4-wire GPS hookup but unlock cheaper hardware — see [[shopping-list]] for the matrix.
 
 ### 3a. Easiest path: on-device upload
 

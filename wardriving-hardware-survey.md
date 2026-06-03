@@ -170,6 +170,8 @@ Tiers reframed as form-factor + skill investment:
 | **HackRF PortaPack (standalone handheld)** | HackRF One + PortaPack H4M / H2M shell + screen + keypad + battery + Mayhem firmware | handheld | Captures and transmits 1 MHz–6 GHz without a computer. SD output flows to Muninn / wigle-to-wdgwars on a PC afterward. |
 | **Outdoor antenna chain** | FlightAware 26" + Uputronics 1090 LNA at antenna + LMR-400 + lightning arrestor → Muninn; or discone / log-periodic / Yagi for wider-band or directional work | mast install | Hundreds of NM of range vs the basic dongle setup. Filter-and-LNA placement matters as much as the antenna. |
 | **Vehicle install** | 12V→USB-C PD + roof magmount Wi-Fi + magmount 1090 MHz blade + external GPS | car-permanent | Listed for tier-ladder completeness; not bench-tested by this repo. |
+| **Aerial SDR (drone-mounted)** | Quadcopter + Pi Zero 2 W + lightweight RTL-SDR / HackRF + USB Wi-Fi + drone's own GPS NMEA → Kismet + dump1090-fa | airborne | Regulatory load is real (FAA Part 107 / §44809, no-fly zones, LAANC, privacy). Same upload pipeline as ground capture; no separate slot. |
+| **IMSI-catcher detectors (RX-only)** | Crocodile Hunter / SnoopSnitch / srsRAN RX paths on existing SDR | desktop | Defensive use only. No WDGoWars slot. Reuses the Tier 7 SDR. |
 
 ## 7. Decision tree for newcomers
 

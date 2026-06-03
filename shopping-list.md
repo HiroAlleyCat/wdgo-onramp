@@ -36,11 +36,24 @@ Same Tier-1 hardware. Add software + a second account.
 | wigle-to-wdgwars feeder | [GitHub](https://github.com/HiroAlleyCat/wigle-to-wdgwars) | `./run.sh --setup` walks you through both keys. |
 | Python 3.9+ on your PC | OS package manager | Required to run the feeder. |
 
+## Tier 3 — Quick reference: solder vs solderless
+
+The Tier 3 hardware paths split cleanly on whether you need to solder. Pick on that axis first; pick on-device-upload vs PC-upload (Tier 3a vs 3b) second.
+
+| Solder skill | Paths |
+|---|---|
+| **No soldering at all** — everything plugs in via USB, Grove, JST, or stacked HAT | Tier 3a Path A (M5 Cardputer + Grove GPS) · Tier 3a Path C (Pineapple Pager + USB GPS) · Tier 3a Path D (Raspyjack rig + USB GPS) · Tier 3b Apex 5 (pre-flashed) · Tier 3b Pwnagotchi (HAT stack + PiSugar + USB GPS) |
+| **Basic through-hole soldering needed** — 4 wires from a GPS module (VCC, GND, TX, RX) to header pads. Beginner-friendly first solder project. | Tier 3a Path B (Piglet on XIAO + GPS) · Tier 3b bare ESP32 / CYD + GPS + Marauder · Tier 3b Flipper Zero WiFi DevBoard + GPS |
+
+If you don't solder and don't want to learn yet: **M5 Cardputer + LOCOSP Bruce fork** (Tier 3a Path A) is the cleanest "just works" pick. Apex 5 is the cleanest cheap-pick if you only care about capture and don't need on-device upload.
+
+If you want to learn: a soldering iron, lead-free solder, helping hands, and 30 minutes of YouTube get you to GPS-on-ESP32. That's the same skill the rest of the hobby keeps using.
+
 ## Tier 3a — Dedicated device with on-device upload
 
 Pick **one** of the four paths below. All upload directly to WDGoWars from the device; no PC step.
 
-### Path A — M5 Cardputer + LOCOSP Bruce fork (most turnkey)
+### Path A — M5 Cardputer + LOCOSP Bruce fork (most turnkey) — *No soldering*
 
 Best for: someone who wants the easiest end-to-end experience with a built-in screen + keyboard.
 
@@ -53,7 +66,7 @@ Best for: someone who wants the easiest end-to-end experience with a built-in sc
 
 Flash via esptool or M5Burner. Set `bruceConfig.wdgwarsApiKey` in the device config.
 
-### Path B — XIAO ESP32 + Piglet (most modern, web UI)
+### Path B — XIAO ESP32 + Piglet (most modern, web UI) — *Soldering required*
 
 Best for: someone who likes web dashboards over device-screen menus.
 
@@ -66,7 +79,7 @@ Best for: someone who likes web dashboards over device-screen menus.
 
 Piglet has a web UI: open the device IP in a browser, paste your API key, hit "Test Key" → "Upload All."
 
-### Path C — Hak5 Pineapple Pager + LOCOSP payload (pocket form factor)
+### Path C — Hak5 Pineapple Pager + LOCOSP payload (pocket form factor) — *No soldering*
 
 Best for: someone who already owns or wants a Hak5 device.
 
@@ -78,7 +91,7 @@ Best for: someone who already owns or wants a Hak5 device.
 
 Requires a 3D GPS fix before scanning starts. Manual "SYNC NOW" button to upload.
 
-### Path D — Raspyjack rig + WDGoWars payload (Pi-based)
+### Path D — Raspyjack rig + WDGoWars payload (Pi-based) — *No soldering*
 
 Best for: someone comfortable with Linux + GPIO who wants a fully scriptable platform.
 
@@ -92,7 +105,7 @@ Best for: someone comfortable with Linux + GPIO who wants a fully scriptable pla
 
 ## Tier 3b — Cheapest path (capture-only, you upload from PC)
 
-### Bare ESP32-WROOM or CYD + GPS + Marauder
+### Bare ESP32-WROOM or CYD + GPS + Marauder — *Soldering required*
 
 Cheapest entry into dedicated hardware, more steps per upload.
 
@@ -109,7 +122,7 @@ Cheapest entry into dedicated hardware, more steps per upload.
 
 GPS module is mandatory — without it, Marauder writes empty wardrive dumps. See [[wardriving-hardware-survey]] §3 for the source-code reference.
 
-### Apex 5 — pre-flashed Marauder + GPS
+### Apex 5 — pre-flashed Marauder + GPS — *No soldering*
 
 Best for: someone who'd rather pay extra to skip the GPS soldering.
 
@@ -117,7 +130,7 @@ Best for: someone who'd rather pay extra to skip the GPS soldering.
 |---|---|
 | Apex 5 module | search [Tindie](https://www.tindie.com) for "Apex 5"; [CNX Software writeup](https://www.cnx-software.com/2026/02/11/esp32-marauder-5g-apex-5-module-for-flipper-zero-combines-esp32-c5-two-sub-ghz-radios-nrf24-and-gps/) covers the spec |
 
-### Flipper Zero + WiFi DevBoard (Marauder)
+### Flipper Zero + WiFi DevBoard (Marauder) — *Soldering required*
 
 Best for: someone who already owns a Flipper Zero and wants to use it as the controller for a wardriving rig. The Flipper itself doesn't have a 2.4 GHz Wi-Fi radio; the WiFi DevBoard plugs into the GPIO header and adds an ESP32-S2 running Marauder.
 
@@ -133,7 +146,7 @@ Best for: someone who already owns a Flipper Zero and wants to use it as the con
 
 Same GPS rule as bare Marauder: no module, no wardrive lines. The Flipper provides display + power + UI; the DevBoard does the actual Wi-Fi scanning.
 
-### Pwnagotchi (handshake-focused, not WiGLE-CSV native)
+### Pwnagotchi (handshake-focused, not WiGLE-CSV native) — *No soldering*
 
 Best for: someone who specifically wants the Pwnagotchi build for the WPA handshake side of the hobby. Listed here because newcomers ask about it constantly. **Pwnagotchi does NOT produce WigleWifi-1.6 CSV out of the box** — it captures PCAP handshakes and (with the GPS plugin) location-tagged metadata. Conversion path to WDGoWars exists but isn't a one-liner. Don't buy a Pwnagotchi expecting points-per-mile parity with a Marauder rig.
 
@@ -210,11 +223,11 @@ If you're getting into the broader LoRa scene rather than specifically chasing t
 
 ## Tier 5 — Always-on capture lab
 
-A scaled-up rig for serious coverage. Most of these you already have if you've reached this tier.
+A scaled-up rig for serious coverage. Most of these you already have if you've reached this tier. **A Linux laptop is a drop-in substitute for the Pi here** — Kismet runs the same on a ThinkPad / Framework / any monitor-mode-capable USB-Wi-Fi rig. The Pi is just the cheap always-on box; the software is what matters.
 
 | Item | Where |
 |---|---|
-| Raspberry Pi 4 (4GB or 8GB) | [Adafruit](https://www.adafruit.com) / [CanaKit](https://www.canakit.com) |
+| Raspberry Pi 4 (4GB or 8GB) | [Adafruit](https://www.adafruit.com) / [CanaKit](https://www.canakit.com) — or any Linux laptop you already own |
 | Monitor-mode USB Wi-Fi adapter | [Alfa AWUS036ACH or AWUS036ACS](https://www.alfa.com.tw) |
 | USB GPS receiver (u-blox-based) | [Adafruit](https://www.adafruit.com) |
 | External battery / power bank (for mobile use) | any |
@@ -331,6 +344,16 @@ Different antenna types for different jobs. Most ADS-B feeders just need the Fli
 | Alfa AWUS036ACM (mt7612u, dual-band) | [alfa.com.tw](https://www.alfa.com.tw) — smaller, very well-supported monitor mode |
 | Panda Wireless PAU09 (RT5572) | [pandawireless.com](https://pandawireless.com) — old reliable for monitor-mode dev work |
 
+### IMSI-catcher detectors (RX-only, defensive use)
+
+Different game from the rest of Tier 7 — these don't feed WDGoWars at all, but they're listed here because they reuse the same SDR you bought for ADS-B. **RX-only**: passively log cellular base stations and flag anomalies suggesting a rogue eNB. Transmitting on cellular bands is a federal felony in most countries; these tools strictly receive.
+
+| Tool | Where |
+|---|---|
+| Crocodile Hunter (EFF) | [github.com/EFForg/crocodilehunter](https://github.com/EFForg/crocodilehunter) — passive LTE base-station logger with anomaly flags; needs a USB Qualcomm modem (Quectel EC25 etc.) |
+| SnoopSnitch (Android side) | [opensource.srlabs.de/projects/snoopsnitch](https://opensource.srlabs.de/projects/snoopsnitch) — needs a rooted Android phone with a Qualcomm chipset that exposes diag mode |
+| Reference: srsRAN-Project (RX-only LTE/5G stack) | [github.com/srsran/srsRAN_Project](https://github.com/srsran/srsRAN_Project) — full SDR LTE/5G stack; ignore the eNB/gNB TX paths for this use case |
+
 ### Software that matches the gear
 
 | Tool | Where |
@@ -351,6 +374,25 @@ If your daily commute is the capture run. Listed for completeness so the tier la
 | Magmount 1090 MHz blade antenna | [FlightAware](https://flightaware.com/adsb/) — for an in-vehicle ADS-B feeder |
 | External GPS antenna + receiver | u-blox — roof-mount for clean sky view |
 | Mounting plate / RAM mount for the Pi or handheld | any |
+
+## Sidebar — Aerial SDR (drone-mounted)
+
+Putting a lightweight SDR on a quadcopter for aerial Wi-Fi / ADS-B capture. Sidebar rather than a tier because regulatory load is real and most readers won't want it. Output is the same WigleWifi-1.6 CSV / `aircraft.json` your ground rig produces, just from altitudes a street-level capture can't reach.
+
+**Read the legal section first.** In the US: FAA Part 107 (commercial) or §44809 (recreational with restrictions) applies. No-fly zones around airports + critical infrastructure. LAANC authorization for controlled airspace. The [B4UFLY](https://www.faa.gov/uas/recreational_flyers/where_can_i_fly/b4ufly/) app is the authoritative check. Overflying private property at low altitude has trespass and privacy implications independent of FAA rules. Check your jurisdiction.
+
+| Item | Where | Notes |
+|---|---|---|
+| Quadcopter frame with ~200-300g payload budget | Holybro, Diatone, custom — or DJI prosumer with the camera removed | The capture stack rides where the gimbal used to live |
+| Raspberry Pi Zero 2 W or CM4 carrier | [Adafruit](https://www.adafruit.com) | Brain of the airborne capture box |
+| RTL-SDR Blog v4 (lightweight) **OR** HackRF Nano-class | [rtl-sdr.com](https://www.rtl-sdr.com) / [greatscottgadgets.com](https://greatscottgadgets.com/hackrf/one/) | RTL-SDR is the lighter pick; HackRF gives you wider band coverage if weight allows |
+| Monitor-mode USB Wi-Fi adapter (lightweight) | small mPCIe-to-USB Atheros / mt76 boards | Strip the case to save weight |
+| Lightweight active GPS antenna | u-blox MAX-M10S module | The drone already has GPS; pulling its NMEA stream over UART is the cleanest path |
+| LiPo + UBEC for the capture payload | per drone build | Don't share with the flight controller |
+| Kismet + dump1090-fa (Pi-side) | install via apt | Same software as the ground rig |
+| DragonOS Focal Pi image | [SourceForge](https://sourceforge.net/projects/dragonos-focal/) | Saves hours of install work |
+
+After the flight, pull the SD card and run through the same wigle-to-wdgwars + Muninn pipeline as ground capture. Aerial captures aren't a separate slot — they score against the same `aps` and `aircraft` tables.
 
 ## What NOT to buy (newcomer trap)
 
