@@ -5,8 +5,6 @@ brand: ON-RAMP
 tagline: / wigle on phone <span>→</span> on-device upload <span>→</span> multi-source capture /
 ---
 
-# WDGoWars onramp — from WiGLE to advanced
-
 The fastest legitimate path from zero to scoring points on wdgwars.pl. Each level builds on the one before it. Stop wherever the next step doesn't sound fun yet, come back when it does.
 
 > **Visual learner?** Open [Capture flow diagram](flow.md) for the same five-step progression as a flow diagram (capture device → firmware → destination). Renders in Obsidian as a canvas; readable as JSON anywhere else.

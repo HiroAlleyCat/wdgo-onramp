@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% if page.title %}{{ page.title }} // {% endif %}WDGOWARS ON-RAMP</title>
+{% if page.description %}<meta name="description" content="{{ page.description }}">{% endif %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="header-actions">
+      <a href="https://wdgwars.pl" target="_blank" rel="noopener">
+        Go to WDG <span class="arrow">↗</span>
+      </a>
+      <a href="https://github.com/HiroAlleyCat/wdgo-onramp" target="_blank" rel="noopener">
+        Source <span class="arrow">↗</span>
+      </a>
+    </div>
+    <span class="brand-tag">[ WDG // ON-RAMP // NEWCOMER GUIDE ]</span>
+    <h1>{% if page.brand %}{{ page.brand }}{% else %}WDGOWARS ON-RAMP{% endif %}</h1>
+    {% if page.tagline %}<p class="tag">{{ page.tagline }}</p>{% endif %}
+
+    <nav class="onramp-nav" aria-label="On-ramp sections">
+      <a href="{{ '/' | relative_url }}"{% if page.url == '/' or page.url == '/index.html' %} class="active"{% endif %}>Index</a>
+      <a href="{{ '/onramp.html' | relative_url }}"{% if page.url contains 'onramp' %} class="active"{% endif %}>On-ramp</a>
+      <a href="{{ '/shopping.html' | relative_url }}"{% if page.url contains 'shopping' %} class="active"{% endif %}>Shopping</a>
+      <a href="{{ '/survey.html' | relative_url }}"{% if page.url contains 'survey' %} class="active"{% endif %}>Hardware survey</a>
+      <a href="{{ '/flow.html' | relative_url }}"{% if page.url contains 'flow' %} class="active"{% endif %}>Flow</a>
+      <a href="{{ '/credits.html' | relative_url }}"{% if page.url contains 'credits' %} class="active"{% endif %}>Credits</a>
+    </nav>
+  </header>
+
+  <main class="prose">
+    {{ content }}
+  </main>
+
+  <footer>
+    <span><span class="pill cyan">wdgo-onramp</span> <span class="muted">community-maintained · not affiliated with LOCOSP</span></span>
+    <a href="https://github.com/HiroAlleyCat/wdgo-onramp" target="_blank" rel="noopener">github.com/HiroAlleyCat/wdgo-onramp</a>
+  </footer>
+</div>
+</body>
+</html>

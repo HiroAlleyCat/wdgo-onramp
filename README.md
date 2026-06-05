@@ -6,7 +6,7 @@ Sits next to the sibling feeders ([adsb-to-wdgwars](https://github.com/HiroAlley
 
 ## Two ways to read it
 
-**On the web** → [GitHub Pages site](https://hiroalleycat.github.io/wdgo-onramp/) — vanilla markdown, Mermaid flow diagram, no Obsidian required.
+**On the web** → [GitHub Pages site](https://hiroalleycat.github.io/wdgo-onramp/) — styled to match the [Muninn](https://github.com/HiroAlleyCat/adsb-to-wdgwars) and [Heimdall](https://github.com/HiroAlleyCat/meshcore-to-wdgwars) sibling sites (Orbitron + Share Tech Mono, CRT scanlines), Mermaid flow diagram, no Obsidian required.
 
 **In Obsidian** → clone this repo and open the root as an Obsidian vault. The `.canvas` flow diagram is interactive, internal `[[wikilinks]]` resolve.
 

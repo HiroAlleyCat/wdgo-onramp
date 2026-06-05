@@ -5,9 +5,6 @@ brand: CREDITS
 tagline: / maintainers <span>·</span> projects <span>·</span> vendors <span>·</span> communities /
 ---
 
-
-# Credits
-
 This guide stands on a lot of community work. Acknowledging it here, organized by what each project contributes to the WDGoWars-or-WiGLE pipeline.
 
 ## The game

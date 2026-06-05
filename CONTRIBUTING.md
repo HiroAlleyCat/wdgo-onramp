@@ -82,30 +82,50 @@ Each doc exists in **two flavors**:
 Process:
 
 1. Edit the **root** file first (Obsidian flavor, `[[wikilinks]]` allowed).
-2. Re-derive the `docs/` version by running this from the repo root. The script strips frontmatter AND prepends Jekyll-specific frontmatter (title + description) in one pass — fill in the title/desc per file:
+2. Re-derive the `docs/` version by running this from the repo root. The script:
+   - Strips the root file's Obsidian frontmatter
+   - Drops the inline `# Foo` h1 directly after the frontmatter (the GitHub Pages layout renders a styled brand h1 from the `brand:` field instead, so an inline h1 would render twice)
+   - Prepends Jekyll frontmatter with **four** fields: `title` (browser tab + nav label), `description` (meta description for SEO + social), `brand` (the giant Orbitron h1 — short, ALL-CAPS, matches the Muninn / Heimdall identity), `tagline` (the small subtitle under the brand; supports inline `<span>` for cyan-colored separators)
+   - Rewrites `[[wikilinks]]` into relative `.md` links
+
+   Each page's four fields live in the heredoc below. Add a row when introducing a new page; tweak in place when the brand or tagline should change.
 
    ```bash
-   # title + description are colon-separated after the dst slug
-   for pair in "wdgo-newcomer-progression:onramp:WDGoWars onramp:Five-step progression from WiGLE on your phone to advanced multi-source capture" \
-               "shopping-list:shopping:Shopping list:Buyer's checklist for each tier of the WDGoWars onramp" \
-               "wardriving-hardware-survey:survey:Hardware survey:Firmware × chip support matrix, community tools catalog, decision tree, API gotchas" \
-               "CREDITS:credits:Credits & acknowledgments:The maintainers, projects, and vendors that make the WDGoWars ecosystem possible"; do
-     IFS=: read -r src dst title desc <<< "$pair"
+   while IFS='|' read -r src dst title desc brand tagline; do
      out="docs/${dst}.md"
-     { echo "---"; echo "title: ${title}"; echo "description: ${desc}"; echo "---"; echo; \
-       awk '/^---$/{c++; next} c>=2' "${src}.md" | sed -E \
-         -e 's|\[\[wdgo-newcomer-progression\]\]|[Newcomer onramp](onramp.md)|g' \
-         -e 's|\[\[wardriving-hardware-survey\]\]|[Hardware survey](survey.md)|g' \
-         -e 's|\[\[wdgo-capture-flow\]\]|[Capture flow diagram](flow.md)|g' \
-         -e 's|\[\[shopping-list\]\]|[Shopping list](shopping.md)|g' \
-         -e 's|\[\[CREDITS\]\]|[Credits](credits.md)|g'; \
+     {
+       printf '%s\n' "---"
+       printf 'title: %s\n' "$title"
+       printf 'description: %s\n' "$desc"
+       printf 'brand: %s\n' "$brand"
+       printf 'tagline: %s\n' "$tagline"
+       printf '%s\n\n' "---"
+       awk '/^---$/{c++; next} c>=2' "${src}.md" \
+       | awk '
+           BEGIN { phase = "before_content" }
+           phase == "before_content" && /^[[:space:]]*$/ { next }
+           phase == "before_content" && /^# / { phase = "after_h1"; next }
+           phase == "after_h1" && /^[[:space:]]*$/ { next }
+           { phase = "in_content"; print }
+         ' \
+       | sed -E \
+           -e 's|\[\[wdgo-newcomer-progression\]\]|[Newcomer onramp](onramp.md)|g' \
+           -e 's|\[\[wardriving-hardware-survey\]\]|[Hardware survey](survey.md)|g' \
+           -e 's|\[\[wdgo-capture-flow\]\]|[Capture flow diagram](flow.md)|g' \
+           -e 's|\[\[shopping-list\]\]|[Shopping list](shopping.md)|g' \
+           -e 's|\[\[CREDITS\]\]|[Credits](credits.md)|g'
      } > "$out"
-   done
+   done <<'EOF'
+   wdgo-newcomer-progression|onramp|On-ramp|Five-step progression from WiGLE on your phone to advanced multi-source capture|ON-RAMP|/ wigle on phone <span>→</span> on-device upload <span>→</span> multi-source capture /
+   shopping-list|shopping|Shopping|Buyer's checklist for each tier of the WDGoWars onramp|SHOPPING|/ tier-by-tier buyer's checklist / no fabricated prices /
+   wardriving-hardware-survey|survey|Hardware survey|Firmware × chip support matrix, community tools catalog, decision tree, API gotchas|HARDWARE SURVEY|/ firmware <span>×</span> chip matrix / decision tree / community tools /
+   CREDITS|credits|Credits|The maintainers, projects, and vendors that make the WDGoWars ecosystem possible|CREDITS|/ maintainers <span>·</span> projects <span>·</span> vendors <span>·</span> communities /
+   EOF
    ```
 
 3. Commit both changes together.
 
-Verify with `grep -rn '\[\[' docs/` after running — output should be `clean` (no leftover wikilinks).
+Verify with `grep -rn '\[\[' docs/` after running — output should be empty (no leftover wikilinks). Also spot-check the first lines of each regenerated `docs/*.md` for the new four-field frontmatter and the absence of a duplicate `# Foo` h1.
 
 ## PR style
 

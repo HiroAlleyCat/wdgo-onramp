@@ -5,9 +5,6 @@ brand: SHOPPING
 tagline: / tier-by-tier buyer's checklist / no fabricated prices /
 ---
 
-
-# Shopping list
-
 What to buy at each level of the [Newcomer onramp](onramp.md). Organized to match the onramp's tier numbering.
 
 **No prices listed.** Hardware prices drift week-to-week per vendor; the canonical answer is "click the link and see today's price for today's variant." Vendor links point at manufacturers when possible (more stable than reseller listings).

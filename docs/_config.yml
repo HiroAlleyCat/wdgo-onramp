@@ -1,15 +1,26 @@
-title: WDGoWars Onramp
-description: A leveled guide for new wardrivers — from WiGLE on your phone to advanced multi-source capture
+title: WDGoWars On-Ramp
+description: A leveled guide for new wardrivers, from WiGLE on your phone to advanced multi-source capture.
 url: ""
 baseurl: ""
-theme: jekyll-theme-cayman
 
-# GitHub Pages allowlist plugins only
+# No external theme — custom layout in _layouts/default.html matches the
+# Muninn / Heimdall cyberpunk-CRT identity (Orbitron + Share Tech Mono,
+# cyan/pink/green palette, scanlines, CRT vignette).
+# theme: jekyll-theme-cayman   # intentionally not set
+
+# GitHub Pages allowlist plugins only.
 plugins:
   - jekyll-relative-links
   - jekyll-default-layout
   - jekyll-readme-index
   - jekyll-titles-from-headings
+
+# All pages render through _layouts/default.html unless they opt out.
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: default
 
 # Render .md links as clickable in docs/
 relative_links:
@@ -24,5 +35,8 @@ exclude:
   - "*.canvas"
   - wdgo-newcomer-progression.md
   - wardriving-hardware-survey.md
+  - CREDITS.md
+  - CONTRIBUTING.md
+  - shopping-list.md
   - .obsidian/
   - lab/

@@ -1,9 +1,9 @@
 ---
 title: wdgo-onramp
-description: A leveled guide for new wardrivers — from WiGLE on your phone to advanced multi-source capture
+description: A leveled guide for new wardrivers, from WiGLE on your phone to advanced multi-source capture
+brand: WDGOWARS
+tagline: / on-ramp / shopping / hardware / spec / credits /
 ---
-
-# WDGoWars Onramp
 
 A leveled guide for new players coming to [WDGoWars](https://wdgwars.pl), the community wardriving game by LOCOSP. Five steps from "I have an Android phone" to "I run a multi-source capture lab," with every product fact cited from a primary source.
 

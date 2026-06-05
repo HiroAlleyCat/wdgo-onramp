@@ -1,9 +1,9 @@
 ---
 title: Hardware survey
 description: Firmware × chip support matrix, community tools catalog, decision tree, API gotchas
+brand: HARDWARE SURVEY
+tagline: / firmware <span>×</span> chip matrix / decision tree / community tools /
 ---
-
-# Wardriving hardware + firmware survey for WDGoWars
 
 > Citation policy: every concrete claim about a firmware/repo/chip has an inline link to a primary source pulled live on 2026-06-02. Prices are intentionally absent — see §6 for the reasoning. A handful of cells are labeled "field-tested but not citable from public docs" — those are working knowledge from running the feeders, flagged so a future maintainer can re-verify if they doubt the claim.
 
