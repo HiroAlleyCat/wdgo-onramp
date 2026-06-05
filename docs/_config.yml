@@ -1,7 +1,7 @@
 title: WDGoWars On-Ramp
 description: A leveled guide for new wardrivers, from WiGLE on your phone to advanced multi-source capture.
-url: ""
-baseurl: ""
+url: "https://hiroalleycat.github.io"
+baseurl: "/wdgo-onramp"
 
 # No external theme — custom layout in _layouts/default.html matches the
 # Muninn / Heimdall cyberpunk-CRT identity (Orbitron + Share Tech Mono,
