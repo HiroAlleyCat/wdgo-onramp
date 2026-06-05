@@ -11,6 +11,8 @@ related:
 
 This guide stands on a lot of community work. Acknowledging it here, organized by what each project contributes to the WDGoWars-or-WiGLE pipeline.
 
+> **Want to be listed?** Run a wardriving Discord, ship a relevant GitHub project, sell wardriving hardware, or cover WDGoWars / wardriving on YouTube? Open an issue or PR at [github.com/HiroAlleyCat/wdgo-onramp](https://github.com/HiroAlleyCat/wdgo-onramp), or ask HiroAlleyCat (or any active contributor) on the WDGoWars Discord. Bar to be added: one primary source we can verify (your README, channel About page, or storefront).
+
 ## The game
 
 **LOCOSP** — created [WDGoWars (wdgwars.pl)](https://wdgwars.pl) and maintains the firmware family that uploads to it. The whole reason this repo exists. Repos:

@@ -193,6 +193,8 @@ The manufacturer storefronts already linked in [Shopping list](shopping.md) are 
 
 For Cheap Yellow Display boards there is no canonical reseller. The community hub is [witnessmenow/ESP32-Cheap-Yellow-Display](https://github.com/witnessmenow/ESP32-Cheap-Yellow-Display); the boards themselves are sold through AliExpress, Amazon, and eBay.
 
+> **Want your community, channel, or shop on this list?** Open an issue or PR at [github.com/HiroAlleyCat/wdgo-onramp](https://github.com/HiroAlleyCat/wdgo-onramp), or ask HiroAlleyCat (or another contributor) on the WDGoWars Discord. We just need a primary source to verify (your README, channel About page, or storefront).
+
 ## Where to go next
 
 - [Hardware survey](survey.md) — the reference doc behind this onramp. Full firmware × chip matrix, every community tool I could verify, decision tree.
