@@ -149,6 +149,54 @@ See [[shopping-list]] Tiers 6–8 for the gear list at each step (including disc
 | Phone app reports "wrong password" | Could actually be Cloudflare returning 429 on a cold IP, not an auth failure. Try again after a minute. |
 | Upload returned 429 in the middle of a batch | Stop the whole batch. Continuing makes the cooldown deeper. Pin gungnir >= v0.1.2 (uses `/endpoint/*` URLs which bypass CF L7) or hit `/endpoint/upload-csv` directly in your client. |
 
+## Communities and creators
+
+Wardriving is mostly figured out by talking to other wardrivers. The fastest way to get unstuck is a Discord; the fastest way to see what a rig looks like in motion is a YouTube channel.
+
+### Where to ask
+
+| Community | How to find it |
+|---|---|
+| WDGoWars (LOCOSP) | DM `@locosp` on Discord, or use the contact channels at [wdgwars.pl/press](https://wdgwars.pl/press). LOCOSP runs the game and answers questions in the WDGoWars Discord. |
+| KokosStripClub (Marauder) | justcallmekoko's Discord, linked from [his GitHub profile](https://github.com/justcallmekoko). Marauder firmware questions live here. |
+| Bruce | Active Discord, linked from the [BruceDevices/firmware README](https://github.com/BruceDevices/firmware). Bruce-specific build issues live here. |
+| MeshCore | Discord linked from the [meshcore-dev/MeshCore README](https://github.com/meshcore-dev/MeshCore). LoRa node questions live here. |
+| RTL-SDR Blog | [r/RTLSDR](https://old.reddit.com/r/RTLSDR/) is the most active community hub. No official Discord. |
+| Flipper Zero | [flipperzero.one/discord](https://flipperzero.one/discord). |
+| Hak5 | [hak5.org community links](https://hak5.org/pages/community-links) for the Discord plus the forums. |
+| LAB5 / C5Lab (projectZero) | [C5Lab on GitHub](https://github.com/C5Lab) plus their [projectZero quick-start](https://c5lab.github.io/projectZero/) which lists the current Discord invite. Best place for ESP32-C5 Marauder add-on hardware questions (Flipper Pager + M5MonsterC5 for Cardputer/Tab5). |
+| M5Stack (Cardputer / Tab5) | [m5stack.com](https://m5stack.com) homepage footer links the official M5Stack Discord. Vendor-official, broad scope across all M5 hardware. |
+| Cardputer community (unofficial) | [terremoth/awesome-m5stack-cardputer README](https://github.com/terremoth/awesome-m5stack-cardputer) is the canonical hub and links the unofficial Cardputer Discord plus [r/CardPuter](https://www.reddit.com/r/CardPuter). Best place for Cardputer firmware comparisons. |
+
+Discord invite links rot. When one is dead, the project's GitHub README is the durable place to look up the current invite.
+
+### Creators worth following
+
+Wardriving content is sparse on YouTube compared to nearby hobbies, so the short list below covers most of the active English-language signal.
+
+| Creator | Where | What they cover |
+|---|---|---|
+| Valley Tech Solutions | [YouTube](https://www.youtube.com/@Valleytechsolutions) | WDGoWars collabs, wardriving rigs, on-device walkthroughs. |
+| justcallmekoko | [YouTube](https://www.youtube.com/justcallmekoko) | Marauder firmware demos and hardware tours from the firmware author. |
+| GhostStrats (Spooks4576) | [YouTube](https://www.youtube.com/channel/UCzSZPWtTRA4G946XRAn2XLQ) | Ghost_ESP author. ESP firmware walkthroughs across many chips. |
+| 7h30th3r0n3 | [YouTube](https://www.youtube.com/channel/UCN1sTrFbvdliXTUOsY5DkyA) | Evil-M5Project and Raspyjack demos from their author. |
+| ringmast4r | [ringmast4r.org](https://ringmast4r.org), [substack](https://ringmast4r.substack.com), [Instagram](https://www.instagram.com/ringmast4r/) | Wardriving hobby coverage and personal-scale ops writeups. Video archive lives on-site, not on a YouTube channel. |
+
+LOCOSP also maintains [wdgwars.pl/press](https://wdgwars.pl/press) for content creators covering the game, which is the canonical place to discover new WDGoWars-specific coverage as it ships.
+
+### Community shops
+
+The manufacturer storefronts already linked in [[shopping-list]] are usually cheapest and most direct. These resellers are worth knowing for pre-assembled or curated wardriving / red-team kits, or for region-specific shipping:
+
+| Shop | Region | Why |
+|---|---|---|
+| [DSTIKE](https://dstike.com) (also [DSTIKE on Tindie](https://www.tindie.com/stores/dstike/)) | global | Pre-built ESP32 wardrivers, Deauthers, NugVR, and other purpose-built dev boards. |
+| [Lab401](https://lab401.com) | EU | Exclusive EU distributor for Flipper Zero, Hak5, Proxmark. Avoids US-to-EU customs friction. |
+| [Hacker Warehouse](https://hackerwarehouse.com) | US | Hak5, Flipper Zero, and wardriving accessories in one US-domestic store. |
+| [LAB5 on Tindie](https://www.tindie.com/stores/lab/) and [lab5-11 Shopify](https://lab5-11.myshopify.com/) | EU (Wrocław PL), ships global | ESP32-C5 Marauder add-on PCBs: Flipper Pager mod and the M5MonsterC5 (C5 dual-band sub-1 GHz radio carrier for Cardputer ADV / Tab5). Pairs with their own [projectZero firmware](https://github.com/C5Lab). |
+
+For Cheap Yellow Display boards there is no canonical reseller. The community hub is [witnessmenow/ESP32-Cheap-Yellow-Display](https://github.com/witnessmenow/ESP32-Cheap-Yellow-Display); the boards themselves are sold through AliExpress, Amazon, and eBay.
+
 ## Where to go next
 
 - [[wardriving-hardware-survey]] — the reference doc behind this onramp. Full firmware × chip matrix, every community tool I could verify, decision tree.

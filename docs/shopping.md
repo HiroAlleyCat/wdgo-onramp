@@ -1,6 +1,8 @@
 ---
-title: Shopping list
+title: Shopping
 description: Buyer's checklist for each tier of the WDGoWars onramp
+brand: SHOPPING
+tagline: / tier-by-tier buyer's checklist / no fabricated prices /
 ---
 
 
@@ -62,6 +64,8 @@ Best for: someone who wants the easiest end-to-end experience with a built-in sc
 
 Flash via esptool or M5Burner. Set `bruceConfig.wdgwarsApiKey` in the device config.
 
+**Optional C5 dual-band upgrade for Cardputer ADV / Tab5:** the [LAB5 M5MonsterC5](https://www.tindie.com/stores/lab/) add-on adds an ESP32-C5 + sub-1 GHz radio carrier. Pair with [C5Lab/projectZero firmware](https://github.com/C5Lab/projectZero) for the Marauder/projectZero feature set on a Cardputer chassis. Adds capture surfaces (2.4 GHz, 5 GHz, sub-1 GHz) the stock Cardputer can't reach. Not required for WDGoWars uploads, but worth knowing about for hardware-curious newcomers who landed on Path A.
+
 ### Path B — XIAO ESP32 + Piglet (most modern, web UI) — *Soldering required*
 
 Best for: someone who likes web dashboards over device-screen menus.
@@ -108,7 +112,7 @@ Cheapest entry into dedicated hardware, more steps per upload.
 | Item | Where |
 |---|---|
 | Classic ESP32-WROOM dev board | AliExpress (search "ESP32-WROOM-32 dev board") |
-| **OR:** Cheap Yellow Display (CYD, ESP32-2432S028) | AliExpress (search "ESP32 2432S028") |
+| **OR:** Cheap Yellow Display (CYD, ESP32-2432S028) | AliExpress (search "ESP32 2432S028"); community hub at [witnessmenow/ESP32-Cheap-Yellow-Display](https://github.com/witnessmenow/ESP32-Cheap-Yellow-Display) lists tested boards and pinouts before you buy |
 | GPS module — Teyleten Robot ATGM336H NEO-6M | Amazon / AliExpress |
 | **OR:** DWEII GY-NEO6MV2 | Amazon / AliExpress |
 | microSD card (any size — Marauder writes small files) | any |
@@ -370,6 +374,18 @@ If your daily commute is the capture run. Listed for completeness so the tier la
 | Magmount 1090 MHz blade antenna | [FlightAware](https://flightaware.com/adsb/) — for an in-vehicle ADS-B feeder |
 | External GPS antenna + receiver | u-blox — roof-mount for clean sky view |
 | Mounting plate / RAM mount for the Pi or handheld | any |
+
+## Region-specific resellers and curated kits
+
+The manufacturer storefronts above ship globally but rarely fastest or cheapest. These resellers are worth checking for region-domestic shipping or pre-assembled kits.
+
+| Shop | Region | What you'd buy there |
+|---|---|---|
+| [DSTIKE](https://dstike.com) (also [DSTIKE on Tindie](https://www.tindie.com/stores/dstike/)) | global | Pre-built ESP32 wardrivers, Deauthers, NugVR, and other purpose-built dev boards. Closest thing to a turnkey wardriving board without flashing it yourself. |
+| [Lab401](https://lab401.com) | EU | Exclusive EU distributor for Flipper Zero, Hak5, Proxmark. Avoids US-to-EU customs friction. |
+| [Hacker Warehouse](https://hackerwarehouse.com) | US | Hak5, Flipper Zero, and wardriving accessories in one US-domestic store. |
+| [hamspiced on Tindie](https://www.tindie.com/stores/hamspiced/) + [Midwest Gadgets Piglet product page](https://www.midwestgadgets.org/product-page/piglet) | global | Pre-flashed Piglet hardware if you'd rather skip the flash step on Tier 3a Path B. |
+| [LAB5 on Tindie](https://www.tindie.com/stores/lab/) + [lab5-11 Shopify](https://lab5-11.myshopify.com/) | EU (Wrocław PL), ships global | ESP32-C5 Marauder add-on PCBs: LAB ESP32C5 (Flipper Pager mod) and M5MonsterC5 (Cardputer ADV / Tab5 carrier). Pairs with [C5Lab/projectZero firmware](https://github.com/C5Lab/projectZero). |
 
 ## What NOT to buy (newcomer trap)
 
