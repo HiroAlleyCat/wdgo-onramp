@@ -274,6 +274,7 @@ Things that look like obvious facts about this ecosystem but turn out to be wron
 | "GhostESP on bare ESP32-C3 works fine for wardriving." | The current release (`VA1.4.8`, 2025-03-31) flashes and boots on C3, but `list -a` output lacks BSSID and channel on some commands when running headless USB-CDC. There's been no release in 14+ months. If you flash a C3 today and care about BSSID for WiGLE-compatible CSV, verify before depending on it. |
 | "ringmast4r's homebrew page has price tiers ($20 / $55 / $110 / $200+) for builds." | The [page](https://ringmast4r.org/html-roladex/homebrew-wardriving) returned "No products found" on direct fetch 2026-06-02. Earlier guides repeating those numbers may have hallucinated them from a search snippet. Quote prices only after a fresh per-vendor pull. |
 | "The M5 Tab5 wardriver is a ~$200 build." | Tab5 hardware specs (ESP32-P4 + C6 + external M5 AT6668 GPS, released early 2026) are confirmed in the [Hackster build](https://www.hackster.io/Runaque/tab5-wardriver-a-custom-gps-enabled-wardriving-platform-d5948a). Price is not in the source — don't quote it. |
+| "More dBi (or a fancy 'Wi-Fi 7' bundled antenna) means better wardriving range." | dBi is gain, not fitness — and the bundled antenna may not even resonate in-band. [FusedStamen/antenna-database](https://github.com/FusedStamen/antenna-database) measured 130+ antennas on a LiteVNA 64: a chunk of popular ones (including some bundled "Wi-Fi 7" sticks) resonate outside the WiFi band with elevated in-band SWR. The practical catch from the dataset's own README: for passive-receive wardriving, a worst in-band SWR under 2.0 is under ~11% reflected power (<0.51 dB mismatch loss) and doesn't matter in the field. So chase in-band resonance and skip the Do_Not_Use outliers, rather than paying for a marginal SWR difference. Verify a specific antenna against the dataset instead of trusting the listing's dBi number. |
 
 ## B. Sources (all fetched live 2026-06-02 unless noted)
 
@@ -293,6 +294,7 @@ Primary:
 Tertiary (background, not directly cited above):
 - [ringmast4r — Wonderful World of Wardriving (substack)](https://ringmast4r.substack.com/p/the-wonderful-world-of-wardriving) — general hobby overview
 - [agucova/awesome-esp](https://github.com/agucova/awesome-esp) — broader ESP curation
+- [FusedStamen/antenna-database](https://github.com/FusedStamen/antenna-database) — empirical WiFi antenna SWR measurements (LiteVNA 64), fetched 2026-06-14
 
 WDGoWars portal: [wdgwars.pl](https://wdgwars.pl) / [API help](https://wdgwars.pl/help/)
 

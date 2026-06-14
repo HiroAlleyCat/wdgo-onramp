@@ -89,6 +89,8 @@ The official WiGLE Android app ([Google Play](https://play.google.com/store/apps
 
 **[agucova/awesome-esp](https://github.com/agucova/awesome-esp)** — broader ESP8266/32 project curation, useful for finding adjacent firmwares.
 
+**FusedStamen** — [antenna-database](https://github.com/FusedStamen/antenna-database). An empirically measured WiFi antenna SWR database for wardriving, characterized on a LiteVNA 64 with a documented methodology and field-tested on a Biscuit Ultra. 130+ antennas across 20+ batches with Good / Marginal / Do_Not_Use verdicts based on worst in-band SWR. The reference for "is this antenna actually resonant in-band, or just marketed that way" — covers WiFi sticks, paddles, MIMO panels, plus LoRa 915 / ADS-B 1090 / GPS L1 / BLE.
+
 **Runaque** — author of the [Tab5 Wardriver build on Hackster](https://www.hackster.io/Runaque/tab5-wardriver-a-custom-gps-enabled-wardriving-platform-d5948a). Recipe for the high-end Tab5 path.
 
 ## Creators and video coverage
