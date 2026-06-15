@@ -20,6 +20,8 @@ This guide stands on a lot of community work. Acknowledging it here, organized b
 | [pineapple_pager_wdgwars](https://github.com/LOCOSP/pineapple_pager_wdgwars) | Hak5 WiFi Pineapple Pager payload — WigleWifi-1.6 CSV, GPS required, `/api/upload-csv`. |
 | [WDGWatch](https://github.com/LOCOSP/WDGWatch) | LilyGO T-Watch Ultra companion firmware. |
 
+**FusedStamen** — maintains a [uConsole-focused fork of WatchDogsGo](https://github.com/FusedStamen/WatchDogsGo) that tracks upstream and hardens the game for the ClockworkPi uConsole (CM4): GPS PTY + bridge baud config, Bluetooth adapter pinning via udev, a packet sniffer and airodump-ng handshake-capture path driven from an AWUS036ACM, a XIAO auto-detect launcher, and bridge-stability fixes (scan rate limiting, cache fallback, upload-timeout handling). Same author as the [antenna-database](https://github.com/FusedStamen/antenna-database) credited under General-hobby documentation.
+
 ## Capture firmwares
 
 **justcallmekoko (Mark Spencer)** — creator and maintainer of the dominant ESP32 wardriving firmware family. The KokosStripClub Discord + the near-daily nightly releases keep the Marauder community a moving target in a healthy way.
