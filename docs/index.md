@@ -20,7 +20,7 @@ A leveled guide for new players coming to [WDGoWars](https://wdgwars.pl), the co
 - **New players** asking "what hardware should I buy?" → start at [Newcomer onramp](onramp.md) Step 1, then [Shopping list](shopping.md) for the specific items.
 - **Players moving past their phone** → jump to [Newcomer onramp](onramp.md) Step 3 and [Shopping list](shopping.md) Tier 3a/3b.
 - **People comparing firmwares** → [Hardware survey](survey.md) §2-§4 has the matrix.
-- **Developers writing a feeder** → read [gungnir](https://github.com/HiroAlleyCat/gungnir) (Python transport) and LOCOSP's [WatchDogsGo `plugins/wardrive_upload.py`](https://github.com/LOCOSP/WatchDogsGo/blob/main/plugins/wardrive_upload.py) side by side — between them they cover the auth header, HMAC construction, retry/cooldown, and the slot-typed payload shape.
+- **Developers writing a feeder** → read [gungnir](https://github.com/Yggdrasil-AI-labs/gungnir) (Python transport) and LOCOSP's [WatchDogsGo `plugins/wardrive_upload.py`](https://github.com/LOCOSP/WatchDogsGo/blob/main/plugins/wardrive_upload.py) side by side — between them they cover the auth header, HMAC construction, retry/cooldown, and the slot-typed payload shape.
 - **Maintainers and crediting people** → [Credits](credits.md) for who built what.
 
 ## What this is not

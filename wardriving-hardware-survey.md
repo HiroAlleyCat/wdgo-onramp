@@ -22,7 +22,7 @@ Two server-side upload paths exist. Picking firmware mostly reduces to which pat
 | Bulk WiFi/BLE CSV | `POST /api/upload-csv` | `X-API-Key` header, multipart | WigleWifi-1.6 CSV | Used by Bruce-WDGoWars fork on-device and by the Pineapple Pager payload — confirmed in primary source READMEs cited below. |
 | Signed JSON envelope | `POST /api/upload/` | HMAC via `gungnir` | JSON, slot-typed (`aircraft`, `meshcore_nodes`, …) | Used by HiroAlleyCat feeders (Muninn, Heimdall, wigle-to-wdgwars). |
 
-A `/endpoint/*` mirror exists for clients that want to dodge Cloudflare's L7 rate limit on `/api/*` (returns 429 + code 1027 on cold-IP bursts). The shared transport handles this at the library layer — `gungnir` tag [v0.1.2](https://github.com/HiroAlleyCat/gungnir/releases/tag/v0.1.2) flipped the default base URL; pin >= v0.1.2 to inherit. Hand-rolled HTTP clients (Bruce on-device, anything you write yourself) need the URL flip too if they want the bypass.
+A `/endpoint/*` mirror exists for clients that want to dodge Cloudflare's L7 rate limit on `/api/*` (returns 429 + code 1027 on cold-IP bursts). The shared transport handles this at the library layer — `gungnir` tag [v0.1.2](https://github.com/Yggdrasil-AI-labs/gungnir/releases/tag/v0.1.2) flipped the default base URL; pin >= v0.1.2 to inherit. Hand-rolled HTTP clients (Bruce on-device, anything you write yourself) need the URL flip too if they want the bypass.
 
 ## 2. Firmwares that upload to WDGoWars directly (on-device, no PC needed)
 
@@ -39,7 +39,7 @@ Four projects verified to upload to WDGoWars from the capture device itself as o
 
 ## 3. Capture firmwares that need a PC-side feeder
 
-These firmwares produce useful capture data but don't upload to WDGoWars directly. Convert via [wigle-to-wdgwars](https://github.com/HiroAlleyCat/wigle-to-wdgwars) (for WiGLE-compatible CSV) or the slot-typed feeders.
+These firmwares produce useful capture data but don't upload to WDGoWars directly. Convert via [wigle-to-wdgwars](https://github.com/Yggdrasil-AI-labs/wigle-to-wdgwars) (for WiGLE-compatible CSV) or the slot-typed feeders.
 
 | Firmware | Hardware fit (current release) | Output | Feeder needed |
 |---|---|---|---|
@@ -59,21 +59,21 @@ The HiroAlleyCat WDGoWars family — sibling repos to this one. All Python. The 
 
 | Tool | Latest | Slot / endpoint | Capture sources accepted | Notable features | Last commit |
 |---|---|---|---|---|---|
-| [**Muninn** (adsb-to-wdgwars)](https://github.com/HiroAlleyCat/adsb-to-wdgwars) | [v2.0.10](https://github.com/HiroAlleyCat/adsb-to-wdgwars/releases/tag/v2.0.10) (2026-06-01) | `aircraft` slot via signed JSON | AVR, SBS-1, dump1090, readsb, tar1090, VRS, Stratux, Mode-S Beast, NDJSON, Mayhem, GDL-90, CSV | Ships as both CLI (Python) and browser (Pyodide) with the same parser core. `--setup` wizard, `--watch` daemon, scheduler auto-installer (systemd/cron/schtasks), `--preview` parser dry-run. 6 stars. | 2026-06-02 |
-| [**Heimdall** (meshcore-to-wdgwars)](https://github.com/HiroAlleyCat/meshcore-to-wdgwars) | [v0.2.2](https://github.com/HiroAlleyCat/meshcore-to-wdgwars/releases/tag/v0.2.2) (2026-06-01) | `meshcore_nodes` slot via signed JSON | MeshMapper MeshCore LoRa exports | CLI + browser Pyodide, same parser-core pattern as Muninn. PEP 668 / Bookworm setup fix in v0.2.2. 1 star. | 2026-06-01 |
-| [**wigle-to-wdgwars**](https://github.com/HiroAlleyCat/wigle-to-wdgwars) | [v1.2.0](https://github.com/HiroAlleyCat/wigle-to-wdgwars/releases/tag/v1.2.0) (2026-06-02) | Bulk WiFi/BLE via `POST /api/upload-csv` (multipart) | Any WiGLE-format CSV — WiGLE Android exports, Kismet, hcxdumptool, airodump-ng, Bruce SD pulls, Marauder dumps (after column-pad) | `--setup` wizard with key validator + `--schedule` auto-installer for daily 03:00 dry-run. Cross-platform: systemd + cron + Windows schtasks. As of v1.1.0 routes signed-JSON via gungnir; the `/api/upload-csv` multipart path is the bulk option for CSV. 3 stars. | 2026-06-02 |
+| [**Muninn** (adsb-to-wdgwars)](https://github.com/Yggdrasil-AI-labs/adsb-to-wdgwars) | [v2.0.10](https://github.com/Yggdrasil-AI-labs/adsb-to-wdgwars/releases/tag/v2.0.10) (2026-06-01) | `aircraft` slot via signed JSON | AVR, SBS-1, dump1090, readsb, tar1090, VRS, Stratux, Mode-S Beast, NDJSON, Mayhem, GDL-90, CSV | Ships as both CLI (Python) and browser (Pyodide) with the same parser core. `--setup` wizard, `--watch` daemon, scheduler auto-installer (systemd/cron/schtasks), `--preview` parser dry-run. 6 stars. | 2026-06-02 |
+| [**Heimdall** (meshcore-to-wdgwars)](https://github.com/Yggdrasil-AI-labs/meshcore-to-wdgwars) | [v0.2.2](https://github.com/Yggdrasil-AI-labs/meshcore-to-wdgwars/releases/tag/v0.2.2) (2026-06-01) | `meshcore_nodes` slot via signed JSON | MeshMapper MeshCore LoRa exports | CLI + browser Pyodide, same parser-core pattern as Muninn. PEP 668 / Bookworm setup fix in v0.2.2. 1 star. | 2026-06-01 |
+| [**wigle-to-wdgwars**](https://github.com/Yggdrasil-AI-labs/wigle-to-wdgwars) | [v1.2.0](https://github.com/Yggdrasil-AI-labs/wigle-to-wdgwars/releases/tag/v1.2.0) (2026-06-02) | Bulk WiFi/BLE via `POST /api/upload-csv` (multipart) | Any WiGLE-format CSV — WiGLE Android exports, Kismet, hcxdumptool, airodump-ng, Bruce SD pulls, Marauder dumps (after column-pad) | `--setup` wizard with key validator + `--schedule` auto-installer for daily 03:00 dry-run. Cross-platform: systemd + cron + Windows schtasks. As of v1.1.0 routes signed-JSON via gungnir; the `/api/upload-csv` multipart path is the bulk option for CSV. 3 stars. | 2026-06-02 |
 
 #### Shared transport (public)
 
 | Tool | Latest | Purpose |
 |---|---|---|
-| [**gungnir**](https://github.com/HiroAlleyCat/gungnir) | [v0.1.2](https://github.com/HiroAlleyCat/gungnir/releases/tag/v0.1.2) (2026-05-31) | Python library: HMAC envelope, retry, cooldown, silent-drop detection. The signed-JSON transport for Muninn, Heimdall, and wigle-to-wdgwars. v0.1.2 flipped the default base URL to `/endpoint/*` for Cloudflare L7 bypass — pin >= v0.1.2 to inherit the fix. **Writing a feeder in another language?** Read gungnir's source plus LOCOSP's reference plugin at [`plugins/wardrive_upload.py`](https://github.com/LOCOSP/WatchDogsGo/blob/main/plugins/wardrive_upload.py) side by side — between them they cover the auth header, HMAC construction, retry/cooldown, and the slot-typed payload shape. |
+| [**gungnir**](https://github.com/Yggdrasil-AI-labs/gungnir) | [v0.1.2](https://github.com/Yggdrasil-AI-labs/gungnir/releases/tag/v0.1.2) (2026-05-31) | Python library: HMAC envelope, retry, cooldown, silent-drop detection. The signed-JSON transport for Muninn, Heimdall, and wigle-to-wdgwars. v0.1.2 flipped the default base URL to `/endpoint/*` for Cloudflare L7 bypass — pin >= v0.1.2 to inherit the fix. **Writing a feeder in another language?** Read gungnir's source plus LOCOSP's reference plugin at [`plugins/wardrive_upload.py`](https://github.com/LOCOSP/WatchDogsGo/blob/main/plugins/wardrive_upload.py) side by side — between them they cover the auth header, HMAC construction, retry/cooldown, and the slot-typed payload shape. |
 
 #### Observability
 
 | Tool | Purpose |
 |---|---|
-| [**wdgwars-api-tester**](https://github.com/HiroAlleyCat/wdgwars-api-tester) | Systematic probe of the WDGoWars HTTP API surface. Stdlib-only Python 3, single file. Detects outages, distinguishes route-not-bound from auth-rejected, fingerprints styled 404 pages. No tagged releases yet — main branch is the surface. |
+| [**wdgwars-api-tester**](https://github.com/Yggdrasil-AI-labs/wdgwars-api-tester) | Systematic probe of the WDGoWars HTTP API surface. Stdlib-only Python 3, single file. Detects outages, distinguishes route-not-bound from auth-rejected, fingerprints styled 404 pages. No tagged releases yet — main branch is the surface. |
 
 ### 3b. Third-party community feeders
 
@@ -208,7 +208,7 @@ From WDGoWars portal docs + field-tested integrations:
 
 ## 9. Known WDGoWars feeder gaps
 
-Anyone writing a new feeder should read [gungnir](https://github.com/HiroAlleyCat/gungnir) (Python transport) and LOCOSP's [WatchDogsGo `plugins/wardrive_upload.py`](https://github.com/LOCOSP/WatchDogsGo/blob/main/plugins/wardrive_upload.py) side by side — those two cover the envelope, HMAC, retry/cooldown, and the slot-typed payload shape.
+Anyone writing a new feeder should read [gungnir](https://github.com/Yggdrasil-AI-labs/gungnir) (Python transport) and LOCOSP's [WatchDogsGo `plugins/wardrive_upload.py`](https://github.com/LOCOSP/WatchDogsGo/blob/main/plugins/wardrive_upload.py) side by side — those two cover the envelope, HMAC, retry/cooldown, and the slot-typed payload shape.
 
 | Gap | Status |
 |---|---|
@@ -237,7 +237,7 @@ WiGLE.net is the long-running community wardriving database that WDGoWars's CSV 
 
 ### 11.2 Practical implications
 
-- **Same capture can feed both.** If you're running WiGLE Wifi Wardriving on Android, the `.wiglecsv.gz` it produces is exactly what [wigle-to-wdgwars](https://github.com/HiroAlleyCat/wigle-to-wdgwars) ingests. One Android session can submit to both platforms.
+- **Same capture can feed both.** If you're running WiGLE Wifi Wardriving on Android, the `.wiglecsv.gz` it produces is exactly what [wigle-to-wdgwars](https://github.com/Yggdrasil-AI-labs/wigle-to-wdgwars) ingests. One Android session can submit to both platforms.
 - **WiGLE has a much larger network database.** Network ID claim ("first to see" credit) is WiGLE-side. WDGoWars doesn't change that.
 - **WiGLE has no aircraft / MeshCore slots.** ADS-B (Muninn) and MeshCore (Heimdall) are WDGoWars-only feeders — WiGLE doesn't accept those data types.
 - **WiGLE API is read-heavy, WDGoWars API is write-heavy.** WiGLE rate-limits queries; WDGoWars rate-limits the *write* path via CF L7 on `/api/*`.
@@ -252,7 +252,7 @@ If a user just wants to feed WiGLE (not WDGoWars), the simplest paths:
 2. **From a hardware capture rig:** SD-pull the WigleWifi-1.6 CSV from your device (Bruce, etc.) and upload via wigle.net's web upload form.
 3. **Programmatic:** WiGLE has a documented HTTP API at api.wigle.net — see their FAQ for query/submission patterns.
 
-For users feeding both: [wigle-to-wdgwars](https://github.com/HiroAlleyCat/wigle-to-wdgwars) handles the WDGoWars side; the same source CSV goes to WiGLE via their own tooling.
+For users feeding both: [wigle-to-wdgwars](https://github.com/Yggdrasil-AI-labs/wigle-to-wdgwars) handles the WDGoWars side; the same source CSV goes to WiGLE via their own tooling.
 
 ### 11.4 Things WiGLE confirms about WigleWifi-1.6 (for spec verification)
 
@@ -287,7 +287,7 @@ Primary:
 - [BruceDevices/firmware release 1.15](https://github.com/BruceDevices/firmware/releases/tag/1.15)
 - [Spooks4576/Ghost_ESP release VA1.4.8](https://github.com/Spooks4576/Ghost_ESP/releases/tag/VA1.4.8)
 - [7h30th3r0n3/Evil-M5Project README](https://github.com/7h30th3r0n3/Evil-M5Project)
-- [HiroAlleyCat/gungnir tag v0.1.2](https://github.com/HiroAlleyCat/gungnir/releases/tag/v0.1.2)
+- [Yggdrasil-AI-labs/gungnir tag v0.1.2](https://github.com/Yggdrasil-AI-labs/gungnir/releases/tag/v0.1.2)
 - [WiGLE CSV format spec (1.6)](https://api.wigle.net/csvFormat.html)
 - [Hackster — Tab5 Wardriver build](https://www.hackster.io/Runaque/tab5-wardriver-a-custom-gps-enabled-wardriving-platform-d5948a)
 
@@ -299,11 +299,11 @@ Tertiary (background, not directly cited above):
 WDGoWars portal: [wdgwars.pl](https://wdgwars.pl) / [API help](https://wdgwars.pl/help/)
 
 HiroAlleyCat feeders (this repo's siblings):
-- [adsb-to-wdgwars (Muninn)](https://github.com/HiroAlleyCat/adsb-to-wdgwars)
-- [meshcore-to-wdgwars (Heimdall)](https://github.com/HiroAlleyCat/meshcore-to-wdgwars)
-- [wigle-to-wdgwars](https://github.com/HiroAlleyCat/wigle-to-wdgwars)
-- [gungnir](https://github.com/HiroAlleyCat/gungnir)
-- [wdgwars-api-tester](https://github.com/HiroAlleyCat/wdgwars-api-tester)
+- [adsb-to-wdgwars (Muninn)](https://github.com/Yggdrasil-AI-labs/adsb-to-wdgwars)
+- [meshcore-to-wdgwars (Heimdall)](https://github.com/Yggdrasil-AI-labs/meshcore-to-wdgwars)
+- [wigle-to-wdgwars](https://github.com/Yggdrasil-AI-labs/wigle-to-wdgwars)
+- [gungnir](https://github.com/Yggdrasil-AI-labs/gungnir)
+- [wdgwars-api-tester](https://github.com/Yggdrasil-AI-labs/wdgwars-api-tester)
 
 Third-party community tools verified during this pass:
 - [phutur1st/intercept-wdgwars](https://github.com/phutur1st/intercept-wdgwars) — intercept PostgreSQL → wdgwars

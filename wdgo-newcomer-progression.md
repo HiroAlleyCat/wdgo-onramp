@@ -48,7 +48,7 @@ Same captures from Step 1, second leaderboard.
 1. Make an account at [wdgwars.pl](https://wdgwars.pl)
 2. Profile → API Keys → generate a 64-char key, save it
 3. From WiGLE Android: Share → save the `.wiglecsv.gz` file to your PC
-4. Install [wigle-to-wdgwars](https://github.com/HiroAlleyCat/wigle-to-wdgwars):
+4. Install [wigle-to-wdgwars](https://github.com/Yggdrasil-AI-labs/wigle-to-wdgwars):
    - Linux/Mac: `./run.sh --setup`
    - Windows: `run.bat --setup`
    - The wizard prompts for both keys (WiGLE + WDGoWars), validates them, optionally installs a daily timer
@@ -104,8 +104,8 @@ WiGLE doesn't track aircraft or LoRa mesh nodes. WDGoWars does. These are points
 
 | Slot | Tool | What you need |
 |---|---|---|
-| **Aircraft** (ADS-B) | [Muninn (adsb-to-wdgwars)](https://github.com/HiroAlleyCat/adsb-to-wdgwars) v2.0.10 | RTL-SDR USB dongle (~$30 typical) + 1090 MHz antenna + a small Linux box (Pi works). Run dump1090-fa or readsb to decode; Muninn watches the output directory and uploads. Stationary — mount the antenna where it has sky view. |
-| **MeshCore LoRa** | [Heimdall (meshcore-to-wdgwars)](https://github.com/HiroAlleyCat/meshcore-to-wdgwars) v0.2.2 | LoRa node (Heltec / TTGO / similar). Export MeshMapper CSV. Heimdall uploads to the `meshcore_nodes` slot. Pocket-portable. |
+| **Aircraft** (ADS-B) | [Muninn (adsb-to-wdgwars)](https://github.com/Yggdrasil-AI-labs/adsb-to-wdgwars) v2.0.10 | RTL-SDR USB dongle (~$30 typical) + 1090 MHz antenna + a small Linux box (Pi works). Run dump1090-fa or readsb to decode; Muninn watches the output directory and uploads. Stationary — mount the antenna where it has sky view. |
+| **MeshCore LoRa** | [Heimdall (meshcore-to-wdgwars)](https://github.com/Yggdrasil-AI-labs/meshcore-to-wdgwars) v0.2.2 | LoRa node (Heltec / TTGO / similar). Export MeshMapper CSV. Heimdall uploads to the `meshcore_nodes` slot. Pocket-portable. |
 
 Both feeders use the signed-JSON path (HMAC envelope via gungnir), not the multipart CSV path. Same API key as your other uploads.
 
@@ -202,7 +202,7 @@ For Cheap Yellow Display boards there is no canonical reseller. The community hu
 ## Where to go next
 
 - [[wardriving-hardware-survey]] — the reference doc behind this onramp. Full firmware × chip matrix, every community tool I could verify, decision tree.
-- Writing a feeder in a new language? Read [gungnir](https://github.com/HiroAlleyCat/gungnir) (Python transport) and LOCOSP's [WatchDogsGo `plugins/wardrive_upload.py`](https://github.com/LOCOSP/WatchDogsGo/blob/main/plugins/wardrive_upload.py) side by side — between them they cover the auth header, HMAC construction, retry/cooldown, and the slot-typed payload shape.
+- Writing a feeder in a new language? Read [gungnir](https://github.com/Yggdrasil-AI-labs/gungnir) (Python transport) and LOCOSP's [WatchDogsGo `plugins/wardrive_upload.py`](https://github.com/LOCOSP/WatchDogsGo/blob/main/plugins/wardrive_upload.py) side by side — between them they cover the auth header, HMAC construction, retry/cooldown, and the slot-typed payload shape.
 - [WDGoWars portal](https://wdgwars.pl) and [API help](https://wdgwars.pl/help/) — the source of truth for game mechanics and the API surface.
 
 ---

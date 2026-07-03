@@ -2,11 +2,11 @@
 
 A leveled onramp for new players coming to [WDGoWars](https://wdgwars.pl) — the community wardriving game by LOCOSP. Five steps from "I have an Android phone" to "I run a multi-source capture lab," with every product fact cited from a primary source.
 
-Sits next to the sibling feeders ([adsb-to-wdgwars](https://github.com/HiroAlleyCat/adsb-to-wdgwars), [meshcore-to-wdgwars](https://github.com/HiroAlleyCat/meshcore-to-wdgwars), [wigle-to-wdgwars](https://github.com/HiroAlleyCat/wigle-to-wdgwars), [gungnir](https://github.com/HiroAlleyCat/gungnir)). The feeders are the tools; this repo is the orientation.
+Sits next to the sibling feeders ([adsb-to-wdgwars](https://github.com/Yggdrasil-AI-labs/adsb-to-wdgwars), [meshcore-to-wdgwars](https://github.com/Yggdrasil-AI-labs/meshcore-to-wdgwars), [wigle-to-wdgwars](https://github.com/Yggdrasil-AI-labs/wigle-to-wdgwars), [gungnir](https://github.com/Yggdrasil-AI-labs/gungnir)). The feeders are the tools; this repo is the orientation.
 
 ## Two ways to read it
 
-**On the web** → [GitHub Pages site](https://hiroalleycat.github.io/wdgo-onramp/) — styled to match the [Muninn](https://github.com/HiroAlleyCat/adsb-to-wdgwars) and [Heimdall](https://github.com/HiroAlleyCat/meshcore-to-wdgwars) sibling sites (Orbitron + Share Tech Mono, CRT scanlines), Mermaid flow diagram, no Obsidian required.
+**On the web** → [GitHub Pages site](https://hiroalleycat.github.io/wdgo-onramp/) — styled to match the [Muninn](https://github.com/Yggdrasil-AI-labs/adsb-to-wdgwars) and [Heimdall](https://github.com/Yggdrasil-AI-labs/meshcore-to-wdgwars) sibling sites (Orbitron + Share Tech Mono, CRT scanlines), Mermaid flow diagram, no Obsidian required.
 
 **In Obsidian** → clone this repo and open the root as an Obsidian vault. The `.canvas` flow diagram is interactive, internal `[[wikilinks]]` resolve.
 
@@ -25,7 +25,7 @@ git clone https://github.com/HiroAlleyCat/wdgo-onramp.git
 | [wardriving-hardware-survey.md](wardriving-hardware-survey.md) | Reference: full firmware × chip support matrix, all WDGoWars community tools, decision tree, API gotchas. |
 | [CREDITS.md](CREDITS.md) | Acknowledgments for the maintainers, projects, and vendors that make this whole ecosystem possible. Also the comprehensive repo + vendor index. |
 
-For developers writing a feeder in a new language, the signed-JSON envelope shape is implemented in [gungnir](https://github.com/HiroAlleyCat/gungnir) (Python) and mirrored by LOCOSP's reference uploader at [`plugins/wardrive_upload.py`](https://github.com/LOCOSP/WatchDogsGo/blob/main/plugins/wardrive_upload.py) in [WatchDogsGo](https://github.com/LOCOSP/WatchDogsGo). Read both — between them they cover the auth header, HMAC construction, retry/cooldown, and the slot-typed payload shape.
+For developers writing a feeder in a new language, the signed-JSON envelope shape is implemented in [gungnir](https://github.com/Yggdrasil-AI-labs/gungnir) (Python) and mirrored by LOCOSP's reference uploader at [`plugins/wardrive_upload.py`](https://github.com/LOCOSP/WatchDogsGo/blob/main/plugins/wardrive_upload.py) in [WatchDogsGo](https://github.com/LOCOSP/WatchDogsGo). Read both — between them they cover the auth header, HMAC construction, retry/cooldown, and the slot-typed payload shape.
 
 The `docs/` directory contains vanilla-markdown versions of the same content, served as a static site via GitHub Pages. The `flow.md` page renders the flow diagram as Mermaid for browsers that don't support `.canvas`.
 

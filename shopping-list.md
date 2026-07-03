@@ -33,7 +33,7 @@ Same Tier-1 hardware. Add software + a second account.
 | Item | Where | Notes |
 |---|---|---|
 | WDGoWars account + API key | [wdgwars.pl/profile](https://wdgwars.pl/profile) | Free. Profile → API Keys → generate. |
-| wigle-to-wdgwars feeder | [GitHub](https://github.com/HiroAlleyCat/wigle-to-wdgwars) | `./run.sh --setup` walks you through both keys. |
+| wigle-to-wdgwars feeder | [GitHub](https://github.com/Yggdrasil-AI-labs/wigle-to-wdgwars) | `./run.sh --setup` walks you through both keys. |
 | Python 3.9+ on your PC | OS package manager | Required to run the feeder. |
 
 ## Tier 3 — Quick reference: solder vs solderless
@@ -120,7 +120,7 @@ Cheapest entry into dedicated hardware, more steps per upload.
 | microSD card (any size — Marauder writes small files) | any |
 | Marauder firmware | [GitHub `v1.12.1` release](https://github.com/justcallmekoko/ESP32Marauder/releases/tag/v1.12.1) — pick the binary that matches your board |
 | Marauder GPS wiring guide | [Official wiki](https://github.com/justcallmekoko/ESP32Marauder/wiki/gps-modification) |
-| wigle-to-wdgwars (for SD pulls) | [GitHub](https://github.com/HiroAlleyCat/wigle-to-wdgwars) |
+| wigle-to-wdgwars (for SD pulls) | [GitHub](https://github.com/Yggdrasil-AI-labs/wigle-to-wdgwars) |
 
 GPS module is mandatory — without it, Marauder writes empty wardrive dumps. See [[wardriving-hardware-survey]] §3 for the source-code reference.
 
@@ -144,7 +144,7 @@ Best for: someone who already owns a Flipper Zero and wants to use it as the con
 | GPS module (NEO-6M / ATGM336H) wired to the DevBoard headers | per the [Marauder GPS wiki](https://github.com/justcallmekoko/ESP32Marauder/wiki/gps-modification) — same pin tables as the bare-ESP32 path above |
 | microSD card | any |
 | Optional: Flipper custom firmware (Momentum / Xtreme) | [Momentum](https://github.com/Next-Flip/Momentum-Firmware) — adds the Marauder companion app baked-in; not strictly required since the Marauder firmware runs on the DevBoard itself |
-| wigle-to-wdgwars (for SD pulls) | [GitHub](https://github.com/HiroAlleyCat/wigle-to-wdgwars) |
+| wigle-to-wdgwars (for SD pulls) | [GitHub](https://github.com/Yggdrasil-AI-labs/wigle-to-wdgwars) |
 
 Same GPS rule as bare Marauder: no module, no wardrive lines. The Flipper provides display + power + UI; the DevBoard does the actual Wi-Fi scanning.
 
@@ -192,7 +192,7 @@ Stationary capture rig. Mount the antenna where it has sky view.
 | Optional N-type-to-SMA adapter + LMR-400 coax | any RF distributor |
 | Raspberry Pi 4 (4GB or 8GB) | [Adafruit](https://www.adafruit.com) / [CanaKit](https://www.canakit.com) |
 | dump1090-fa, readsb, or tar1090 | FlightAware feeder or [readsb](https://github.com/wiedehopf/readsb) |
-| Muninn feeder | [GitHub](https://github.com/HiroAlleyCat/adsb-to-wdgwars) |
+| Muninn feeder | [GitHub](https://github.com/Yggdrasil-AI-labs/adsb-to-wdgwars) |
 
 ### MeshCore LoRa nodes (Heimdall feeder)
 
@@ -204,7 +204,7 @@ Pocket-portable, captures other LoRa nodes within radio range. **MeshCore is the
 | **OR:** LilyGO T-Beam | [LilyGO](https://lilygo.cc) |
 | **OR:** RAK Wireless WisBlock | [store.rakwireless.com](https://store.rakwireless.com) |
 | MeshMapper export or compatible CSV writer | per device firmware |
-| Heimdall feeder | [GitHub](https://github.com/HiroAlleyCat/meshcore-to-wdgwars) |
+| Heimdall feeder | [GitHub](https://github.com/Yggdrasil-AI-labs/meshcore-to-wdgwars) |
 
 ### Meshtastic-ecosystem gear (related but different protocol)
 

@@ -133,11 +133,11 @@ The sibling repos to this one. Released under MIT, source available, primary aut
 
 | Repo | What it does | Latest |
 |---|---|---|
-| [adsb-to-wdgwars (Muninn)](https://github.com/HiroAlleyCat/adsb-to-wdgwars) | ADS-B → wdgwars `aircraft` slot. Accepts AVR, SBS-1, dump1090, readsb, tar1090, VRS, Stratux, Mode-S Beast, NDJSON, Mayhem, GDL-90, CSV. | v2.0.10 |
-| [meshcore-to-wdgwars (Heimdall)](https://github.com/HiroAlleyCat/meshcore-to-wdgwars) | MeshCore LoRa → wdgwars `meshcore_nodes` slot. | v0.2.2 |
-| [wigle-to-wdgwars](https://github.com/HiroAlleyCat/wigle-to-wdgwars) | WigleWifi-1.6 CSV → wdgwars bulk via multipart upload. | v1.2.0 |
-| [gungnir](https://github.com/HiroAlleyCat/gungnir) | Shared HMAC transport library used by the three above. | v0.1.2 |
-| [wdgwars-api-tester](https://github.com/HiroAlleyCat/wdgwars-api-tester) | Systematic probe of the WDGoWars HTTP API surface. | main branch |
+| [adsb-to-wdgwars (Muninn)](https://github.com/Yggdrasil-AI-labs/adsb-to-wdgwars) | ADS-B → wdgwars `aircraft` slot. Accepts AVR, SBS-1, dump1090, readsb, tar1090, VRS, Stratux, Mode-S Beast, NDJSON, Mayhem, GDL-90, CSV. | v2.0.10 |
+| [meshcore-to-wdgwars (Heimdall)](https://github.com/Yggdrasil-AI-labs/meshcore-to-wdgwars) | MeshCore LoRa → wdgwars `meshcore_nodes` slot. | v0.2.2 |
+| [wigle-to-wdgwars](https://github.com/Yggdrasil-AI-labs/wigle-to-wdgwars) | WigleWifi-1.6 CSV → wdgwars bulk via multipart upload. | v1.2.0 |
+| [gungnir](https://github.com/Yggdrasil-AI-labs/gungnir) | Shared HMAC transport library used by the three above. | v0.1.2 |
+| [wdgwars-api-tester](https://github.com/Yggdrasil-AI-labs/wdgwars-api-tester) | Systematic probe of the WDGoWars HTTP API surface. | main branch |
 
 ## Hardware vendors
 
