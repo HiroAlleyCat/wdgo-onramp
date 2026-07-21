@@ -24,6 +24,21 @@ Two server-side upload paths exist. Picking firmware mostly reduces to which pat
 
 A `/endpoint/*` mirror exists for clients that want to dodge Cloudflare's L7 rate limit on `/api/*` (returns 429 + code 1027 on cold-IP bursts). The shared transport handles this at the library layer — `gungnir` tag [v0.1.2](https://github.com/Yggdrasil-AI-labs/gungnir/releases/tag/v0.1.2) flipped the default base URL; pin >= v0.1.2 to inherit. Hand-rolled HTTP clients (Bruce on-device, anything you write yourself) need the URL flip too if they want the bypass.
 
+```mermaid
+flowchart LR
+    cap["Any capture<br/>Wi-Fi / BLE / ADS-B / MeshCore"] --> route{"Which data type?"}
+    route -->|"Wi-Fi + BLE (bulk)"| csv["WigleWifi-1.6 CSV<br/>multipart · X-API-Key"]
+    route -->|"ADS-B + MeshCore"| json["Signed JSON envelope<br/>HMAC via gungnir"]
+    csv -->|"POST /api/upload-csv"| api(("wdgwars.pl<br/>/api/upload-csv"))
+    json -->|"POST /api/upload/"| apij(("wdgwars.pl<br/>/api/upload/"))
+    api -.->|"CF L7 429 on cold-IP bursts"| mirror["/endpoint/* mirror<br/>bypass · gungnir v0.1.2+ default"]
+    apij -.-> mirror
+    classDef dest fill:#3a2a05,stroke:#fbbf24,stroke-width:2px,color:#fbbf24
+    classDef pcside fill:#053946,stroke:#00e5ff,color:#00e5ff
+    class api,apij dest
+    class csv,json pcside
+```
+
 ## 2. Firmwares that upload to WDGoWars directly (on-device, no PC needed)
 
 Five projects verified to upload to WDGoWars from the capture device itself (the first four as of 2026-06-02; ESP32 Dual Band Wardriver added 2026-07-20).
@@ -182,26 +197,22 @@ Tiers reframed as form-factor + skill investment:
 
 ## 7. Decision tree for newcomers
 
-```
-Do you already own an Android phone?
-├─ Yes → start with WiGLE app + wigle-to-wdgwars. Zero spend.
-│        Validate you like the hobby before committing hardware.
-└─ No (or want a dedicated device) → continue ↓
-
-Do you want zero PC steps after capture?
-├─ Yes → M5 Cardputer + GPS, flash LOCOSP Bruce v1.0-wdgwars.
-│        OR Hak5 Pineapple Pager + u-blox 7 GPS, install LOCOSP Pineapple payload.
-│        Both confirmed on-device uploaders today.
-└─ No (you're OK pulling SD cards / running a feeder) → continue ↓
-
-Best capture quality?
-└─ Pi 4 + Kismet + monitor-mode USB WiFi + GPS. Capture → wigle-to-wdgwars.
-
-Buying an ESP32 board specifically?
-├─ Want broadest firmware support? Classic ESP32-WROOM or ESP32-S3.
-├─ Want dual-band 2.4+5 GHz? ESP32-C5 — but check the firmware uses the 5 GHz radio.
-├─ Got a bare C3? GhostESP is the only stock binary; Marauder/Bruce don't have one.
-└─ ESP32-H2? Wrong chip — no WiFi.
+```mermaid
+flowchart TD
+    q1{"Own an Android phone?"}
+    q1 -->|Yes| a1["WiGLE app + wigle-to-wdgwars<br/>zero spend · validate the hobby first"]
+    q1 -->|"No / want a dedicated device"| q2
+    a1 --> q2{"Want zero PC steps<br/>after capture?"}
+    q2 -->|"Yes · on-device upload"| a2["M5 Cardputer + GPS + LOCOSP Bruce v1.0-wdgwars<br/>— or — Hak5 Pineapple Pager + u-blox 7 GPS"]
+    q2 -->|"No · OK pulling SD / running a feeder"| q3{"What matters most?"}
+    q3 -->|"Best capture quality"| a3["Pi 4 + Kismet + monitor-mode USB Wi-Fi + GPS<br/>then wigle-to-wdgwars"]
+    q3 -->|"Buying an ESP32 board"| q4{"Which ESP32?"}
+    q4 -->|"Broadest firmware support"| e1["Classic ESP32-WROOM or ESP32-S3"]
+    q4 -->|"Dual-band 2.4 + 5 GHz"| e2["ESP32-C5 — verify firmware uses the 5 GHz radio"]
+    q4 -->|"Bare C3"| e3["GhostESP is the only stock binary<br/>Marauder / Bruce have none"]
+    q4 -->|"ESP32-H2"| e4["Wrong chip — no Wi-Fi"]
+    classDef answer fill:#063312,stroke:#00e436,color:#00e436
+    class a1,a2,a3,e1,e2,e3,e4 answer
 ```
 
 ## 8. WDGoWars-specific gotchas
