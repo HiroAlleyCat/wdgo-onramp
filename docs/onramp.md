@@ -9,6 +9,25 @@ The fastest legitimate path from zero to scoring points on wdgwars.pl. Each leve
 
 > **Visual learner?** Open [Capture flow diagram](flow.md) for the same five-step progression as a flow diagram (capture device → firmware → destination). Renders in Obsidian as a canvas; readable as JSON anywhere else.
 
+The whole ladder at a glance — each rung builds on the one below it. Green rungs are free or near-free, cyan adds a small hardware spend, amber is advanced / lab-scale:
+
+```mermaid
+flowchart TD
+    s0["Step 0 · What you're doing<br/>Wi-Fi / BT / ADS-B / LoRa capture"] --> s1
+    s1["Step 1 · Phone only (free)<br/>WiGLE Android app"] --> s2
+    s2["Step 2 · Cross-post to WDGoWars (~15 min)<br/>wigle-to-wdgwars"] --> s3
+    s3["Step 3 · Dedicated capture device<br/>3a on-device upload · 3b upload from PC"] --> s4
+    s4["Step 4 · WDGoWars-only slots<br/>ADS-B (Muninn) + MeshCore (Heimdall)"] --> s5
+    s5["Step 5 · Lab-scale always-on capture<br/>Pi + Kismet + ESP32 fleet"] --> s6
+    s6["Step 6 · Portable Linux + RF endgame<br/>uConsole / SDR ladder / HackRF PortaPack"]
+    classDef free fill:#063312,stroke:#00e436,color:#00e436
+    classDef spend fill:#053946,stroke:#00e5ff,color:#00e5ff
+    classDef adv fill:#3a2a05,stroke:#fbbf24,color:#fbbf24
+    class s0,s1,s2 free
+    class s3,s4 spend
+    class s5,s6 adv
+```
+
 ## Step 0 — What you're actually doing
 
 Wardriving is capturing wireless signals (Wi-Fi APs, Bluetooth devices, ADS-B aircraft, LoRa mesh nodes) while moving around. The hobby existed long before the game.
@@ -203,3 +222,38 @@ For Cheap Yellow Display boards there is no canonical reseller. The community hu
 
 
 This progression is sequenced for points-per-effort, not skill-per-effort. A determined newcomer can skip directly to Step 3 if they're hardware-comfortable and don't want the Android phase. Don't over-prescribe to yourself.
+
+<script type="module">
+  // GitHub Pages doesn't include Mermaid JS by default. This bootstrap finds
+  // ```mermaid``` fenced code blocks (which Jekyll renders as
+  // <pre><code class="language-mermaid">) and re-renders them as diagrams.
+  // On the GitHub repo browser the script is stripped — GitHub's native
+  // Markdown renderer already shows the diagram. So both contexts render.
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+  document.querySelectorAll('pre > code.language-mermaid').forEach((el) => {
+    const div = document.createElement('div');
+    div.className = 'mermaid';
+    div.textContent = el.textContent;
+    el.parentElement.replaceWith(div);
+  });
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: 'base',
+    themeVariables: {
+      background: 'transparent',
+      primaryColor: 'rgba(0,229,255,0.06)',
+      primaryBorderColor: '#00e5ff',
+      primaryTextColor: '#e0e0e0',
+      secondaryColor: 'rgba(0,229,255,0.04)',
+      tertiaryColor: 'rgba(0,229,255,0.02)',
+      lineColor: 'rgba(0,229,255,0.45)',
+      edgeLabelBackground: '#000',
+      mainBkg: 'rgba(0,229,255,0.06)',
+      nodeBorder: '#00e5ff',
+      clusterBkg: 'rgba(0,229,255,0.03)',
+      clusterBorder: 'rgba(0,229,255,0.30)',
+      fontFamily: '"Share Tech Mono", ui-monospace, Consolas, monospace',
+      fontSize: '13px'
+    }
+  });
+</script>
