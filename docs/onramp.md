@@ -70,7 +70,7 @@ Four firmwares verified to upload directly to WDGoWars from the capture device. 
 | Hardware | Firmware | Form factor | How it uploads |
 |---|---|---|---|
 | **M5Stack Cardputer + GPS unit** | [LOCOSP Bruce fork](https://github.com/LOCOSP/bruce-firmware-wdgwars) tag [`v1.0-wdgwars`](https://github.com/LOCOSP/bruce-firmware-wdgwars/releases/tag/v1.0-wdgwars) | handheld with screen + keyboard | Set API key in device config (`bruceConfig.wdgwarsApiKey`), device uploads on its own when on Wi-Fi |
-| **XIAO ESP32-C5 / S3 / C6 + GPS** OR **T-Dongle C5** | [Piglet](https://github.com/hamspiced/piglet) (148 stars, actively shipping) | small dev board, controlled via web UI | Browser → device IP → paste API key → "Test Key" → "Upload All". "Get your API Key" link points directly at wdgwars.pl/profile. |
+| **XIAO ESP32-C5 / S3 / C6 + GPS** OR **T-Dongle C5** | [Piglet](https://github.com/hamspiced/piglet) (191 stars, actively shipping) | small dev board, controlled via web UI | Browser → device IP → paste API key → "Test Key" → "Upload All". "Get your API Key" link points directly at wdgwars.pl/profile. |
 | **Hak5 WiFi Pineapple Pager + u-blox 7 USB GPS** | [LOCOSP Pineapple Pager payload](https://github.com/LOCOSP/pineapple_pager_wdgwars) | pocket | "SYNC NOW" upload button after you have a 3D GPS fix |
 | **Raspberry Pi + LCD 1.44" + GPIO buttons (Raspyjack rig)** | [Raspyjack `payloads/exfiltration/wdgwars_upload.py`](https://github.com/7h30th3r0n3/Raspyjack/blob/main/payloads/exfiltration/wdgwars_upload.py) | small box | Payload script on the Raspyjack image |
 
@@ -82,7 +82,7 @@ Buy less, do more steps per upload.
 
 - Bare classic ESP32-WROOM, **or** a Cheap Yellow Display (CYD 2.8" / 2432S028), **or** an M5 StickC Plus
 - Add a GPS module — [ESP32Marauder GPS wiki](https://github.com/justcallmekoko/ESP32Marauder/wiki/gps-modification) lists two tested ones (Teyleten Robot ATGM336H NEO-6M, DWEII GY-NEO6MV2) with pin-by-pin wiring
-- Flash [Marauder v1.12.1](https://github.com/justcallmekoko/ESP32Marauder/releases/tag/v1.12.1) for your specific board
+- Flash [Marauder v1.13.0](https://github.com/justcallmekoko/ESP32Marauder/releases/tag/v1.13.0) for your specific board
 - Capture wardrive sessions, pull the SD card to your PC
 - Run wigle-to-wdgwars on the SD dump
 
@@ -100,8 +100,8 @@ WiGLE doesn't track aircraft or LoRa mesh nodes. WDGoWars does. These are points
 
 | Slot | Tool | What you need |
 |---|---|---|
-| **Aircraft** (ADS-B) | [Muninn (adsb-to-wdgwars)](https://github.com/Yggdrasil-AI-labs/adsb-to-wdgwars) v2.0.10 | RTL-SDR USB dongle (~$30 typical) + 1090 MHz antenna + a small Linux box (Pi works). Run dump1090-fa or readsb to decode; Muninn watches the output directory and uploads. Stationary — mount the antenna where it has sky view. |
-| **MeshCore LoRa** | [Heimdall (meshcore-to-wdgwars)](https://github.com/Yggdrasil-AI-labs/meshcore-to-wdgwars) v0.2.2 | LoRa node (Heltec / TTGO / similar). Export MeshMapper CSV. Heimdall uploads to the `meshcore_nodes` slot. Pocket-portable. |
+| **Aircraft** (ADS-B) | [Muninn (adsb-to-wdgwars)](https://github.com/Yggdrasil-AI-labs/adsb-to-wdgwars) v2.0.16 | RTL-SDR USB dongle (~$30 typical) + 1090 MHz antenna + a small Linux box (Pi works). Run dump1090-fa or readsb to decode; Muninn watches the output directory and uploads. Stationary — mount the antenna where it has sky view. |
+| **MeshCore LoRa** | [Heimdall (meshcore-to-wdgwars)](https://github.com/Yggdrasil-AI-labs/meshcore-to-wdgwars) v0.4.5 | LoRa node (Heltec / TTGO / similar). Export MeshMapper CSV. Heimdall uploads to the `meshcore_nodes` slot. Pocket-portable. |
 
 Both feeders use the signed-JSON path (HMAC envelope via gungnir), not the multipart CSV path. Same API key as your other uploads.
 

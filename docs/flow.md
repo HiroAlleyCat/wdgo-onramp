@@ -17,14 +17,14 @@ flowchart LR
 
     %% Step 2 — Cross-post
     s2_phone[Android phone<br/>same as Step 1] --> s2_csv[.wiglecsv.gz export<br/>WigleWifi-1.6]
-    s2_csv --> s2_w2w[wigle-to-wdgwars<br/>v1.2.0 --setup wizard]
+    s2_csv --> s2_w2w[wigle-to-wdgwars<br/>v1.6.2 --setup wizard]
     s2_w2w -->|POST /api/upload-csv| wdgwars_csv((wdgwars.pl<br/>/api/upload-csv))
     s2_csv -.->|or direct to WiGLE| wigle
 
     %% Step 3a — On-device uploaders
     s3a_cardputer[M5 Cardputer + GPS] --> s3a_bruce[LOCOSP Bruce fork<br/>v1.0-wdgwars]
     s3a_bruce -->|direct| wdgwars_csv
-    s3a_xiao[XIAO ESP32-C5/S3/C6<br/>or T-Dongle C5] --> s3a_piglet[Piglet firmware<br/>hamspiced/piglet, 148★]
+    s3a_xiao[XIAO ESP32-C5/S3/C6<br/>or T-Dongle C5] --> s3a_piglet[Piglet firmware<br/>hamspiced/piglet, 191★]
     s3a_piglet -->|web UI direct| wdgwars_csv
     s3a_pager[Hak5 Pineapple Pager<br/>+ u-blox 7 GPS] --> s3a_payload[LOCOSP Pineapple payload<br/>SYNC NOW button]
     s3a_payload -->|direct| wdgwars_csv
@@ -32,16 +32,16 @@ flowchart LR
     s3a_rjpayload -->|direct| wdgwars_csv
 
     %% Step 3b — Capture-only, PC feeder
-    s3b_hw[Classic ESP32 / CYD<br/>+ GPS module] --> s3b_marauder[Marauder v1.12.1<br/>writes WigleWifi-1.4 to SD]
+    s3b_hw[Classic ESP32 / CYD<br/>+ GPS module] --> s3b_marauder[Marauder v1.13.0<br/>writes WigleWifi-1.4 to SD]
     s3b_marauder -->|SD pull| s3b_sd[wigle-to-wdgwars<br/>pads 1.4 to 1.6]
     s3b_sd --> wdgwars_csv
 
     %% Step 4 — WDGoWars-only slots
     s4_sdr[RTL-SDR<br/>+ 1090 MHz antenna] --> s4_dump[dump1090 / readsb]
-    s4_dump --> s4_muninn[Muninn<br/>adsb-to-wdgwars v2.0.10]
+    s4_dump --> s4_muninn[Muninn<br/>adsb-to-wdgwars v2.0.16]
     s4_lora[LoRa node<br/>Heltec / TTGO] --> s4_mm[MeshMapper CSV]
-    s4_mm --> s4_heimdall[Heimdall<br/>meshcore-to-wdgwars v0.2.2]
-    s4_muninn --> gungnir[gungnir v0.1.2<br/>HMAC + retry + cooldown]
+    s4_mm --> s4_heimdall[Heimdall<br/>meshcore-to-wdgwars v0.4.5]
+    s4_muninn --> gungnir[gungnir v0.1.3<br/>HMAC + retry + cooldown]
     s4_heimdall --> gungnir
     gungnir -->|signed JSON<br/>POST /endpoint/upload/| wdgwars_json((wdgwars.pl<br/>/api/upload/))
 

@@ -7,14 +7,14 @@
     {"id": "a1b2c3d4e5f60010", "type": "group", "x": -20, "y": 300, "width": 1620, "height": 280, "label": "Step 2 — Cross-post the same captures to WDGoWars (free, ~15 min setup)", "color": "5"},
     {"id": "a1b2c3d4e5f60011", "type": "text", "x": 20, "y": 380, "width": 280, "height": 140, "text": "## Android phone\n\n*(same as Step 1)*\nWiGLE Wifi Wardriving app"},
     {"id": "a1b2c3d4e5f60012", "type": "text", "x": 380, "y": 380, "width": 280, "height": 140, "text": "## .wiglecsv.gz\n\nWiGLE Android export\nShare → save file\nWigleWifi-1.6 format"},
-    {"id": "a1b2c3d4e5f60013", "type": "text", "x": 740, "y": 380, "width": 280, "height": 140, "text": "## wigle-to-wdgwars\n\nv1.2.0 — `--setup` wizard\n`--schedule` for daily auto\nPython, cross-platform", "color": "5"},
+    {"id": "a1b2c3d4e5f60013", "type": "text", "x": 740, "y": 380, "width": 280, "height": 140, "text": "## wigle-to-wdgwars\n\nv1.6.2 — `--setup` wizard\n`--schedule` for daily auto\nPython, cross-platform", "color": "5"},
 
     {"id": "a1b2c3d4e5f60020", "type": "group", "x": -20, "y": 620, "width": 1620, "height": 720, "label": "Step 3a — Dedicated device with on-device upload (small spend)", "color": "3"},
     {"id": "a1b2c3d4e5f60021", "type": "text", "x": 20, "y": 700, "width": 280, "height": 120, "text": "## M5 Cardputer + GPS\n\nhandheld w/ screen + keyboard"},
     {"id": "a1b2c3d4e5f60022", "type": "text", "x": 380, "y": 700, "width": 280, "height": 120, "text": "## LOCOSP Bruce fork\n\ntag `v1.0-wdgwars`\nset key in device config\nuploads when on Wi-Fi", "color": "3"},
 
     {"id": "a1b2c3d4e5f60023", "type": "text", "x": 20, "y": 860, "width": 280, "height": 120, "text": "## XIAO ESP32-C5 / S3 / C6\n\nor T-Dongle C5\nsmall dev board + GPS"},
-    {"id": "a1b2c3d4e5f60024", "type": "text", "x": 380, "y": 860, "width": 280, "height": 120, "text": "## Piglet firmware\n\nhamspiced/piglet (148★)\nweb UI → paste key → upload\nC++ Arduino", "color": "3"},
+    {"id": "a1b2c3d4e5f60024", "type": "text", "x": 380, "y": 860, "width": 280, "height": 120, "text": "## Piglet firmware\n\nhamspiced/piglet (191★)\nweb UI → paste key → upload\nC++ Arduino", "color": "3"},
 
     {"id": "a1b2c3d4e5f60025", "type": "text", "x": 20, "y": 1020, "width": 280, "height": 120, "text": "## Hak5 Pineapple Pager\n\n+ u-blox 7 USB GPS\npocket form factor"},
     {"id": "a1b2c3d4e5f60026", "type": "text", "x": 380, "y": 1020, "width": 280, "height": 120, "text": "## LOCOSP Pineapple payload\n\nWigleWifi-1.6 CSV\nSYNC NOW button\nGPS 3D fix required", "color": "3"},
@@ -24,19 +24,19 @@
 
     {"id": "a1b2c3d4e5f60030", "type": "group", "x": -20, "y": 1380, "width": 1620, "height": 280, "label": "Step 3b — Cheapest: capture-only, upload from PC", "color": "2"},
     {"id": "a1b2c3d4e5f60031", "type": "text", "x": 20, "y": 1460, "width": 280, "height": 140, "text": "## Classic ESP32 / CYD\n+ GPS module\n\nTeyleten ATGM336H or\nDWEII GY-NEO6MV2"},
-    {"id": "a1b2c3d4e5f60032", "type": "text", "x": 380, "y": 1460, "width": 280, "height": 140, "text": "## Marauder v1.12.1\n\njustcallmekoko/ESP32Marauder\n**writes WigleWifi-1.4 to SD**\n(11 cols, missing 3)", "color": "2"},
+    {"id": "a1b2c3d4e5f60032", "type": "text", "x": 380, "y": 1460, "width": 280, "height": 140, "text": "## Marauder v1.13.0\n\njustcallmekoko/ESP32Marauder\n**writes WigleWifi-1.4 to SD**\n(11 cols, missing 3)", "color": "2"},
     {"id": "a1b2c3d4e5f60033", "type": "text", "x": 740, "y": 1460, "width": 280, "height": 140, "text": "## SD card pull\n\nthen feed to\n**wigle-to-wdgwars**\n(pads 1.4 → 1.6)"},
 
     {"id": "a1b2c3d4e5f60040", "type": "group", "x": -20, "y": 1700, "width": 1620, "height": 460, "label": "Step 4 — WDGoWars-only data slots (aircraft + LoRa mesh)", "color": "6"},
     {"id": "a1b2c3d4e5f60041", "type": "text", "x": 20, "y": 1780, "width": 280, "height": 140, "text": "## RTL-SDR + 1090 MHz antenna\n\nstationary, sky view\nsmall Linux box (Pi works)"},
     {"id": "a1b2c3d4e5f60042", "type": "text", "x": 380, "y": 1780, "width": 280, "height": 140, "text": "## dump1090 / readsb\n\ndecodes ADS-B\nwrites aircraft.json"},
-    {"id": "a1b2c3d4e5f60043", "type": "text", "x": 740, "y": 1780, "width": 280, "height": 140, "text": "## Muninn (adsb-to-wdgwars)\n\nv2.0.10, CLI + Pyodide\nwatches dir, uploads", "color": "6"},
+    {"id": "a1b2c3d4e5f60043", "type": "text", "x": 740, "y": 1780, "width": 280, "height": 140, "text": "## Muninn (adsb-to-wdgwars)\n\nv2.0.16, CLI + Pyodide\nwatches dir, uploads", "color": "6"},
 
     {"id": "a1b2c3d4e5f60044", "type": "text", "x": 20, "y": 1960, "width": 280, "height": 140, "text": "## LoRa node\n\nHeltec / TTGO / similar\npocket-portable"},
     {"id": "a1b2c3d4e5f60045", "type": "text", "x": 380, "y": 1960, "width": 280, "height": 140, "text": "## MeshMapper export\n\nMeshCore LoRa CSV"},
-    {"id": "a1b2c3d4e5f60046", "type": "text", "x": 740, "y": 1960, "width": 280, "height": 140, "text": "## Heimdall (meshcore-to-wdgwars)\n\nv0.2.2, CLI + Pyodide", "color": "6"},
+    {"id": "a1b2c3d4e5f60046", "type": "text", "x": 740, "y": 1960, "width": 280, "height": 140, "text": "## Heimdall (meshcore-to-wdgwars)\n\nv0.4.5, CLI + Pyodide", "color": "6"},
 
-    {"id": "a1b2c3d4e5f60050", "type": "text", "x": 1100, "y": 1780, "width": 220, "height": 320, "text": "## gungnir v0.1.2\n\nshared HMAC transport\nretry + cooldown\nsilent-drop detection\n\n*used by Muninn,\nHeimdall, wigle-to-wdgwars*", "color": "1"},
+    {"id": "a1b2c3d4e5f60050", "type": "text", "x": 1100, "y": 1780, "width": 220, "height": 320, "text": "## gungnir v0.1.3\n\nshared HMAC transport\nretry + cooldown\nsilent-drop detection\n\n*used by Muninn,\nHeimdall, wigle-to-wdgwars*", "color": "1"},
 
     {"id": "a1b2c3d4e5f60060", "type": "group", "x": 1680, "y": -20, "width": 540, "height": 580, "label": "WiGLE.net destination", "color": "4"},
     {"id": "a1b2c3d4e5f60061", "type": "link", "x": 1720, "y": 100, "width": 460, "height": 240, "url": "https://wigle.net"},

@@ -113,7 +113,7 @@ Cheapest entry into dedicated hardware, more steps per upload.
 | GPS module — Teyleten Robot ATGM336H NEO-6M | Amazon / AliExpress |
 | **OR:** DWEII GY-NEO6MV2 | Amazon / AliExpress |
 | microSD card (any size — Marauder writes small files) | any |
-| Marauder firmware | [GitHub `v1.12.1` release](https://github.com/justcallmekoko/ESP32Marauder/releases/tag/v1.12.1) — pick the binary that matches your board |
+| Marauder firmware | [GitHub `v1.13.0` release](https://github.com/justcallmekoko/ESP32Marauder/releases/tag/v1.13.0) — pick the binary that matches your board |
 | Marauder GPS wiring guide | [Official wiki](https://github.com/justcallmekoko/ESP32Marauder/wiki/gps-modification) |
 | wigle-to-wdgwars (for SD pulls) | [GitHub](https://github.com/Yggdrasil-AI-labs/wigle-to-wdgwars) |
 
@@ -135,7 +135,7 @@ Best for: someone who already owns a Flipper Zero and wants to use it as the con
 |---|---|
 | Flipper Zero | [shop.flipperzero.one](https://shop.flipperzero.one) |
 | Flipper WiFi DevBoard (ESP32-S2) | [Flipper Zero shop](https://shop.flipperzero.one) — official; third-party clones on AliExpress |
-| Marauder firmware for the DevBoard | [GitHub `v1.12.1` release](https://github.com/justcallmekoko/ESP32Marauder/releases/tag/v1.12.1) — pick the `flipper.bin` asset |
+| Marauder firmware for the DevBoard | [GitHub `v1.13.0` release](https://github.com/justcallmekoko/ESP32Marauder/releases/tag/v1.13.0) — pick the `flipper.bin` asset |
 | GPS module (NEO-6M / ATGM336H) wired to the DevBoard headers | per the [Marauder GPS wiki](https://github.com/justcallmekoko/ESP32Marauder/wiki/gps-modification) — same pin tables as the bare-ESP32 path above |
 | microSD card | any |
 | Optional: Flipper custom firmware (Momentum / Xtreme) | [Momentum](https://github.com/Next-Flip/Momentum-Firmware) — adds the Marauder companion app baked-in; not strictly required since the Marauder firmware runs on the DevBoard itself |
