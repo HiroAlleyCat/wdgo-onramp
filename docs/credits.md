@@ -44,6 +44,12 @@ This guide stands on a lot of community work. Acknowledging it here, organized b
 
 **hamspiced** — [Piglet (`hamspiced/piglet`)](https://github.com/hamspiced/piglet). Modern XIAO ESP32 wardriving firmware (191★, actively shipping) with a clean web UI for WDGoWars uploads. Adds XIAO C5/S3/C6 to the on-device-uploader chip set. The fourth confirmed on-device WDGoWars uploader. Piglet hardware is sold via [hamspiced on Tindie](https://www.tindie.com/stores/hamspiced/) and [Midwest Gadgets](https://www.midwestgadgets.org/product-page/piglet).
 
+**codehedge** — [Biscuit (`biscuitshop.us`)](https://biscuitshop.us), docs at the [Biscuit Wiki](https://codehedge.github.io/Biscuit-Wiki/). Commercial, phone-app-controlled WiFi/BLE research device line: dual-ESP32 Biscuit Pro / Ultra (dual-band WiFi 6 + BLE), a single-chip ESP32-C5 Biscuit DIY, and BiscuitNode mesh satellites. Has a GPS wardrive mode with WiGLE upload and a multi-destination upload framework. Feed WDGoWars via WiGLE data → wigle-to-wdgwars (native WDGoWars support unconfirmed from public docs — verify in-app).
+
+**Hellz (Sean Clossey)** — [HellzGate C5 (`Hellz0wnzJ00/hellzgate`)](https://github.com/Hellz0wnzJ00/hellzgate), site [hellzgate.com](https://hellzgate.com). An in-development ESP32-C5 multi-node passive survey array (one master + up to nine scanner nodes over an I²C backplane, dual-band Wi-Fi + BLE, GPS). Firmware closed-source; on-device WiGLE / WDGoWars upload is on the Phase 3 roadmap. WDGoWars Discord mod.
+
+**JesseCHale** — [HaleHound (`JesseCHale/HaleHound-CYD`)](https://github.com/JesseCHale/HaleHound-CYD), web flasher at [flash.halehound.com](https://flash.halehound.com). ESP32-DIV-lineage multi-protocol CYD toolkit (1.4k+★); its wardrive mode writes WiGLE-compatible CSV to SD that feeds wigle-to-wdgwars. Capture-only — no native WDGoWars upload.
+
 **LAB5 / C5Lab (Labolatorium, Wrocław PL)** — hardware + firmware group focused on the ESP32-C5. Their [projectZero firmware](https://github.com/C5Lab/projectZero) (163★) runs on the Flipper Zero Pager via their LAB ESP32C5 add-on PCB, and on Cardputer ADV / Tab5 via their M5MonsterC5 add-on (157★ for the [M5MonsterC5-CardputerADV repo](https://github.com/C5Lab/M5MonsterC5-CardputerADV)). The add-ons expose sub-1 GHz capture on chips that otherwise can't do it. Hardware sold from [Tindie store](https://www.tindie.com/stores/lab/) and [lab5-11 Shopify](https://lab5-11.myshopify.com/); quick-start at [c5lab.github.io/projectZero](https://c5lab.github.io/projectZero/).
 
 ## Communities
@@ -138,6 +144,7 @@ The sibling repos to this one. Released under MIT, source available, primary aut
 | [wigle-to-wdgwars](https://github.com/Yggdrasil-AI-labs/wigle-to-wdgwars) | WigleWifi-1.6 CSV → wdgwars bulk via multipart upload. | v1.6.2 |
 | [gungnir](https://github.com/Yggdrasil-AI-labs/gungnir) | Shared HMAC transport library used by the three above. | v0.1.3 |
 | [wdgwars-api-tester](https://github.com/Yggdrasil-AI-labs/wdgwars-api-tester) | Systematic probe of the WDGoWars HTTP API surface. | v0.13.3 |
+| [wdgwars-discord-stats](https://github.com/Yggdrasil-AI-labs/wdgwars-discord-stats) | Build-your-own WDGoWars stats display in Discord (live channels, webhook, war-feed) + a consolidated WDGoWars API reference. | v1.4.1 |
 
 ## Hardware vendors
 
