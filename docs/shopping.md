@@ -247,7 +247,7 @@ If you're getting into the broader LoRa scene rather than specifically chasing t
 | Heltec Vision Master T190 | [heltec.org](https://heltec.org) — newer Heltec with E-ink |
 | RAK Wireless WisMesh Pocket | [store.rakwireless.com](https://store.rakwireless.com) — RAK's Meshtastic-ready pocket node |
 | RAK4631 (nRF52840 + SX1262 core module) | [store.rakwireless.com](https://store.rakwireless.com) — the silicon most other Meshtastic builds share |
-| Nano-G1 / Nano-G1 Explorer | [B&Q Consulting](https://www.bnqconsulting.com) — minimalist credit-card-sized Meshtastic node |
+| Nano-G1 / Nano-G1 Explorer | B&Q Consulting, minimalist credit-card-sized Meshtastic node. **Their site did not respond on 2026-07-25** (`bnqconsulting.com` resolves but serves nothing), so check current availability on the [Meshtastic hardware list](https://meshtastic.org/docs/hardware/devices/) before planning around it. |
 | Meshtastic firmware | [meshtastic.org](https://meshtastic.org) — official documentation + flashing tool |
 | MeshCore firmware (the WDGoWars-supported alternative) | [meshcore.co.uk](https://meshcore.co.uk) — flash this instead if your goal is the Heimdall feed |
 
@@ -381,7 +381,7 @@ Different game from the rest of Tier 7 — these don't feed WDGoWars at all, but
 | Tool | Where |
 |---|---|
 | Crocodile Hunter (EFF) | [github.com/EFForg/crocodilehunter](https://github.com/EFForg/crocodilehunter) — passive LTE base-station logger with anomaly flags; needs a USB Qualcomm modem (Quectel EC25 etc.) |
-| SnoopSnitch (Android side) | [opensource.srlabs.de/projects/snoopsnitch](https://opensource.srlabs.de/projects/snoopsnitch) — needs a rooted Android phone with a Qualcomm chipset that exposes diag mode |
+| SnoopSnitch (Android side) | [srlabs/snoopsnitch](https://github.com/srlabs/snoopsnitch) or [Google Play](https://play.google.com/store/apps/details?id=de.srlabs.snoopsnitch) — needs a rooted Android phone with a Qualcomm chipset that exposes diag mode. The old `opensource.srlabs.de` project page 404s as of 2026-07-25; GitHub is the live home. |
 | Reference: srsRAN-Project (RX-only LTE/5G stack) | [github.com/srsran/srsRAN_Project](https://github.com/srsran/srsRAN_Project) — full SDR LTE/5G stack; ignore the eNB/gNB TX paths for this use case |
 
 ### Software that matches the gear

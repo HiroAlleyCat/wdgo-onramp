@@ -64,7 +64,7 @@ These firmwares produce useful capture data but don't upload to WDGoWars directl
 | Firmware | Hardware fit (current release) | Output | Feeder needed |
 |---|---|---|---|
 | **ESP32 Marauder v1.13.0** ([release](https://github.com/justcallmekoko/ESP32Marauder/releases/tag/v1.13.0), repo 11.6k+ stars, nightlies near-daily) | See §4 chip matrix | WigleWifi-1.4 (11 cols, missing Frequency/RCOIs/MfgrId) to SD — verified at [`WiFiScan.h:682`](https://github.com/justcallmekoko/ESP32Marauder/blob/master/esp32_marauder/WiFiScan.h#L682) hard-coding `WigleWifi-1.4` + 11-field header. wardrive_line construction at WiFi `:4508` and BLE `:547`/`:1132`/`:4646`/`:7346` emits those 11 fields. | wigle-to-wdgwars after SD pull (pads to 1.6). **Marauder requires a GPS module attached** — without it the wardrive dumps are empty. Verified at [`WiFiScan.cpp:515-551`](https://github.com/justcallmekoko/ESP32Marauder/blob/master/esp32_marauder/WiFiScan.cpp#L515) gating `wardrive_line` behind `getGpsModuleStatus()` AND `getFixStatus()`. GPS modification community is well-documented — [official wiki](https://github.com/justcallmekoko/ESP32Marauder/wiki/gps-modification) lists Teyleten Robot ATGM336H NEO-6M + DWEII GY-NEO6MV2 with pin tables. |
-| **Bruce upstream v1.15** ([release](https://github.com/BruceDevices/firmware/releases/tag/1.15)) | See §4 chip matrix | WigleWifi CSV to SD | Upstream Bruce does NOT have the WDGoWars upload path — only the LOCOSP fork does. SD pull → wigle-to-wdgwars, OR flash the LOCOSP fork. |
+| **Bruce upstream 1.16** ([release](https://github.com/BruceDevices/firmware/releases/tag/1.16), 2026-07-24) | See §4 chip matrix | WigleWifi CSV to SD | Upstream Bruce does NOT have the WDGoWars upload path — only the LOCOSP fork does. SD pull → wigle-to-wdgwars, OR flash the LOCOSP fork. |
 | **GhostESP VA1.4.8** ([release](https://github.com/Spooks4576/Ghost_ESP/releases/tag/VA1.4.8), released 2025-03-31 — no release in 15+ months as of 2026-07-20) | See §4 chip matrix | Varies by command; output shape lacks BSSID on some commands on bare C3 in headless USB-CDC. Verify the output of `list -a` or `capture -beacon` on your specific chip before depending on it. | Wigle-format conversion is uncertain — verify per command before depending on it. |
 | **Evil-M5Project** ([README](https://github.com/7h30th3r0n3/Evil-M5Project)) | M5Cardputer (recommended), Core1/Core2/Fire/AWS/CoreS3/CoreS3 SE/AtomS3; beta on CYD2USB/CYD1USB/M5Stick v1.1+v2; slave-mode on ESP32-C3/C5/AtomS3/AtomS3 Lite/WEMOS D1 Mini | "Wigle-compatible CSV files" on Cardputer with GPS (no column spec given in README) | wigle-to-wdgwars. No native WDGoWars upload. |
 | **HaleHound (ESP32-DIV HaleHound Edition) v3.8.0** ([JesseCHale/HaleHound-CYD](https://github.com/JesseCHale/HaleHound-CYD), 1.4k+ stars, web flasher at [flash.halehound.com](https://flash.halehound.com)) | Cheap Yellow Display (ESP32-2432S028 + variants); optional CC1101 / NRF24 / GPS add-ons | WiGLE-compatible CSV to SD `/wardriving/`, GPS-tagged (verified against the firmware's documented SD layout — `/wardriving/` holds "GPS-tagged AP CSVs, WiGLE-compatible") | wigle-to-wdgwars after SD pull. No native WDGoWars upload — capture-only, PC-side feeder. GPS add-on needed for location-tagged lines. |
@@ -206,33 +206,35 @@ Not capture tools. These are what you reach for after the drive.
 
 ## 4. Chip-fit matrix (Marauder, Bruce, GhostESP)
 
-Built from current-release **asset binary names** (not memory). Every cell traces to an asset in the linked release page.
+Built from current-release **asset binary names** (not memory). Every cell traces to an asset in the linked release page. Re-derived 2026-07-25 against [Marauder v1.14.0](https://github.com/justcallmekoko/ESP32Marauder/releases/tag/v1.14.0) (2026-07-22), [Bruce 1.16](https://github.com/BruceDevices/firmware/releases/tag/1.16) (2026-07-24), and [GhostESP Revival v2.0](https://github.com/GhostESP-Revival/GhostESP/releases/tag/v2.0) (2026-06-29). Marauder asset names below have the `esp32_marauder_v1_14_0_20260721_` prefix stripped for readability.
 
-> **GhostESP column caveat (2026-07-25):** the GhostESP column describes [Spooks4576/Ghost_ESP](https://github.com/Spooks4576/Ghost_ESP) at VA1.4.8, which is now an **archived** repository (verified via API 2026-07-25, last push 2025-04-22). Development moved to [GhostESP-Revival/GhostESP](https://github.com/GhostESP-Revival/GhostESP), which claims 46 board targets and is pushing daily. The chip cells below are therefore a floor, not a ceiling, for what GhostESP supports today. See §3e.
+> **The GhostESP column changed meaning in this pass.** It used to describe [Spooks4576/Ghost_ESP](https://github.com/Spooks4576/Ghost_ESP) at VA1.4.8, which is now an **archived** repo (verified via API 2026-07-25, last push 2025-04-22). The column now describes [GhostESP-Revival/GhostESP](https://github.com/GhostESP-Revival/GhostESP) v2.0, which ships 47 board archives. **Two cells flipped from "no asset" to yes as a result: ESP32-C5 and Cardputer ADV.** If you are running a GhostESP build from before mid-2026 you are on the archived tree, and this column overstates what you have.
 
-| Chip | Marauder v1.13.0 | Bruce upstream v1.15 | GhostESP VA1.4.8 |
+| Chip | Marauder v1.14.0 | Bruce upstream 1.16 | GhostESP Revival v2.0 |
 |---|---|---|---|
-| **Classic ESP32 (WROOM)** | yes — `flipper.bin`, `v6.bin`, `v6_1.bin`, `v8.bin`, `kit.bin`, `esp32_lddb.bin`, `mini.bin`, `mini_v3.bin`, `old_hardware.bin`, `marauder_v7.bin`, `marauder_dev_board_pro.bin`, `rev_feather.bin` | yes — via m5stack-core4mb/core16mb/core2/cores3/cplus1_1/cplus2/sticks3/dinmeter and many LilyGO variants | yes — `esp32-generic.zip`, `esp32v5_awok.zip`, `ghostboard.zip`, `MarauderV4_FlipperHub.zip`, `MarauderV6_AwokDual.zip` |
-| **ESP32-S2** | **no asset** | no asset | yes — `esp32s2-generic.zip` |
-| **ESP32-S3** | yes — `multiboardS3.bin` | yes — `Bruce-esp32-s3-devkitc-1.bin` + multiple LilyGO S3 variants (`t-display-s3`, `t-watch-s3`, etc.) | yes — `esp32s3-generic.zip`, `ESP32-S3-Cardputer.zip` |
-| **ESP32-C3** | **no asset** | **no asset** | yes — `esp32c3-generic.zip` |
-| **ESP32-C5** | yes — `esp32c5devkitc1.bin`, `dual_mini_c5.bin` | yes — `Bruce-esp32-c5.bin`, `Bruce-esp32-c5-tft.bin`, `Bruce-nm-cyd-c5.bin` | **no asset** |
-| **ESP32-C6** | yes — `m5nanoc6.bin` (new in v1.13.0) | no asset | yes — `esp32c6-generic.zip` |
+| **Classic ESP32 (WROOM)** | yes: `flipper.bin`, `v6.bin`, `v6_1.bin`, `v8.bin`, `kit.bin`, `esp32_lddb.bin`, `mini.bin`, `mini_v3.bin`, `old_hardware.bin`, `marauder_v7.bin`, `marauder_dev_board_pro.bin`, `rev_feather.bin`, `pancake.bin` | yes: `Bruce-m5stack-core4mb.bin`, `core16mb`, `core2`, `cplus1_1`, `cplus2`, `dinmeter`, `Bruce-lilygo-t-display-ttgo.bin`, plus the `Bruce-Marauder-*` set | yes: `esp32-generic.zip`, `esp32v5_awok.zip`, `ghostboard.zip`, `MarauderV4_FlipperHub.zip`, `MarauderV6_AwokDual.zip`, `MarauderV8.zip`, `MarauderPancake.zip`, `AwokMini.zip`, `Flipper_JCMK_GPS.zip`, `JCMK_DevBoardPro.zip`, `RabbitLabs_Minion.zip` |
+| **ESP32-S2** | **no asset** | **no asset** | yes: `esp32s2-generic.zip` |
+| **ESP32-S3** | yes: `multiboardS3.bin`, plus the Cardputer builds (which are S3) | yes: `Bruce-esp32-s3-devkitc-1.bin`, `Bruce-esp32-s3-devkitc-1-psram.bin`, `Bruce-m5stack-cores3.bin`, `Bruce-m5stack-sticks3.bin`, plus the LilyGO S3 set | yes: `esp32s3-generic.zip`, `ESP32-S3-Cardputer.zip`, `ACE_S3.zip`, `Banshee_S3.zip`, `XIAO_S3.zip`, `XIAO_S3_Sense.zip`, `Lolin_S3_Pro.zip`, `LilyGo-TDongleS3.zip`, `LilyGo-TDisplayS3-Touch.zip`, `LilyGo-S3TWatch-2020.zip` |
+| **ESP32-C3** | **no asset** | **no asset** | yes: `esp32c3-generic.zip` |
+| **ESP32-C5** | yes: `esp32c5devkitc1.bin`, `dual_mini_c5.bin` | yes: `Bruce-esp32-c5.bin`, `Bruce-esp32-c5-tft.bin`, `Bruce-nm-cyd-c5.bin` | **yes, new in v2.0**: `esp32c5-generic-v01.zip`, `ACE_C5.zip`, `Banshee_C5.zip`, `XIAO_C5.zip`, `NM-CYD-C5.zip`, `LilyGo-TDongleC5.zip` |
+| **ESP32-C6** | yes: `m5nanoc6.bin` | **no asset** | yes: `esp32c6-generic.zip` |
 | **ESP32-H2** | n/a (no WiFi capability) | n/a | n/a |
-| **M5 Cardputer** | yes — `m5cardputer.bin`, `m5cardputer_adv.bin` | yes — `Bruce-m5stack-cardputer.bin` | yes — `ESP32-S3-Cardputer.zip` |
-| **M5 StickC Plus / Plus2** | yes — `m5stickc_plus.bin`, `m5stickc_plus2.bin` | yes — `Bruce-m5stack-cplus1_1.bin`, `Bruce-m5stack-cplus2.bin` | (not enumerated as a dedicated asset) |
-| **CYD 2.8" (2432S028)** | yes — `cyd_2432S028.bin`, `cyd_2432S028_2usb.bin` | yes — `Bruce-CYD-2432S028.bin`, `Bruce-CYD-2USB.bin` | yes — `CYDDualUSB.zip`, `CYDMicroUSB.zip`, `CYD2USB.zip`, multiple others |
-| **CYD 2.4" / 3.5"** | `cyd_2432S024_guition.bin`, `cyd_3_5_inch.bin` | several CYD variants enumerated | several CYD variants enumerated |
-| **LilyGO T-Watch Ultra / T-Deck / T-Display-S3** | not a Marauder primary target | yes — extensive LilyGO coverage (`t-deck`, `t-deck-pro`, `t-display-s3*`, `t-embed`, `t-hmi`, `t-lora-pager`, `t-watch-s3`) | not enumerated |
-| **M5 Tab5** | (no asset, but a community Tab5 wardriver project exists [on Hackster](https://www.hackster.io/Runaque/tab5-wardriver-a-custom-gps-enabled-wardriving-platform-d5948a) using a custom firmware) | not enumerated | not enumerated |
+| **M5 Cardputer** | yes: `m5cardputer.bin`, `m5cardputer_adv.bin` | yes: `Bruce-m5stack-cardputer.bin` | yes: `ESP32-S3-Cardputer.zip`, plus **`CardputerADV.zip` new in v2.0** |
+| **M5 StickC Plus / Plus2** | yes: `m5stickc_plus.bin`, `m5stickc_plus2.bin` | yes: `Bruce-m5stack-cplus1_1.bin`, `Bruce-m5stack-cplus2.bin` | no dedicated asset |
+| **CYD 2.8" (2432S028)** | yes: `cyd_2432S028.bin`, `cyd_2432S028_2usb.bin` | yes: `Bruce-CYD-2432S028.bin`, `Bruce-CYD-2USB.bin`, plus `Bruce-LAUNCHER_*` twins of both | yes: `CYD2432S028R.zip`, `CYD2USB.zip`, `CYDDualUSB.zip`, `CYDMicroUSB.zip` |
+| **CYD 2.4" / 3.5"** | yes: `cyd_2432S024_guition.bin`, `cyd_3_5_inch.bin` | yes: `Bruce-CYD-2432W328C.bin`, `Bruce-CYD-2432W328R-or-S024R.bin`, `Bruce-CYD-3248S035C.bin`, `Bruce-CYD-3248S035R.bin` | yes: `CYD2USB2.4Inch.zip`, `CYD2USB2.4Inch_C.zip`, `JC3248W535EN_LCD.zip`, `Sunton_LCD.zip`, `Waveshare_LCD.zip`, `Crowtech_LCD.zip` |
+| **LilyGO T-Watch / T-Deck / T-Display-S3 / T-Embed** | not a Marauder primary target | yes, the broadest LilyGO coverage of the three: `t-deck`, `t-deck-pro`, `t-display-s3` (4 variants), `t-embed`, `t-embed-cc1101`, `t-hmi`, `t-lora-pager`, `t-watch-s3` | partial: `LilyGo-T-Deck.zip`, `LilyGo-TEmbedC1101.zip`, `LilyGo-S3TWatch-2020.zip` |
+| **Heltec V3 (LoRa)** | no asset | no asset | yes: `HeltecV3.zip` |
+| **M5 Tab5** | no asset | no asset | no asset. A community Tab5 wardriver exists [on Hackster](https://www.hackster.io/Runaque/tab5-wardriver-a-custom-gps-enabled-wardriving-platform-d5948a) using custom firmware, see §5. |
 
 Reading the matrix:
 
-- **Want one wildcard board?** Classic ESP32-WROOM. All three firmwares support it.
-- **Best modern target?** ESP32-S3. All three firmwares support it; PSRAM common.
-- **C5 buyers:** Marauder and Bruce yes, GhostESP no (as of VA1.4.8). C5 also gets dual-band 2.4 + 5 GHz, but not all firmwares use the 5 GHz radio yet — verify before assuming. If dual-band capture is the goal, [ESP32DualBandWardriver](https://github.com/justcallmekoko/ESP32DualBandWardriver) (§2) is the firmware built specifically to use the C5's 5 GHz radio, with on-device WDGoWars upload.
-- **C3 buyers:** ONLY GhostESP has a stock binary. Marauder and Bruce both lack one. Bare-C3 wardriving is GhostESP-or-build-your-own. The GhostESP output also lacks BSSID in some command modes on headless USB-CDC C3 boards — verify before depending on it.
-- **C6 buyers:** GhostESP has a generic C6 binary, and Marauder v1.13.0 added an M5 NanoC6 asset. Bruce still lacks one.
+- **Want one wildcard board?** Classic ESP32-WROOM. All three firmwares support it, and GhostESP Revival alone ships eleven variants of it.
+- **Best modern target?** ESP32-S3. All three support it, PSRAM is common, and it is the chip the Cardputer builds sit on.
+- **C5 buyers:** all three now have assets. This is the cell that moved in 2026, since GhostESP had none at VA1.4.8 and Revival v2.0 ships six. C5 also gets dual-band 2.4 + 5 GHz, but a binary existing is not the same as the 5 GHz radio being used for capture, so verify per firmware before assuming dual-band wardriving.
+- **C3 buyers:** still GhostESP-or-nothing. Marauder and Bruce both lack a C3 binary in their current releases, and the GhostESP C3 output lacked BSSID on some commands in the archived tree, which is worth re-testing on v2.0 before depending on it.
+- **C6 buyers:** GhostESP has a generic C6 binary and Marauder has the M5 NanoC6. Bruce still has none.
+- **Bruce 1.16 adds a launcher flavor.** Roughly a dozen assets are `Bruce-LAUNCHER_*` twins of the normal builds, meant for chaining from a firmware launcher instead of booting Bruce directly. Grab the plain build unless you are running [bmorcelli/Launcher](https://github.com/bmorcelli/Launcher).
 
 ## 5. M5 Tab5 (purchased high-end option)
 
@@ -306,6 +308,26 @@ From WDGoWars portal docs + field-tested integrations:
 4. **Cloudflare L7 shield trips on cold-IP bursts to `/api/*`** — 429 + code 1027 BEFORE reaching origin. Use `/endpoint/*` aliases or pin `gungnir >= v0.1.2`.
 5. **Marauder needs GPS attached.** Without GPS module, wardrive dumps are empty (memory-only, not re-verified in this pass — flag before recommending).
 6. **Phone app reporting "wrong password"** may be CF 429 on a cold IP, not an auth failure. A single GET to `/api/me` from a never-seen IP can return 429 instantly with the CF rate-limit body. If the app can't tell 429 from 401, it may surface CF rate-limiting as bad-credentials. Try again after a minute before assuming the password is wrong.
+
+### 8.1 Server-side limits, caps, and dedupe behavior
+
+LOCOSP's documented numbers from the developer section of [wdgwars.pl/press](https://wdgwars.pl/press), read live 2026-07-25. These were previously undocumented here, which is the kind of omission that turns a working feeder into a 413 at 2 a.m.
+
+| Limit | Value | What happens when you exceed it |
+|---|---|---|
+| Networks per JSON batch (`/api/upload`) | 50,000 | 413. Split the scan into batches of 50k or fewer. |
+| CSV file size (`/api/upload-csv` and the profile upload form) | 30 MB | 413. Split the session into roughly 80k to 100k networks per file and upload sequentially with the same key. |
+| Request size (hard server limit) | 64 MB | Rejected regardless of the two limits above. |
+| Request rate per API key | 120 requests / minute | 429. This is the origin's own limit, separate from the Cloudflare L7 shield in gotcha 4. |
+| New APs per user per day | 500,000, rolling 24h | Over-cap new APs are **silently skipped**. Re-scans of APs you already own still upload, still reinforce them, and do not count toward the cap. |
+| Volume per account per rolling 12h | 500 files **or** 20 GB | 429 with a `Retry-After` header. |
+
+Two behaviors worth designing around rather than fighting:
+
+- **Big batches should go async.** Adding `?async=1` returns `202` plus a `job_id` immediately and processes server-side, which is how you avoid timeouts on large uploads. LOCOSP's guidance in the same section is explicit about not hammering retries: stay inside the rate limit and send sequentially.
+- **Duplicates in a file are fine, and re-scans are not wasted.** Multiple beacon captures of the same AP are merged (strongest RSSI wins, GPS averaged) and the response reports `merged_samples`. Scoring the same AP twice inside an hour does not stack more than once, but the later scan still refines that AP's position. So there is no reason to dedupe client-side before uploading, and no reason to avoid re-driving your own turf.
+
+The silent skip on the daily cap is the one that will bite hardest, because a 200 response carrying fewer new APs than you sent looks identical to a quiet day of driving. If you are running lab-scale capture (§6 Tier 5), log what you sent against what came back.
 
 ## 9. Known WDGoWars feeder gaps
 
