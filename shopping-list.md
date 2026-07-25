@@ -119,7 +119,7 @@ Best for: someone who wants to drop a board in a bag, drive, and do everything f
 
 No GPS module needed: the phone's GPS tags the captures and the app does the logging and uploading. Firmware updates go over Wi-Fi OTA from the app.
 
-Two honest caveats before you pick this path. The firmware is **closed source** and distributed as binaries, so it is the one path in this tier whose upload behavior you cannot read for yourself. And LOCOSP's [press page](https://wdgwars.pl/press) lists Biscuit as natively supported *"(integration in progress)"* — WiGLE works today over WiGLE's own API; treat WDGWars scoring as still landing. The DIY route costs nothing but a board you may already own, which makes it a cheap way to test the workflow before buying hardware.
+One caveat survives on this path: the firmware is **closed source** and distributed as binaries, so it is the only option in this tier whose upload behavior you cannot read for yourself. Uploading itself is settled. WiGLE works over WiGLE's own API, and WDGWars uploads were **field-verified on 2026-07-25 across Biscuit Pro, Ultra, and the free DIY firmware**, which runs ahead of LOCOSP's [press page](https://wdgwars.pl/press) still saying *"(integration in progress)"*. The DIY route costs nothing but a board you may already own, which makes it a free way to test the whole workflow before buying hardware.
 
 ## Tier 3b — Cheapest path (capture-only, you upload from PC)
 
