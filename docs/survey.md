@@ -327,6 +327,8 @@ The silent skip on the daily cap is the one that will bite hardest, because a 20
 
 ## 9. Known WDGWars feeder gaps
 
+Gaps below are split between things nobody has built and things LOCOSP has said they intend to build. Rows added 2026-07-25 are marked with their source.
+
 Anyone writing a new feeder should read [gungnir](https://github.com/Yggdrasil-AI-labs/gungnir) (Python transport) and LOCOSP's [WatchDogsGo `plugins/wardrive_upload.py`](https://github.com/LOCOSP/WatchDogsGo/blob/main/plugins/wardrive_upload.py) side by side — those two cover the envelope, HMAC, retry/cooldown, and the slot-typed payload shape. For the read side and a one-place map of the whole surface, see the [consolidated WDGWars API reference](https://github.com/Yggdrasil-AI-labs/wdgwars-discord-stats/blob/main/docs/api-reference.md) in wdgwars-discord-stats.
 
 | Gap | Status |
@@ -336,6 +338,12 @@ Anyone writing a new feeder should read [gungnir](https://github.com/Yggdrasil-A
 | Bare ESP32-C3 capture with BSSID on stock firmware | None of Marauder / Bruce / GhostESP solves this cleanly today. Custom ESPHome probe firmware is the practical fit. |
 | LoRa-meshtastic native exports | Heimdall handles MeshMapper exports. Sibling parser would slot in if meshtastic-native shapes differ. |
 | Browser-only WiGLE Android handoff | wigle-to-wdgwars CLI exists; a Pyodide build mirroring Muninn's pattern would let users drag a `.wiglecsv.gz` into a webpage. |
+| **Kismet native upload** | **On LOCOSP's own roadmap.** The press page lists Kismet under "We're working on more integrations" alongside Pwnagotchi and generic custom ESP32 firmware. Until it ships, the route is export then `wigle-to-wdgwars`. If it does ship, the Tier 5 always-on story in §6 changes shape and §3e needs revisiting. |
+| **Pwnagotchi native upload** | Also on LOCOSP's roadmap per the same page. Community-side, [cyberartemio/wardriver-pwnagotchi-plugin](https://github.com/cyberartemio/wardriver-pwnagotchi-plugin) already logs every network bettercap sees and uploads to WiGLE, so the gap is really WiGLE-to-here rather than nothing-to-here. The plugin's last push was 2025-02-27, so a fork or a WDGWars-aware plugin is an open opportunity. |
+| **ALPR / Flock camera slot** | No slot exists. Three separate projects now detect Flock Safety and similar ALPR hardware while wardriving: [DeflockJoplin/pack](https://github.com/DeflockJoplin/pack), [NSM-Barii/flock-back](https://github.com/NSM-Barii/flock-back), and HaleHound's "Flock You" module. They all produce the same class of observation and have nowhere typed to put it. Closest existing precedent is the `meshcore_nodes` slot, which shows how a non-WiFi observation type gets modeled. Worth asking LOCOSP before building. |
+| **802.15.4 / Zigbee** | Partially served: per the mod canon, Zigbee rides the meshcore envelope with `ZIGBEE` node_type. Hardware that captures it (ElectronicCats Minino, GhostESP Revival on C6) has no documented path from device to that envelope, so the gap is a converter, not a slot. |
+| **Cell towers** | No slot. [TowerCollector](https://github.com/zamojski/TowerCollector) feeds OpenCellID and BeaconDB, and a rooted-Android SnoopSnitch rig produces richer data still. Adjacent hobby with real overlap in who drives around collecting it, but nothing on the portal accepts it today. |
+| **Geolocation-DB double-posting** | [NeoStumbler](https://github.com/mjaakko/NeoStumbler) and [beacondb](https://github.com/beacondb/beacondb) are where the privacy-minded wing of this hobby contributes. Their CSV export is not documented as WiGLE-format, so a shape check plus a converter would let one drive feed both a geolocation DB and the leaderboard. Unverified whether the columns line up. |
 
 ## 10. Maturity signals — the long-running repos
 
