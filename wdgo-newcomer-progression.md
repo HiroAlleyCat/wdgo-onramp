@@ -74,11 +74,17 @@ Four firmwares verified to upload directly to WDGoWars from the capture device. 
 | Hardware | Firmware | Form factor | How it uploads |
 |---|---|---|---|
 | **M5Stack Cardputer + GPS unit** | [LOCOSP Bruce fork](https://github.com/LOCOSP/bruce-firmware-wdgwars) tag [`v1.0-wdgwars`](https://github.com/LOCOSP/bruce-firmware-wdgwars/releases/tag/v1.0-wdgwars) | handheld with screen + keyboard | Set API key in device config (`bruceConfig.wdgwarsApiKey`), device uploads on its own when on Wi-Fi |
-| **XIAO ESP32-C5 / S3 / C6 + GPS** OR **T-Dongle C5** | [Piglet](https://github.com/hamspiced/piglet) (191 stars, actively shipping) | small dev board, controlled via web UI | Browser → device IP → paste API key → "Test Key" → "Upload All". "Get your API Key" link points directly at wdgwars.pl/profile. |
+| **XIAO ESP32-C5 / S3 / C6 + GPS** OR **T-Dongle C5** | [Piglet](https://github.com/hamspiced/piglet) (198 stars as of 2026-07-25, actively shipping) | small dev board, controlled via web UI | Browser → device IP → paste API key → "Test Key" → "Upload All". "Get your API Key" link points directly at wdgwars.pl/profile. |
 | **Hak5 WiFi Pineapple Pager + u-blox 7 USB GPS** | [LOCOSP Pineapple Pager payload](https://github.com/LOCOSP/pineapple_pager_wdgwars) | pocket | "SYNC NOW" upload button after you have a 3D GPS fix |
 | **Raspberry Pi + LCD 1.44" + GPIO buttons (Raspyjack rig)** | [Raspyjack `payloads/exfiltration/wdgwars_upload.py`](https://github.com/7h30th3r0n3/Raspyjack/blob/main/payloads/exfiltration/wdgwars_upload.py) | small box | Payload script on the Raspyjack image |
 
-If you're picking ONE for a clean newcomer experience, **Cardputer + Bruce fork** is the most turnkey (built-in keyboard + screen, no external web UI needed). If you like web dashboards over device menus, **Piglet on a XIAO C5** is the most modern. The Pineapple Pager path is best only if you already own a Pager.
+There is also a fifth path where the **phone** does the uploading instead of the device:
+
+| Hardware | Firmware | Form factor | How it uploads |
+|---|---|---|---|
+| **Biscuit Pro / Biscuit Ultra** ([biscuitshop.us](https://biscuitshop.us)), or a **DIY Biscuit** on any ESP32-C5 board with 8 MB flash + 8 MB PSRAM (T-Dongle C5, XIAO ESP32C5, Waveshare or generic C5 dev board) | Closed-source Biscuit firmware. DIY version is free, flashed from the browser at [flasher.biscuitshop.us](https://flasher.biscuitshop.us) | headless, no screen, pocket or bag | Paired phone app (iOS + Android) over Bluetooth. The phone supplies GPS and does the logging and uploading, so the board never needs Wi-Fi credentials or a GPS module. WiGLE goes over WiGLE's own API from the app. LOCOSP lists Biscuit as natively supported on [wdgwars.pl/press](https://wdgwars.pl/press) with *"integration in progress"* — read that literally before you count on leaderboard points. |
+
+If you're picking ONE for a clean newcomer experience, **Cardputer + Bruce fork** is the most turnkey (built-in keyboard + screen, no external web UI needed). If you like web dashboards over device menus, **Piglet on a XIAO C5** is the most modern. If you'd rather carry nothing with a screen and run everything from your phone, the Biscuit route is the least fiddly of all of them, at the cost of closed-source firmware and a WDGoWars path that is still being finished. The Pineapple Pager path is best only if you already own a Pager.
 
 ### 3b. Cheapest path: capture-only, upload from PC
 
@@ -97,6 +103,27 @@ Buy less, do more steps per upload.
 If you want a pre-flashed device without doing the GPS mod yourself, the [Apex 5](https://www.cnx-software.com/2026/02/11/esp32-marauder-5g-apex-5-module-for-flipper-zero-combines-esp32-c5-two-sub-ghz-radios-nrf24-and-gps/) is sold on Tindie at $99 (price per CNX Software, 2026-02-11 — re-check before buying) with Marauder + GPS already configured.
 
 **What this teaches:** ESP32 flashing (esptool), GPS modules and antennas, the difference between "device uploads" and "you upload from PC", that not all firmwares produce the same CSV shape.
+
+### 3c. Already own something else? It probably still plays
+
+The five paths above are the ones with a WDGoWars story out of the box. They are not the only firmwares that wardrive, and you do not need to rebuy hardware to join.
+
+LOCOSP's [developer page](https://wdgwars.pl/press) accepts a raw WigleWifi-1.6 file at `POST /api/upload-csv` with your API key, and says outright that the CSV route is the recommended one for firmware. **So the working rule is: if your firmware writes a WigleWifi-format CSV, you're one upload away.** Pull the SD card, run [wigle-to-wdgwars](https://github.com/HiroAlleyCat/wigle-to-wdgwars), or drop the file into the upload form on your wdgwars.pl profile.
+
+That covers a lot of hardware people already have on the shelf:
+
+| If you have | Firmware to look at | What you get |
+|---|---|---|
+| A Cheap Yellow Display board | [HaleHound-CYD](https://github.com/JesseCHale/HaleHound-CYD) (browser flasher, GPS wardriving to SD, ALPR camera detection) or [ESP32-DIV](https://github.com/cifertech/ESP32-DIV) upstream | The cheapest capable handheld in the hobby, and the one with the most active firmware right now |
+| A Cardputer or Cardputer ADV | [M5PORKCHOP](https://github.com/0ct0sec/M5PORKCHOP) WARHOG mode, or the LOCOSP Bruce fork from 3a | A second firmware to A/B against Bruce without buying anything |
+| Any of 46 assorted ESP32 boards | [GhostESP Revival](https://github.com/GhostESP-Revival/GhostESP) (WiGLE CSV export; this is the maintained GhostESP, the original repo is archived) | Broadest board coverage of any single firmware |
+| An M5Stack Atom GPS Kit | [AtomGPS Wigler](https://github.com/lozaning/AtomGPS_wigler) | Solderless, writes Wigle.net-compatible CSV, nothing else to configure |
+| A Raspberry Pi and some adapters | [Dooku](https://github.com/NSM-Barii/Dooku) (Pi 5 + Kismet + 4 adapters), [warpi](https://github.com/designer2k2/warpi), or plain Kismet | Best capture quality per drive of anything on this page |
+| A Pwnagotchi | [wardriver plugin](https://github.com/cyberartemio/wardriver-pwnagotchi-plugin) | Logs every network bettercap sees, not just handshakes, and uploads to WiGLE |
+| An Android phone and no budget | You already did this in Step 1 | Genuinely fine. Plenty of leaderboard entries are phone captures |
+| A Windows laptop | [Vistumbler](https://github.com/acalcutt/Vistumbler) | The one actively maintained Windows option |
+
+The full catalog, including what each project's docs actually claim about output format (and where they claim nothing), is in [[wardriving-hardware-survey]] §3e. Maturity signals for the long-running projects are in §10 of the same doc.
 
 ## Step 4 — Pick up the WDGoWars-only slots (aircraft + LoRa mesh)
 
@@ -172,17 +199,20 @@ Discord invite links rot. When one is dead, the project's GitHub README is the d
 
 ### Creators worth following
 
-Wardriving content is sparse on YouTube compared to nearby hobbies, so the short list below covers most of the active English-language signal.
+Wardriving content is sparse on YouTube compared to nearby hobbies, so the short list below covers most of the active English-language signal. Watch one device comparison before you buy anything: it is cheaper than a wrong purchase.
 
 | Creator | Where | What they cover |
 |---|---|---|
+| Talking Sasquach | [YouTube](https://www.youtube.com/@TalkingSasquach), [Odysee](https://odysee.com/@talkingsasquach:1) | The device shootouts. His [WDGoWars device comparison](https://odysee.com/@talkingsasquach:1/i-tested-every-wardriving-device-for:f) puts Marauder, the Pineapple Pager, a Cardputer running Porkchop, HaleHound, Biscuit Pro, and Piglet against the same game. Also Flipper Zero and HackRF. |
 | Valley Tech Solutions | [YouTube](https://www.youtube.com/@Valleytechsolutions) | WDGoWars collabs, wardriving rigs, on-device walkthroughs. |
 | justcallmekoko | [YouTube](https://www.youtube.com/justcallmekoko) | Marauder firmware demos and hardware tours from the firmware author. |
 | GhostStrats (Spooks4576) | [YouTube](https://www.youtube.com/channel/UCzSZPWtTRA4G946XRAn2XLQ) | Ghost_ESP author. ESP firmware walkthroughs across many chips. |
 | 7h30th3r0n3 | [YouTube](https://www.youtube.com/channel/UCN1sTrFbvdliXTUOsY5DkyA) | Evil-M5Project and Raspyjack demos from their author. |
 | ringmast4r | [ringmast4r.org](https://ringmast4r.org), [substack](https://ringmast4r.substack.com), [Instagram](https://www.instagram.com/ringmast4r/) | Wardriving hobby coverage and personal-scale ops writeups. Video archive lives on-site, not on a YouTube channel. |
 
-LOCOSP also maintains [wdgwars.pl/press](https://wdgwars.pl/press) for content creators covering the game, which is the canonical place to discover new WDGoWars-specific coverage as it ships.
+A longer list of channels, plus specific videos worth the click, is in [[CREDITS]] under "YouTube and video coverage".
+
+LOCOSP also maintains [wdgwars.pl/press](https://wdgwars.pl/press) for content creators covering the game, which is the canonical place to discover new WDGoWars-specific coverage as it ships. **Making videos yourself?** Put `#wdgwars` in the title or description and LOCOSP's tracker auto-features them on the game map and the press page (RSS polling, roughly every 30 minutes, no approval step). One manual step first: DM `@locosp` on Discord or GitHub to get your channel added to the tracker, since only tracked channels get scanned.
 
 ### Community shops
 
@@ -194,6 +224,9 @@ The manufacturer storefronts already linked in [[shopping-list]] are usually che
 | [Lab401](https://lab401.com) | EU | Exclusive EU distributor for Flipper Zero, Hak5, Proxmark. Avoids US-to-EU customs friction. |
 | [Hacker Warehouse](https://hackerwarehouse.com) | US | Hak5, Flipper Zero, and wardriving accessories in one US-domestic store. |
 | [LAB5 on Tindie](https://www.tindie.com/stores/lab/) and [lab5-11 Shopify](https://lab5-11.myshopify.com/) | EU (Wrocław PL), ships global | ESP32-C5 Marauder add-on PCBs: Flipper Pager mod and the M5MonsterC5 (C5 dual-band sub-1 GHz radio carrier for Cardputer ADV / Tab5). Pairs with their own [projectZero firmware](https://github.com/C5Lab). |
+| [Biscuit Shop](https://biscuitshop.us) | US, ships global | Biscuit Pro and Ultra (app-driven, no screen, phone GPS), plus a CYD 2.8" Marauder/Bruce battery + GPS mod kit if you want the CYD path without doing the wiring. The [DIY Biscuit](https://biscuitshop.us/pages/diy-biscuits) firmware and web flasher are free for C5 boards you already own. |
+| [HaleHound](https://halehound.com) | US | Complete built HaleHound units, including a 3.5" build, for people who want the firmware without sourcing a CYD plus modules. The [web flasher](https://flash.halehound.com/) is free if you'd rather build it yourself. |
+| [Midwest Gadgets](https://www.midwestgadgets.org/product-page/piglet) | US | Carries the Piglet wardriver (the 3a Path B firmware) pre-built. |
 
 For Cheap Yellow Display boards there is no canonical reseller. The community hub is [witnessmenow/ESP32-Cheap-Yellow-Display](https://github.com/witnessmenow/ESP32-Cheap-Yellow-Display); the boards themselves are sold through AliExpress, Amazon, and eBay.
 

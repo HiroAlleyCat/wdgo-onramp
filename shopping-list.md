@@ -51,7 +51,7 @@ If you want to learn: a soldering iron, lead-free solder, helping hands, and 30 
 
 ## Tier 3a — Dedicated device with on-device upload
 
-Pick **one** of the four paths below. All upload directly to WDGoWars from the device; no PC step.
+Pick **one** of the five paths below. Paths A through D upload directly to WDGoWars from the device; Path E uploads from your phone instead. Either way, no PC step.
 
 ### Path A — M5 Cardputer + LOCOSP Bruce fork (most turnkey) — *No soldering*
 
@@ -74,7 +74,7 @@ Best for: someone who likes web dashboards over device-screen menus.
 
 | Item | Where |
 |---|---|
-| XIAO ESP32-C5, S3, or C6 | [Seeed Studio XIAO series](https://www.seeedstudio.com/Seeed-XIAO-Series-c-1964.html) |
+| XIAO ESP32-C5, S3, or C6 | [Seeed Studio XIAO search](https://www.seeedstudio.com/catalogsearch/result/?q=XIAO+ESP32) — the old `Seeed-XIAO-Series-c-1964.html` category URL 404s as of 2026-07-25, so search rather than deep-linking. Spec docs at [wiki.seeedstudio.com](https://wiki.seeedstudio.com/xiao_esp32c5_getting_started/) |
 | **OR:** LilyGO T-Dongle C5 (separate variant of Piglet) | [LilyGO](https://lilygo.cc) |
 | GPS module — NEO-6M ATGM336H or compatible 5V TTL serial | varies (Amazon, AliExpress) |
 | Piglet firmware | [GitHub](https://github.com/hamspiced/piglet) |
@@ -105,6 +105,22 @@ Best for: someone comfortable with Linux + GPIO who wants a fully scriptable pla
 | USB or HAT GPS module | any vendor |
 | Raspyjack firmware + `payloads/exfiltration/wdgwars_upload.py` | [GitHub](https://github.com/7h30th3r0n3/Raspyjack) |
 
+### Path E — Biscuit (phone-driven, nothing to solder, no GPS module) — *No soldering*
+
+Best for: someone who wants to drop a board in a bag, drive, and do everything from their phone. Also the only path here that answers "what wardrives with an iPhone", since WiGLE has no iOS client.
+
+| Item | Where |
+|---|---|
+| Biscuit Pro (dual-ESP: ESP32-C5 capture + ESP32-WROOM app link, headless) | [biscuitshop.us](https://biscuitshop.us/pages/biscuit-pro) |
+| **OR:** Biscuit Ultra (bigger battery, external antennas, supports satellite nodes) | [biscuitshop.us](https://biscuitshop.us/products/biscuit-ultra) |
+| **OR (free firmware route):** any ESP32-C5 module with at least 8 MB flash + 8 MB PSRAM. LilyGO [T-Dongle C5](https://lilygo.cc/products/t-dongle-c5), [Seeed XIAO ESP32C5](https://www.seeedstudio.com/catalogsearch/result/?q=XIAO+ESP32C5), or a Waveshare / generic C5 dev board | board list per the [DIY Biscuits page](https://biscuitshop.us/pages/diy-biscuits) |
+| DIY Biscuit firmware + browser flasher | [flasher.biscuitshop.us](https://flasher.biscuitshop.us), instructions on the [DIY Biscuits page](https://biscuitshop.us/pages/diy-biscuits) |
+| Biscuit Manager app | [App Store](https://apps.apple.com/us/app/biscuit-manager/id6756760364) / Google Play |
+
+No GPS module needed: the phone's GPS tags the captures and the app does the logging and uploading. Firmware updates go over Wi-Fi OTA from the app.
+
+Two honest caveats before you pick this path. The firmware is **closed source** and distributed as binaries, so it is the one path in this tier whose upload behavior you cannot read for yourself. And LOCOSP's [press page](https://wdgwars.pl/press) lists Biscuit as natively supported *"(integration in progress)"* — WiGLE works today over WiGLE's own API; treat WDGoWars scoring as still landing. The DIY route costs nothing but a board you may already own, which makes it a cheap way to test the workflow before buying hardware.
+
 ## Tier 3b — Cheapest path (capture-only, you upload from PC)
 
 ### Bare ESP32-WROOM or CYD + GPS + Marauder — *Soldering required*
@@ -123,6 +139,23 @@ Cheapest entry into dedicated hardware, more steps per upload.
 | wigle-to-wdgwars (for SD pulls) | [GitHub](https://github.com/Yggdrasil-AI-labs/wigle-to-wdgwars) |
 
 GPS module is mandatory — without it, Marauder writes empty wardrive dumps. See [[wardriving-hardware-survey]] §3 for the source-code reference.
+
+### CYD + HaleHound — *Soldering optional*
+
+Best for: someone who wants the most active handheld firmware on the cheapest capable screen, and would rather flash from a browser than from a toolchain.
+
+| Item | Where |
+|---|---|
+| Cheap Yellow Display (2.8" or 3.5") | AliExpress; tested boards and pinouts at [witnessmenow/ESP32-Cheap-Yellow-Display](https://github.com/witnessmenow/ESP32-Cheap-Yellow-Display) |
+| **OR:** complete built HaleHound unit (skips all assembly) | [halehound.com](https://halehound.com) |
+| **OR:** CYD 2.8" battery + GPS mod DIY kit | [Biscuit Shop](https://biscuitshop.us/collections/products) |
+| GPS module — GT-U7 or NEO-6M (needed for wardriving) | Amazon / AliExpress |
+| microSD card, FAT32 | any |
+| HaleHound firmware | browser flasher at [flash.halehound.com](https://flash.halehound.com/); source at [JesseCHale/HaleHound-CYD](https://github.com/JesseCHale/HaleHound-CYD) |
+| Docs | [segfault.solutions/halehound](https://segfault.solutions/halehound) |
+| wigle-to-wdgwars (for SD pulls) | [GitHub](https://github.com/HiroAlleyCat/wigle-to-wdgwars) |
+
+Optional add-ons the firmware supports: CC1101 (sub-GHz), NRF24L01+PA+LNA (2.4 GHz), PN532 (NFC/RFID). None of them are needed for wardriving. No WDGoWars uploader, so this is an SD-pull-then-feeder path. Same hardware also runs Bruce and Marauder, so a CYD is the least committal board on this page: see [[wardriving-hardware-survey]] §4.
 
 ### Apex 5 — pre-flashed Marauder + GPS — *No soldering*
 
@@ -289,7 +322,7 @@ A HackRF One with a screen, keypad, and battery sled. Runs the [Mayhem](https://
 | HackRF One | [greatscottgadgets.com/hackrf](https://greatscottgadgets.com/hackrf/one/) — half-duplex 1 MHz–6 GHz, 20 Msps |
 | PortaPack H4M (current rev) or H2M | search vendors for "HackRF PortaPack H4M" / "H2M" — shell + screen + keypad + battery housing for the HackRF |
 | Mayhem firmware | [portapack-mayhem/mayhem-firmware](https://github.com/portapack-mayhem/mayhem-firmware) — flash via DFU, replaces the stock Havok/PortaPack firmware |
-| Optional: extra LiPo packs + telescoping whip | any | for field use |
+| Optional: extra LiPo packs + telescoping whip | any vendor, for field use |
 
 Standalone use cases: ADS-B / AIS / POCSAG capture in the field, sub-GHz capture (315/433/868 MHz), GSM survey, Wi-Fi beacon spotter, recordings to microSD. Not a WDGoWars uploader on its own — pull the SD output to a PC and run it through Muninn (aircraft) or wigle-to-wdgwars (Wi-Fi CSV).
 
@@ -388,13 +421,15 @@ The manufacturer storefronts above ship globally but rarely fastest or cheapest.
 | [Hacker Warehouse](https://hackerwarehouse.com) | US | Hak5, Flipper Zero, and wardriving accessories in one US-domestic store. |
 | [hamspiced on Tindie](https://www.tindie.com/stores/hamspiced/) + [Midwest Gadgets Piglet product page](https://www.midwestgadgets.org/product-page/piglet) | global | Pre-flashed Piglet hardware if you'd rather skip the flash step on Tier 3a Path B. |
 | [LAB5 on Tindie](https://www.tindie.com/stores/lab/) + [lab5-11 Shopify](https://lab5-11.myshopify.com/) | EU (Wrocław PL), ships global | ESP32-C5 Marauder add-on PCBs: LAB ESP32C5 (Flipper Pager mod) and M5MonsterC5 (Cardputer ADV / Tab5 carrier). Pairs with [C5Lab/projectZero firmware](https://github.com/C5Lab/projectZero). |
+| [Biscuit Shop](https://biscuitshop.us) | US, ships global | Biscuit Pro and Ultra (Tier 3a Path E), plus a CYD 2.8" Marauder/Bruce battery + GPS mod DIY kit. The [DIY Biscuit](https://biscuitshop.us/pages/diy-biscuits) firmware and web flasher are free for ESP32-C5 boards you already own. |
+| [HaleHound](https://halehound.com) | US | Complete built HaleHound units including a 3.5" build. Firmware and [web flasher](https://flash.halehound.com/) are free if you'd rather assemble a CYD yourself. |
 
 ## What NOT to buy (newcomer trap)
 
 - **Bare ESP32-C3 boards as a wardriving target.** Marauder has no C3 binary, Bruce has no C3 port, GhostESP runs but the output lacks BSSID on some commands. C3 is poorly served by stock firmware. If you have one, treat it as a "build your own ESPHome probe firmware" project, not a turnkey wardriver. Details in [[wardriving-hardware-survey]] §3.
 - **A second device on the same API key thinking it doubles your points.** Same key on two devices is one driver with two feeders, not two contesting drivers. See [[wdgo-newcomer-progression]] § Common pitfalls.
 - **Marauder firmware without a GPS module.** The wardrive dumps will be empty. GPS is mandatory, not optional.
-- **iPhone for the capture side.** No official WiGLE app on iOS. There are third-party scanners but none of them feed WiGLE-format CSV cleanly.
+- **iPhone alone for the capture side.** No official WiGLE app on iOS, and the third-party scanners don't feed WiGLE-format CSV cleanly. The workaround is an iPhone plus a board that pairs to it: Biscuit (Tier 3a Path E) is the current answer, where the phone supplies GPS and the upload while the board supplies the radio.
 
 ## Credits for everything listed
 

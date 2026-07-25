@@ -22,8 +22,8 @@ git clone https://github.com/HiroAlleyCat/wdgo-onramp.git
 | [wdgo-newcomer-progression.md](wdgo-newcomer-progression.md) | The five-step onramp. Start here. |
 | [wdgo-capture-flow.canvas](wdgo-capture-flow.canvas) | The same progression as an Obsidian canvas flow diagram. |
 | [shopping-list.md](shopping-list.md) | Buyer's checklist for each tier — hardware, software, and where to get it. Vendor links, no fabricated prices. |
-| [wardriving-hardware-survey.md](wardriving-hardware-survey.md) | Reference: full firmware × chip support matrix, all WDGoWars community tools, decision tree, API gotchas. |
-| [CREDITS.md](CREDITS.md) | Acknowledgments for the maintainers, projects, and vendors that make this whole ecosystem possible. Also the comprehensive repo + vendor index. |
+| [wardriving-hardware-survey.md](wardriving-hardware-survey.md) | Reference: full firmware × chip support matrix, the wider firmware catalog (§3e — everything that wardrives, including the firmwares with no WDGoWars uploader), maturity signals for the long-running repos (§10), all WDGoWars community tools, decision tree, API gotchas. |
+| [CREDITS.md](CREDITS.md) | Acknowledgments for the maintainers, projects, and vendors that make this whole ecosystem possible. Also the comprehensive repo + vendor index, the YouTube channel and video list, and the shops. |
 
 For developers writing a feeder in a new language, the signed-JSON envelope shape is implemented in [gungnir](https://github.com/Yggdrasil-AI-labs/gungnir) (Python) and mirrored by LOCOSP's reference uploader at [`plugins/wardrive_upload.py`](https://github.com/LOCOSP/WatchDogsGo/blob/main/plugins/wardrive_upload.py) in [WatchDogsGo](https://github.com/LOCOSP/WatchDogsGo). Read both — between them they cover the auth header, HMAC construction, retry/cooldown, and the slot-typed payload shape.
 
