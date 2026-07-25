@@ -1,7 +1,7 @@
 ---
 title: wdgwars-onramp
 description: A leveled guide for new wardrivers, from WiGLE on your phone to advanced multi-source capture
-brand: WDGOWARS
+brand: WDGWARS
 tagline: / on-ramp / shopping / hardware / spec / credits /
 ---
 
