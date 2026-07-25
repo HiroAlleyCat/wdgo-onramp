@@ -1,6 +1,6 @@
 ---
 title: Capture flow
-description: The five-step WDGoWars onramp visualized as a flow diagram
+description: The five-step WDGWars onramp visualized as a flow diagram
 brand: CAPTURE FLOW
 tagline: / five-step progression / visual map /
 ---
@@ -36,7 +36,7 @@ flowchart LR
     s3b_marauder -->|SD pull| s3b_sd[wigle-to-wdgwars<br/>pads 1.4 to 1.6]
     s3b_sd --> wdgwars_csv
 
-    %% Step 4 — WDGoWars-only slots
+    %% Step 4 — WDGWars-only slots
     s4_sdr[RTL-SDR<br/>+ 1090 MHz antenna] --> s4_dump[dump1090 / readsb]
     s4_dump --> s4_muninn[Muninn<br/>adsb-to-wdgwars v2.0.16]
     s4_lora[LoRa node<br/>Heltec / TTGO] --> s4_mm[MeshMapper CSV]

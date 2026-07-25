@@ -26,13 +26,13 @@ The cheapest possible start. Validate you like the hobby before spending money.
 | WiGLE Wifi Wardriving | [Google Play](https://play.google.com/store/apps/details?id=net.wigle.wigleandroid) | Official WiGLE app. Free. |
 | WiGLE account | [wigle.net](https://wigle.net) | Free signup. |
 
-## Tier 2 — Cross-post WiGLE captures to WDGoWars
+## Tier 2 — Cross-post WiGLE captures to WDGWars
 
 Same Tier-1 hardware. Add software + a second account.
 
 | Item | Where | Notes |
 |---|---|---|
-| WDGoWars account + API key | [wdgwars.pl/profile](https://wdgwars.pl/profile) | Free. Profile → API Keys → generate. |
+| WDGWars account + API key | [wdgwars.pl/profile](https://wdgwars.pl/profile) | Free. Profile → API Keys → generate. |
 | wigle-to-wdgwars feeder | [GitHub](https://github.com/Yggdrasil-AI-labs/wigle-to-wdgwars) | `./run.sh --setup` walks you through both keys. |
 | Python 3.9+ on your PC | OS package manager | Required to run the feeder. |
 
@@ -51,7 +51,7 @@ If you want to learn: a soldering iron, lead-free solder, helping hands, and 30 
 
 ## Tier 3a — Dedicated device with on-device upload
 
-Pick **one** of the five paths below. Paths A through D upload directly to WDGoWars from the device; Path E uploads from your phone instead. Either way, no PC step.
+Pick **one** of the five paths below. Paths A through D upload directly to WDGWars from the device; Path E uploads from your phone instead. Either way, no PC step.
 
 ### Path A — M5 Cardputer + LOCOSP Bruce fork (most turnkey) — *No soldering*
 
@@ -66,7 +66,7 @@ Best for: someone who wants the easiest end-to-end experience with a built-in sc
 
 Flash via esptool or M5Burner. Set `bruceConfig.wdgwarsApiKey` in the device config.
 
-**Optional C5 dual-band upgrade for Cardputer ADV / Tab5:** the [LAB5 M5MonsterC5](https://www.tindie.com/stores/lab/) add-on adds an ESP32-C5 + sub-1 GHz radio carrier. Pair with [C5Lab/projectZero firmware](https://github.com/C5Lab/projectZero) for the Marauder/projectZero feature set on a Cardputer chassis. Adds capture surfaces (2.4 GHz, 5 GHz, sub-1 GHz) the stock Cardputer can't reach. Not required for WDGoWars uploads, but worth knowing about for hardware-curious newcomers who landed on Path A.
+**Optional C5 dual-band upgrade for Cardputer ADV / Tab5:** the [LAB5 M5MonsterC5](https://www.tindie.com/stores/lab/) add-on adds an ESP32-C5 + sub-1 GHz radio carrier. Pair with [C5Lab/projectZero firmware](https://github.com/C5Lab/projectZero) for the Marauder/projectZero feature set on a Cardputer chassis. Adds capture surfaces (2.4 GHz, 5 GHz, sub-1 GHz) the stock Cardputer can't reach. Not required for WDGWars uploads, but worth knowing about for hardware-curious newcomers who landed on Path A.
 
 ### Path B — XIAO ESP32 + Piglet (most modern, web UI) — *Soldering required*
 
@@ -89,11 +89,11 @@ Best for: someone who already owns or wants a Hak5 device.
 |---|---|
 | WiFi Pineapple Pager | [shop.hak5.org](https://shop.hak5.org) — search "Pineapple Pager" |
 | u-blox 7 USB GPS stick | search any vendor for "u-blox 7 USB GPS" |
-| LOCOSP Pineapple WDGoWars payload | [GitHub](https://github.com/LOCOSP/pineapple_pager_wdgwars) |
+| LOCOSP Pineapple WDGWars payload | [GitHub](https://github.com/LOCOSP/pineapple_pager_wdgwars) |
 
 Requires a 3D GPS fix before scanning starts. Manual "SYNC NOW" button to upload.
 
-### Path D — Raspyjack rig + WDGoWars payload (Pi-based) — *No soldering*
+### Path D — Raspyjack rig + WDGWars payload (Pi-based) — *No soldering*
 
 Best for: someone comfortable with Linux + GPIO who wants a fully scriptable platform.
 
@@ -119,7 +119,7 @@ Best for: someone who wants to drop a board in a bag, drive, and do everything f
 
 No GPS module needed: the phone's GPS tags the captures and the app does the logging and uploading. Firmware updates go over Wi-Fi OTA from the app.
 
-Two honest caveats before you pick this path. The firmware is **closed source** and distributed as binaries, so it is the one path in this tier whose upload behavior you cannot read for yourself. And LOCOSP's [press page](https://wdgwars.pl/press) lists Biscuit as natively supported *"(integration in progress)"* — WiGLE works today over WiGLE's own API; treat WDGoWars scoring as still landing. The DIY route costs nothing but a board you may already own, which makes it a cheap way to test the workflow before buying hardware.
+Two honest caveats before you pick this path. The firmware is **closed source** and distributed as binaries, so it is the one path in this tier whose upload behavior you cannot read for yourself. And LOCOSP's [press page](https://wdgwars.pl/press) lists Biscuit as natively supported *"(integration in progress)"* — WiGLE works today over WiGLE's own API; treat WDGWars scoring as still landing. The DIY route costs nothing but a board you may already own, which makes it a cheap way to test the workflow before buying hardware.
 
 ## Tier 3b — Cheapest path (capture-only, you upload from PC)
 
@@ -155,7 +155,7 @@ Best for: someone who wants the most active handheld firmware on the cheapest ca
 | Docs | [segfault.solutions/halehound](https://segfault.solutions/halehound) |
 | wigle-to-wdgwars (for SD pulls) | [GitHub](https://github.com/HiroAlleyCat/wigle-to-wdgwars) |
 
-Optional add-ons the firmware supports: CC1101 (sub-GHz), NRF24L01+PA+LNA (2.4 GHz), PN532 (NFC/RFID). None of them are needed for wardriving. No WDGoWars uploader, so this is an SD-pull-then-feeder path. Same hardware also runs Bruce and Marauder, so a CYD is the least committal board on this page: see [[wardriving-hardware-survey]] §4.
+Optional add-ons the firmware supports: CC1101 (sub-GHz), NRF24L01+PA+LNA (2.4 GHz), PN532 (NFC/RFID). None of them are needed for wardriving. No WDGWars uploader, so this is an SD-pull-then-feeder path. Same hardware also runs Bruce and Marauder, so a CYD is the least committal board on this page: see [[wardriving-hardware-survey]] §4.
 
 ### Apex 5 — pre-flashed Marauder + GPS — *No soldering*
 
@@ -183,7 +183,7 @@ Same GPS rule as bare Marauder: no module, no wardrive lines. The Flipper provid
 
 ### Pwnagotchi (handshake-focused, not WiGLE-CSV native) — *No soldering*
 
-Best for: someone who specifically wants the Pwnagotchi build for the WPA handshake side of the hobby. Listed here because newcomers ask about it constantly. **Pwnagotchi does NOT produce WigleWifi-1.6 CSV out of the box** — it captures PCAP handshakes and (with the GPS plugin) location-tagged metadata. Conversion path to WDGoWars exists but isn't a one-liner. Don't buy a Pwnagotchi expecting points-per-mile parity with a Marauder rig.
+Best for: someone who specifically wants the Pwnagotchi build for the WPA handshake side of the hobby. Listed here because newcomers ask about it constantly. **Pwnagotchi does NOT produce WigleWifi-1.6 CSV out of the box** — it captures PCAP handshakes and (with the GPS plugin) location-tagged metadata. Conversion path to WDGWars exists but isn't a one-liner. Don't buy a Pwnagotchi expecting points-per-mile parity with a Marauder rig.
 
 | Item | Where |
 |---|---|
@@ -209,9 +209,9 @@ Best for: someone who wants the most-screen-real-estate option.
 
 The Hackster post is the recipe — the project doesn't have a one-click installer yet.
 
-## Tier 4 — WDGoWars-only data slots
+## Tier 4 — WDGWars-only data slots
 
-These data types only score on WDGoWars; WiGLE doesn't accept them.
+These data types only score on WDGWars; WiGLE doesn't accept them.
 
 ### ADS-B aircraft (Muninn feeder)
 
@@ -241,7 +241,7 @@ Pocket-portable, captures other LoRa nodes within radio range. **MeshCore is the
 
 ### Meshtastic-ecosystem gear (related but different protocol)
 
-If you're getting into the broader LoRa scene rather than specifically chasing the WDGoWars MeshCore slot, Meshtastic is the more popular mesh protocol. The hardware below runs both Meshtastic and (on most boards) MeshCore — pick the firmware after picking the goal. Re-flash to MeshCore if you want Heimdall to ingest it today.
+If you're getting into the broader LoRa scene rather than specifically chasing the WDGWars MeshCore slot, Meshtastic is the more popular mesh protocol. The hardware below runs both Meshtastic and (on most boards) MeshCore — pick the firmware after picking the goal. Re-flash to MeshCore if you want Heimdall to ingest it today.
 
 | Item | Where |
 |---|---|
@@ -254,7 +254,7 @@ If you're getting into the broader LoRa scene rather than specifically chasing t
 | RAK4631 (nRF52840 + SX1262 core module) | [store.rakwireless.com](https://store.rakwireless.com) — the silicon most other Meshtastic builds share |
 | Nano-G1 / Nano-G1 Explorer | B&Q Consulting, minimalist credit-card-sized Meshtastic node. **Their site did not respond on 2026-07-25** (`bnqconsulting.com` resolves but serves nothing), so check current availability on the [Meshtastic hardware list](https://meshtastic.org/docs/hardware/devices/) before planning around it. |
 | Meshtastic firmware | [meshtastic.org](https://meshtastic.org) — official documentation + flashing tool |
-| MeshCore firmware (the WDGoWars-supported alternative) | [meshcore.co.uk](https://meshcore.co.uk) — flash this instead if your goal is the Heimdall feed |
+| MeshCore firmware (the WDGWars-supported alternative) | [meshcore.co.uk](https://meshcore.co.uk) — flash this instead if your goal is the Heimdall feed |
 
 ## Tier 5 — Always-on capture lab
 
@@ -268,7 +268,7 @@ A scaled-up rig for serious coverage. Most of these you already have if you've r
 | External battery / power bank (for mobile use) | any |
 | Kismet | [kismetwireless.net](https://www.kismetwireless.net) — install via package manager on Pi |
 | Multiple ESP32 fleet (mix of Bruce + Marauder + Piglet on different channels) | per Tier 3 paths |
-| Separate WDGoWars API key per attribution stream | [wdgwars.pl/profile](https://wdgwars.pl/profile) — one key = one driver |
+| Separate WDGWars API key per attribution stream | [wdgwars.pl/profile](https://wdgwars.pl/profile) — one key = one driver |
 
 ## Tier 6 — Portable Linux rigs (run the game + capture on one device)
 
@@ -324,7 +324,7 @@ A HackRF One with a screen, keypad, and battery sled. Runs the [Mayhem](https://
 | Mayhem firmware | [portapack-mayhem/mayhem-firmware](https://github.com/portapack-mayhem/mayhem-firmware) — flash via DFU, replaces the stock Havok/PortaPack firmware |
 | Optional: extra LiPo packs + telescoping whip | any vendor, for field use |
 
-Standalone use cases: ADS-B / AIS / POCSAG capture in the field, sub-GHz capture (315/433/868 MHz), GSM survey, Wi-Fi beacon spotter, recordings to microSD. Not a WDGoWars uploader on its own — pull the SD output to a PC and run it through Muninn (aircraft) or wigle-to-wdgwars (Wi-Fi CSV).
+Standalone use cases: ADS-B / AIS / POCSAG capture in the field, sub-GHz capture (315/433/868 MHz), GSM survey, Wi-Fi beacon spotter, recordings to microSD. Not a WDGWars uploader on its own — pull the SD output to a PC and run it through Muninn (aircraft) or wigle-to-wdgwars (Wi-Fi CSV).
 
 ### Higher-tier SDRs (computer-attached)
 
@@ -381,7 +381,7 @@ Different antenna types for different jobs. Most ADS-B feeders just need the Fli
 
 ### IMSI-catcher detectors (RX-only, defensive use)
 
-Different game from the rest of Tier 7 — these don't feed WDGoWars at all, but they're listed here because they reuse the same SDR you bought for ADS-B. **RX-only**: passively log cellular base stations and flag anomalies suggesting a rogue eNB. Transmitting on cellular bands is a federal felony in most countries; these tools strictly receive.
+Different game from the rest of Tier 7 — these don't feed WDGWars at all, but they're listed here because they reuse the same SDR you bought for ADS-B. **RX-only**: passively log cellular base stations and flag anomalies suggesting a rogue eNB. Transmitting on cellular bands is a federal felony in most countries; these tools strictly receive.
 
 | Tool | Where |
 |---|---|

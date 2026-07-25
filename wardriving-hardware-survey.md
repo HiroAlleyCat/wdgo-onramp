@@ -7,11 +7,11 @@ related:
   - "[[wdgo-capture-flow]]"
 ---
 
-# Wardriving hardware + firmware survey for WDGoWars
+# Wardriving hardware + firmware survey for WDGWars
 
 > Citation policy: every concrete claim about a firmware/repo/chip has an inline link to a primary source pulled live on 2026-06-02 (release versions, dates, and star counts re-pulled 2026-07-20). Prices are intentionally absent — see §6 for the reasoning. A handful of cells are labeled "field-tested but not citable from public docs" — those are working knowledge from running the feeders, flagged so a future maintainer can re-verify if they doubt the claim.
 
-> **2026-07-25 pass:** §3e (the wider firmware catalog, covering everything that wardrives without a WDGoWars uploader) and §10 (maturity signals for the long-running repos) are new. §4 gained a caveat because Ghost_ESP is now archived, §A gained the WDGWars rebrand note, and Biscuit's app-mediated upload path is detailed in §3. Star counts and last-push dates in the new sections came from `gh api repos/<owner>/<repo>` on 2026-07-25.
+> **2026-07-25 pass:** §3e (the wider firmware catalog, covering everything that wardrives without a WDGWars uploader) and §10 (maturity signals for the long-running repos) are new. §4 gained a caveat because Ghost_ESP is now archived, §A gained the WDGWars rebrand note, and Biscuit's app-mediated upload path is detailed in §3. Star counts and last-push dates in the new sections came from `gh api repos/<owner>/<repo>` on 2026-07-25.
 
 > **Looking for the newcomer onramp?** See [[wdgo-newcomer-progression]] for the leveled walkthrough from "just got an Android phone" → "lab-scale capture." The companion canvas at [[wdgo-capture-flow]] visualizes the same paths as a flow diagram.
 
@@ -21,7 +21,7 @@ Two server-side upload paths exist. Picking firmware mostly reduces to which pat
 
 | Path | Endpoint | Auth | Format | Notes |
 |---|---|---|---|---|
-| Bulk WiFi/BLE CSV | `POST /api/upload-csv` | `X-API-Key` header, multipart | WigleWifi-1.6 CSV | Used by Bruce-WDGoWars fork on-device and by the Pineapple Pager payload — confirmed in primary source READMEs cited below. |
+| Bulk WiFi/BLE CSV | `POST /api/upload-csv` | `X-API-Key` header, multipart | WigleWifi-1.6 CSV | Used by Bruce-WDGWars fork on-device and by the Pineapple Pager payload — confirmed in primary source READMEs cited below. |
 | Signed JSON envelope | `POST /api/upload/` | HMAC via `gungnir` | JSON, slot-typed (`aircraft`, `meshcore_nodes`, …) | Used by HiroAlleyCat feeders (Muninn, Heimdall, wigle-to-wdgwars). |
 
 A `/endpoint/*` mirror exists for clients that want to dodge Cloudflare's L7 rate limit on `/api/*` (returns 429 + code 1027 on cold-IP bursts). The shared transport handles this at the library layer — `gungnir` tag [v0.1.2](https://github.com/Yggdrasil-AI-labs/gungnir/releases/tag/v0.1.2) flipped the default base URL; pin >= v0.1.2 to inherit. Hand-rolled HTTP clients (Bruce on-device, anything you write yourself) need the URL flip too if they want the bypass.
@@ -41,44 +41,44 @@ flowchart LR
     class csv,json pcside
 ```
 
-## 2. Firmwares that upload to WDGoWars directly (on-device, no PC needed)
+## 2. Firmwares that upload to WDGWars directly (on-device, no PC needed)
 
-Five projects verified to upload to WDGoWars from the capture device itself (the first four as of 2026-06-02; ESP32 Dual Band Wardriver added 2026-07-20).
+Five projects verified to upload to WDGWars from the capture device itself (the first four as of 2026-06-02; ESP32 Dual Band Wardriver added 2026-07-20).
 
 | Firmware | Hardware | Upload path | Source citation |
 |---|---|---|---|
 | **LOCOSP Bruce fork** ([repo](https://github.com/LOCOSP/bruce-firmware-wdgwars), tag [`v1.0-wdgwars`](https://github.com/LOCOSP/bruce-firmware-wdgwars/releases/tag/v1.0-wdgwars) released 2026-04-09) | M5 family + everything upstream Bruce supports — see §4 | `POST /api/upload-csv`, WigleWifi-1.6 | Tree at the tag contains [`src/modules/gps/wdgwars.cpp`](https://github.com/LOCOSP/bruce-firmware-wdgwars/blob/v1.0-wdgwars/src/modules/gps/wdgwars.cpp) (verified via `gh api .../git/trees/v1.0-wdgwars?recursive=1`). |
 | **Piglet** ([hamspiced/piglet](https://github.com/hamspiced/piglet), 198 stars, last push 2026-07-23 as of the 2026-07-25 check) | XIAO ESP32-C5, S3, C6; separate T-Dongle C5 variant. C++ Arduino-based firmware. Designed for XIAO + external GPS. | `POST /api/upload-csv` for bulk + `GET /api/me` for key validation. X-API-Key header. Controlled via browser web UI — "Test Key" / "Upload All" buttons. | Verified live via code search: [`Arduino Files/Piglet/WigleUpload.h`](https://github.com/hamspiced/piglet/blob/main/Arduino%20Files/Piglet/WigleUpload.h) declares `wdgwarsTestKey()`, `uploadFileToWdgwars()`, `uploadAllCsvsToWdgwars()`. UI element labeled `<label>WDGoWars API Key</label>` with link to `wdgwars.pl/profile`. Adds C5/S3/C6 to the on-device-uploader chip support set. |
-| **LOCOSP Pineapple Pager WDGoWars** ([repo](https://github.com/LOCOSP/pineapple_pager_wdgwars)) | Hak5 WiFi Pineapple Pager + u-blox 7 USB GPS stick | `POST /api/upload-csv`, WigleWifi-1.6 | README quotes verbatim: *"Stores everything as standard WigleWifi-1.6 CSV"* and *"Manual SYNC NOW uploads pending CSVs to POST /api/upload-csv"*. GPS is mandatory: *"3D fix required before scan starts."* |
-| **Raspyjack WDGoWars payload** ([repo](https://github.com/7h30th3r0n3/Raspyjack), payload at [`payloads/exfiltration/wdgwars_upload.py`](https://github.com/7h30th3r0n3/Raspyjack/blob/main/payloads/exfiltration/wdgwars_upload.py)) | Raspberry Pi + LCD 1.44" + GPIO buttons (same Raspyjack base unit) | `POST /api/upload-csv` for CSV + `/api/upload` for JSON + `/api/me` for profile checks, X-API-Key header, multipart Wigle CSV | Payload script reads from `/root/Raspyjack/loot/wardriving/sessions/`. Raspyjack repo description doesn't mention WDGoWars — the upload path lives only in this payload file. |
-| **ESP32 Dual Band Wardriver** ([justcallmekoko/ESP32DualBandWardriver](https://github.com/justcallmekoko/ESP32DualBandWardriver), 184 stars, v2.3.0 released 2026-07-09) | ESP32-C5-DevKitC-1 v1.2 — dual-band 2.4 + 5 GHz WiFi + BLE. GPS required for Solo/Core modes; Node mode runs without GPS. | Direct upload to WDGoWars from the web UI via a stored WDGWars API key; also writes WiGLE-format CSV to SD. Exact endpoint not documented in the public README — verify the route before depending on it. | By the ESP32 Marauder author. Web-UI config lists *"WDG Wars API key — for direct log upload to WDGWars"* alongside the WiGLE path. This is the dedicated firmware that actually uses the C5's 5 GHz radio (see §4). |
+| **LOCOSP Pineapple Pager WDGWars** ([repo](https://github.com/LOCOSP/pineapple_pager_wdgwars)) | Hak5 WiFi Pineapple Pager + u-blox 7 USB GPS stick | `POST /api/upload-csv`, WigleWifi-1.6 | README quotes verbatim: *"Stores everything as standard WigleWifi-1.6 CSV"* and *"Manual SYNC NOW uploads pending CSVs to POST /api/upload-csv"*. GPS is mandatory: *"3D fix required before scan starts."* |
+| **Raspyjack WDGWars payload** ([repo](https://github.com/7h30th3r0n3/Raspyjack), payload at [`payloads/exfiltration/wdgwars_upload.py`](https://github.com/7h30th3r0n3/Raspyjack/blob/main/payloads/exfiltration/wdgwars_upload.py)) | Raspberry Pi + LCD 1.44" + GPIO buttons (same Raspyjack base unit) | `POST /api/upload-csv` for CSV + `/api/upload` for JSON + `/api/me` for profile checks, X-API-Key header, multipart Wigle CSV | Payload script reads from `/root/Raspyjack/loot/wardriving/sessions/`. Raspyjack repo description doesn't mention WDGWars — the upload path lives only in this payload file. |
+| **ESP32 Dual Band Wardriver** ([justcallmekoko/ESP32DualBandWardriver](https://github.com/justcallmekoko/ESP32DualBandWardriver), 184 stars, v2.3.0 released 2026-07-09) | ESP32-C5-DevKitC-1 v1.2 — dual-band 2.4 + 5 GHz WiFi + BLE. GPS required for Solo/Core modes; Node mode runs without GPS. | Direct upload to WDGWars from the web UI via a stored WDGWars API key; also writes WiGLE-format CSV to SD. Exact endpoint not documented in the public README — verify the route before depending on it. | By the ESP32 Marauder author. Web-UI config lists *"WDG Wars API key — for direct log upload to WDGWars"* alongside the WiGLE path. This is the dedicated firmware that actually uses the C5's 5 GHz radio (see §4). |
 
 > Piglet was wrongly listed as "not found" in §A of v3 — that was a search-term issue (looked for `wdgwars piglet` instead of `hamspiced piglet`). Reinstated to §2 as the third confirmed on-device uploader after a Marauder-ecosystem deep-dive surfaced [`hamspiced/piglet`](https://github.com/hamspiced/piglet). Raspyjack was similarly reinstated in v4 after the README-only dismissal turned out to miss the payload script.
 
-> **In development — HellzGate C5.** [Hellz0wnzJ00/hellzgate](https://github.com/Hellz0wnzJ00/hellzgate) is an ESP32-C5 multi-node passive survey array — one master coordinating up to nine scanner nodes over an I²C backplane, dual-band 2.4/5 GHz Wi-Fi + BLE, onboard GPS, microSD, OLED, USB-C — by Hellz (Sean Clossey), a WDGoWars Discord mod. Per its README, WiGLE / WDGoWars upload is **firmware Phase 3 — planned, not yet shipped**, and the firmware is proprietary/closed-source (the repo is product info + links only, no releases yet). Listed here so the family is visible; it graduates to the verified table above once on-device upload ships. Site: [hellzgate.com](https://hellzgate.com).
+> **In development — HellzGate C5.** [Hellz0wnzJ00/hellzgate](https://github.com/Hellz0wnzJ00/hellzgate) is an ESP32-C5 multi-node passive survey array — one master coordinating up to nine scanner nodes over an I²C backplane, dual-band 2.4/5 GHz Wi-Fi + BLE, onboard GPS, microSD, OLED, USB-C — by Hellz (Sean Clossey), a WDGWars Discord mod. Per its README, WiGLE / WDGWars upload is **firmware Phase 3 — planned, not yet shipped**, and the firmware is proprietary/closed-source (the repo is product info + links only, no releases yet). Listed here so the family is visible; it graduates to the verified table above once on-device upload ships. Site: [hellzgate.com](https://hellzgate.com).
 
 ## 3. Capture firmwares that need a PC-side feeder
 
-These firmwares produce useful capture data but don't upload to WDGoWars directly. Convert via [wigle-to-wdgwars](https://github.com/Yggdrasil-AI-labs/wigle-to-wdgwars) (for WiGLE-compatible CSV) or the slot-typed feeders.
+These firmwares produce useful capture data but don't upload to WDGWars directly. Convert via [wigle-to-wdgwars](https://github.com/Yggdrasil-AI-labs/wigle-to-wdgwars) (for WiGLE-compatible CSV) or the slot-typed feeders.
 
 | Firmware | Hardware fit (current release) | Output | Feeder needed |
 |---|---|---|---|
 | **ESP32 Marauder v1.13.0** ([release](https://github.com/justcallmekoko/ESP32Marauder/releases/tag/v1.13.0), repo 11.6k+ stars, nightlies near-daily) | See §4 chip matrix | WigleWifi-1.4 (11 cols, missing Frequency/RCOIs/MfgrId) to SD — verified at [`WiFiScan.h:682`](https://github.com/justcallmekoko/ESP32Marauder/blob/master/esp32_marauder/WiFiScan.h#L682) hard-coding `WigleWifi-1.4` + 11-field header. wardrive_line construction at WiFi `:4508` and BLE `:547`/`:1132`/`:4646`/`:7346` emits those 11 fields. | wigle-to-wdgwars after SD pull (pads to 1.6). **Marauder requires a GPS module attached** — without it the wardrive dumps are empty. Verified at [`WiFiScan.cpp:515-551`](https://github.com/justcallmekoko/ESP32Marauder/blob/master/esp32_marauder/WiFiScan.cpp#L515) gating `wardrive_line` behind `getGpsModuleStatus()` AND `getFixStatus()`. GPS modification community is well-documented — [official wiki](https://github.com/justcallmekoko/ESP32Marauder/wiki/gps-modification) lists Teyleten Robot ATGM336H NEO-6M + DWEII GY-NEO6MV2 with pin tables. |
-| **Bruce upstream 1.16** ([release](https://github.com/BruceDevices/firmware/releases/tag/1.16), 2026-07-24) | See §4 chip matrix | WigleWifi CSV to SD | Upstream Bruce does NOT have the WDGoWars upload path — only the LOCOSP fork does. SD pull → wigle-to-wdgwars, OR flash the LOCOSP fork. |
+| **Bruce upstream 1.16** ([release](https://github.com/BruceDevices/firmware/releases/tag/1.16), 2026-07-24) | See §4 chip matrix | WigleWifi CSV to SD | Upstream Bruce does NOT have the WDGWars upload path — only the LOCOSP fork does. SD pull → wigle-to-wdgwars, OR flash the LOCOSP fork. |
 | **GhostESP VA1.4.8** ([release](https://github.com/Spooks4576/Ghost_ESP/releases/tag/VA1.4.8), released 2025-03-31 — no release in 15+ months as of 2026-07-20) | See §4 chip matrix | Varies by command; output shape lacks BSSID on some commands on bare C3 in headless USB-CDC. Verify the output of `list -a` or `capture -beacon` on your specific chip before depending on it. | Wigle-format conversion is uncertain — verify per command before depending on it. |
-| **Evil-M5Project** ([README](https://github.com/7h30th3r0n3/Evil-M5Project)) | M5Cardputer (recommended), Core1/Core2/Fire/AWS/CoreS3/CoreS3 SE/AtomS3; beta on CYD2USB/CYD1USB/M5Stick v1.1+v2; slave-mode on ESP32-C3/C5/AtomS3/AtomS3 Lite/WEMOS D1 Mini | "Wigle-compatible CSV files" on Cardputer with GPS (no column spec given in README) | wigle-to-wdgwars. No native WDGoWars upload. |
-| **HaleHound (ESP32-DIV HaleHound Edition) v3.8.0** ([JesseCHale/HaleHound-CYD](https://github.com/JesseCHale/HaleHound-CYD), 1.4k+ stars, web flasher at [flash.halehound.com](https://flash.halehound.com)) | Cheap Yellow Display (ESP32-2432S028 + variants); optional CC1101 / NRF24 / GPS add-ons | WiGLE-compatible CSV to SD `/wardriving/`, GPS-tagged (verified against the firmware's documented SD layout — `/wardriving/` holds "GPS-tagged AP CSVs, WiGLE-compatible") | wigle-to-wdgwars after SD pull. No native WDGoWars upload — capture-only, PC-side feeder. GPS add-on needed for location-tagged lines. |
-| **Biscuit (Pro / Ultra / DIY / Node)** — commercial device by codehedge ([biscuitshop.us](https://biscuitshop.us), [wiki](https://codehedge.github.io/Biscuit-Wiki/)) | Dual-ESP32 Biscuit Pro / Ultra (dual-band WiFi 6 + BLE, headless, phone-app controlled over BLE); single-chip ESP32-C5 Biscuit DIY; BiscuitNode mesh satellites for multi-radio node rigs | GPS-tagged wardrive sessions, uploaded from the iOS/Android app | Uploads to **WiGLE** natively from the app. For WDGoWars, the guaranteed path is WiGLE data → wigle-to-wdgwars. The app also has a multi-destination "Upload to All" framework, so a native WDGoWars destination may exist or be added — **verify in-app / on the Biscuit Discord** (not confirmed from public docs, 2026-07-20). |
-| **wardriver.uk** ([JosephHewitt/wardriver_rev3](https://github.com/JosephHewitt/wardriver_rev3), 359 stars, v1.2.0 released 2024-09-01) | Purpose-built rig: 2× ESP32-WROOM-32U + GPS + SIM800L GSM + i2c LCD + SPI micro-SD | WiGLE-compatible CSV to SD (files named `YYYY-MM-DD_ID_wd3__NUM.csv`) | wigle-to-wdgwars after downloading the CSV from its web UI. README: *"logs information about them to a CSV file which can be uploaded to Wigle.net."* No native WDGoWars upload. |
-| **projectZero** (LOCOSP) ([LOCOSP/projectZero](https://github.com/LOCOSP/projectZero), 22 stars, v1.6.5 released 2026-03-23) | ESP32-C5 + Flipper Zero companion app | WiGLE-style logs to SD via the `start_wardrive` command (`/sdcard/lab/wardrives/wXXXX.log` — auth mode, RSSI, coordinates) | wigle-to-wdgwars after SD pull. LOCOSP-authored (same author as the game). README: *"waits for a GPS fix, then writes Wigle-style logs to /sdcard/lab/wardrives/wXXXX.log."* No native WDGoWars upload yet (WiGLE creds supported at `/lab/wigle.txt`). |
-| **flipperzero-wardriver** ([Sil333033/flipperzero-wardriver](https://github.com/Sil333033/flipperzero-wardriver)) | Flipper Zero (Momentum firmware) + ESP32 (WROOM / S2 / S3) + NMEA GPS module, ESP32 and GPS on separate UARTs | WiGLE-compatible CSV to SD (`ext/apps_data/ll-wardriver`) | wigle-to-wdgwars after SD pull. Flipper-native front-end. README: *"The file can be uploaded to Wigle without problems."* No direct WDGoWars upload. |
+| **Evil-M5Project** ([README](https://github.com/7h30th3r0n3/Evil-M5Project)) | M5Cardputer (recommended), Core1/Core2/Fire/AWS/CoreS3/CoreS3 SE/AtomS3; beta on CYD2USB/CYD1USB/M5Stick v1.1+v2; slave-mode on ESP32-C3/C5/AtomS3/AtomS3 Lite/WEMOS D1 Mini | "Wigle-compatible CSV files" on Cardputer with GPS (no column spec given in README) | wigle-to-wdgwars. No native WDGWars upload. |
+| **HaleHound (ESP32-DIV HaleHound Edition) v3.8.0** ([JesseCHale/HaleHound-CYD](https://github.com/JesseCHale/HaleHound-CYD), 1.4k+ stars, web flasher at [flash.halehound.com](https://flash.halehound.com)) | Cheap Yellow Display (ESP32-2432S028 + variants); optional CC1101 / NRF24 / GPS add-ons | WiGLE-compatible CSV to SD `/wardriving/`, GPS-tagged (verified against the firmware's documented SD layout — `/wardriving/` holds "GPS-tagged AP CSVs, WiGLE-compatible") | wigle-to-wdgwars after SD pull. No native WDGWars upload — capture-only, PC-side feeder. GPS add-on needed for location-tagged lines. |
+| **Biscuit (Pro / Ultra / DIY / Node)** — commercial device by codehedge ([biscuitshop.us](https://biscuitshop.us), [wiki](https://codehedge.github.io/Biscuit-Wiki/)) | Dual-ESP32 Biscuit Pro / Ultra (dual-band WiFi 6 + BLE, headless, phone-app controlled over BLE); single-chip ESP32-C5 Biscuit DIY; BiscuitNode mesh satellites for multi-radio node rigs | GPS-tagged wardrive sessions, uploaded from the iOS/Android app | Uploads to **WiGLE** natively from the app. For WDGWars, the guaranteed path is WiGLE data → wigle-to-wdgwars. The app also has a multi-destination "Upload to All" framework, so a native WDGWars destination may exist or be added — **verify in-app / on the Biscuit Discord** (not confirmed from public docs, 2026-07-20). |
+| **wardriver.uk** ([JosephHewitt/wardriver_rev3](https://github.com/JosephHewitt/wardriver_rev3), 359 stars, v1.2.0 released 2024-09-01) | Purpose-built rig: 2× ESP32-WROOM-32U + GPS + SIM800L GSM + i2c LCD + SPI micro-SD | WiGLE-compatible CSV to SD (files named `YYYY-MM-DD_ID_wd3__NUM.csv`) | wigle-to-wdgwars after downloading the CSV from its web UI. README: *"logs information about them to a CSV file which can be uploaded to Wigle.net."* No native WDGWars upload. |
+| **projectZero** (LOCOSP) ([LOCOSP/projectZero](https://github.com/LOCOSP/projectZero), 22 stars, v1.6.5 released 2026-03-23) | ESP32-C5 + Flipper Zero companion app | WiGLE-style logs to SD via the `start_wardrive` command (`/sdcard/lab/wardrives/wXXXX.log` — auth mode, RSSI, coordinates) | wigle-to-wdgwars after SD pull. LOCOSP-authored (same author as the game). README: *"waits for a GPS fix, then writes Wigle-style logs to /sdcard/lab/wardrives/wXXXX.log."* No native WDGWars upload yet (WiGLE creds supported at `/lab/wigle.txt`). |
+| **flipperzero-wardriver** ([Sil333033/flipperzero-wardriver](https://github.com/Sil333033/flipperzero-wardriver)) | Flipper Zero (Momentum firmware) + ESP32 (WROOM / S2 / S3) + NMEA GPS module, ESP32 and GPS on separate UARTs | WiGLE-compatible CSV to SD (`ext/apps_data/ll-wardriver`) | wigle-to-wdgwars after SD pull. Flipper-native front-end. README: *"The file can be uploaded to Wigle without problems."* No direct WDGWars upload. |
 | **WiGLE Android** | Android phone | `.wiglecsv.gz` via Share | wigle-to-wdgwars |
 | **Kismet / hcxdumptool / airodump-ng** | Pi 4 / Linux laptop / desktop + monitor-mode WiFi adapter | WiGLE-compatible CSV | wigle-to-wdgwars |
-| **Pwnagotchi** | Pi Zero W | PCAP (WPA handshakes primary); GPS plugin adds locations | Not a one-line WDGoWars story. Conversion path exists but is not direct WiGLE-CSV by default. The [wardriver plugin](https://github.com/cyberartemio/wardriver-pwnagotchi-plugin) closes most of that gap by logging every network bettercap sees and uploading to WiGLE — see §3e. |
+| **Pwnagotchi** | Pi Zero W | PCAP (WPA handshakes primary); GPS plugin adds locations | Not a one-line WDGWars story. Conversion path exists but is not direct WiGLE-CSV by default. The [wardriver plugin](https://github.com/cyberartemio/wardriver-pwnagotchi-plugin) closes most of that gap by logging every network bettercap sees and uploading to WiGLE — see §3e. |
 
 ### 3a. HiroAlleyCat feeders + supporting tooling
 
-The HiroAlleyCat WDGoWars family — sibling repos to this one. All Python. The three feeders plus the shared transport library cover the common upload paths.
+The HiroAlleyCat WDGWars family — sibling repos to this one. All Python. The three feeders plus the shared transport library cover the common upload paths.
 
 #### Active feeders (public)
 
@@ -98,8 +98,8 @@ The HiroAlleyCat WDGoWars family — sibling repos to this one. All Python. The 
 
 | Tool | Purpose |
 |---|---|
-| [**wdgwars-api-tester**](https://github.com/Yggdrasil-AI-labs/wdgwars-api-tester) | Systematic probe of the WDGoWars HTTP API surface. Stdlib-only Python 3, single file. Detects outages, distinguishes route-not-bound from auth-rejected, fingerprints styled 404 pages. Latest [v0.13.3](https://github.com/Yggdrasil-AI-labs/wdgwars-api-tester/releases/tag/v0.13.3) (2026-07-18). |
-| [**wdgwars-discord-stats**](https://github.com/Yggdrasil-AI-labs/wdgwars-discord-stats) | Build your own WDGoWars stats display in Discord: a live voice-channel dashboard, a webhook poster, and a `war_feed` event alerter (captures / territory losses / rig-down). Stdlib-only Python. Also ships a [consolidated WDGoWars API reference](https://github.com/Yggdrasil-AI-labs/wdgwars-discord-stats/blob/main/docs/api-reference.md) — the read + upload surface in one place, worth reading before writing any client. Latest [v1.4.1](https://github.com/Yggdrasil-AI-labs/wdgwars-discord-stats/releases/tag/v1.4.1) (2026-07-19). |
+| [**wdgwars-api-tester**](https://github.com/Yggdrasil-AI-labs/wdgwars-api-tester) | Systematic probe of the WDGWars HTTP API surface. Stdlib-only Python 3, single file. Detects outages, distinguishes route-not-bound from auth-rejected, fingerprints styled 404 pages. Latest [v0.13.3](https://github.com/Yggdrasil-AI-labs/wdgwars-api-tester/releases/tag/v0.13.3) (2026-07-18). |
+| [**wdgwars-discord-stats**](https://github.com/Yggdrasil-AI-labs/wdgwars-discord-stats) | Build your own WDGWars stats display in Discord: a live voice-channel dashboard, a webhook poster, and a `war_feed` event alerter (captures / territory losses / rig-down). Stdlib-only Python. Also ships a [consolidated WDGWars API reference](https://github.com/Yggdrasil-AI-labs/wdgwars-discord-stats/blob/main/docs/api-reference.md) — the read + upload surface in one place, worth reading before writing any client. Latest [v1.4.1](https://github.com/Yggdrasil-AI-labs/wdgwars-discord-stats/releases/tag/v1.4.1) (2026-07-19). |
 
 ### 3b. Third-party community feeders
 
@@ -109,12 +109,12 @@ Tools authored by people outside LOCOSP and HiroAlleyCat that POST to wdgwars.pl
 |---|---|---|---|---|---|
 | [phutur1st/intercept-wdgwars](https://github.com/phutur1st/intercept-wdgwars) | phutur1st | Exports live ADS-B from an `intercept` PostgreSQL DB into the `aircraft.json` shape (dump1090-fa / readsb) and uploads to wdgwars. | `POST /api/upload-csv` (per `convert.py` + README — note: CSV path is used for aircraft data here, not the signed-JSON path Muninn uses) | 2026-06-01 — active | README + code path verified. README carries explicit *"I AM NOT RESPONSIBLE FOR SHADOW BANS"* disclaimer. Session files do not auto-prune. |
 | [DeflockJoplin/pack](https://github.com/DeflockJoplin/pack) (P.A.C.K. — Passive Acquisition and Capture Kit) | DeflockJoplin | Rust capture suite: 802.11 management frames in monitor mode, BLE via BlueZ, GPS via gpsd. Outputs WiGLE CSV + DeFlock alert CSV. Standout: Flock camera detection method. | wdgwars upload referenced as a working feature; endpoint in [`backend/src/uploader.rs`](https://github.com/DeflockJoplin/pack/blob/master/backend/src/uploader.rs) → `const WDG_UPLOAD_URL: &str = "https://wdgwars.pl/api/upload-csv";` | 2026-05-27 — active, 5 stars | README says *"What is definitely working well today is: Wardriving, Flock Detection, Logging, Uploads, and Home Zone. All other features should be considered in progress and unfinished."* Listed-as-working but I have not driven it end-to-end. |
-| [InfIux/Wardriving-Log-Aggregation](https://github.com/InfIux/Wardriving-Log-Aggregation) | InfIux | Aggregates Marauder v8 `.log` files for upload to WDGoWars or WiGLE. Python + tkinter file-picker. | Not specified in README. Tool prepares the file; the user submits via WDGoWars or WiGLE web UI. | 2026-05-18 | Personal-utility tier (0 stars). Verified scope-only — confirm it works for your Marauder version before relying on it. |
+| [InfIux/Wardriving-Log-Aggregation](https://github.com/InfIux/Wardriving-Log-Aggregation) | InfIux | Aggregates Marauder v8 `.log` files for upload to WDGWars or WiGLE. Python + tkinter file-picker. | Not specified in README. Tool prepares the file; the user submits via WDGWars or WiGLE web UI. | 2026-05-18 | Personal-utility tier (0 stars). Verified scope-only — confirm it works for your Marauder version before relying on it. |
 | [7h30th3r0n3/Raspyjack-Payloads (wickednull fork)](https://github.com/wickednull/raspyjack-payloads) | wickednull | Custom RaspyJack payloads. Not yet confirmed to include a wdgwars upload payload — listed here so the family is visible. | n/a (verify per-payload) | 2026-05-25 | Adjacent — not personally checked for a wdgwars-specific payload in this fork. |
 
 ### 3c. Reference uploader implementation (the game itself)
 
-The WatchDogsGo game source includes a plugin that is, in effect, the canonical reference for how a WDGoWars uploader is supposed to work. Worth reading before writing your own client.
+The WatchDogsGo game source includes a plugin that is, in effect, the canonical reference for how a WDGWars uploader is supposed to work. Worth reading before writing your own client.
 
 | Tool | Path | What it does | Endpoint | Auth | Why it matters |
 |---|---|---|---|---|---|
@@ -127,9 +127,9 @@ The WatchDogsGo game source includes a plugin that is, in effect, the canonical 
 | **WDGWatch** ([repo](https://github.com/LOCOSP/WDGWatch)) | LilyGO T-Watch Ultra (ESP32-S3) | LOCOSP-authored companion firmware ("AKA PipBoy-3000"). Repo description only — feature surface not audited in this pass. |
 | **WatchDogsGo (game itself)** ([repo](https://github.com/LOCOSP/WatchDogsGo), 62 stars) | ESP32-C5 + ClockworkPi uConsole (per repo description) | The actual game engine is open source. Pyxel game frontend. Mentioning so readers know the game side is auditable. |
 
-### 3e. Wider firmware catalog (no native WDGoWars upload)
+### 3e. Wider firmware catalog (no native WDGWars upload)
 
-Everything in this subsection wardrives. None of it ships a WDGoWars uploader, and that does not keep it off the leaderboard. LOCOSP's developer page states the general route plainly: `POST /api/upload-csv` takes a raw WigleWifi-1.6 file as multipart with an `X-API-Key` header, and *"For firmware (Bruce, Kismet, Marauder): CSV method is recommended"* ([wdgwars.pl/press](https://wdgwars.pl/press), read 2026-07-25).
+Everything in this subsection wardrives. None of it ships a WDGWars uploader, and that does not keep it off the leaderboard. LOCOSP's developer page states the general route plainly: `POST /api/upload-csv` takes a raw WigleWifi-1.6 file as multipart with an `X-API-Key` header, and *"For firmware (Bruce, Kismet, Marauder): CSV method is recommended"* ([wdgwars.pl/press](https://wdgwars.pl/press), read 2026-07-25).
 
 **So the rule for this whole subsection: if it writes a WigleWifi-format CSV, you are one upload away.** Pull the SD card or the app export, then either run [wigle-to-wdgwars](https://github.com/HiroAlleyCat/wigle-to-wdgwars) or drop the file into the upload form on your wdgwars.pl profile. The 1.4-vs-1.6 column gap is the feeder's problem, not yours. Where a project's docs do not actually claim WiGLE-format output, the table says so rather than guessing, because "writes a CSV" and "writes a WigleWifi CSV" are not the same claim.
 
@@ -141,11 +141,11 @@ Three projects that would otherwise headline this section are already covered in
 
 | Firmware | Hardware | Wardrive output | Signals (2026-07-25) | Notes |
 |---|---|---|---|---|
-| [**ESP32-DIV**](https://github.com/cifertech/ESP32-DIV) (cifertech) | ESP32-S3 handheld. Wi-Fi, BLE, 2.4 GHz, sub-GHz, IR, RFID/NFC, GPS. | README module table lists a *"Wardriver"* module that *"Logs GNSS position with Wi-Fi/BLE observations to SD"*. Format not specified. | 3472★, pushed 2026-07-25 | The upstream HaleHound forked from, and bigger than every WDGoWars-native firmware except Marauder and Bruce. Docs at [cifertech.github.io/ESP32-DIV](https://cifertech.github.io/ESP32-DIV/). |
+| [**ESP32-DIV**](https://github.com/cifertech/ESP32-DIV) (cifertech) | ESP32-S3 handheld. Wi-Fi, BLE, 2.4 GHz, sub-GHz, IR, RFID/NFC, GPS. | README module table lists a *"Wardriver"* module that *"Logs GNSS position with Wi-Fi/BLE observations to SD"*. Format not specified. | 3472★, pushed 2026-07-25 | The upstream HaleHound forked from, and bigger than every WDGWars-native firmware except Marauder and Bruce. Docs at [cifertech.github.io/ESP32-DIV](https://cifertech.github.io/ESP32-DIV/). |
 | [**M5PORKCHOP**](https://github.com/0ct0sec/M5PORKCHOP) (0ct0sec) | M5Stack Cardputer and Cardputer ADV. | Dedicated wardriving mode: the README mode table lists *"[W] WARHOG - GPS wardriving. legs required."*, with WiGLE and WPA-SEC listed as cloud hookups. | 745★, pushed 2026-06-27, latest tagged release `v0.1.8b-PSTH` (2026-02-08) | The most-starred Cardputer-specific option that is not Bruce. On Cardputer ADV with the LoRa+GPS head you have to set the GPS RX/TX pins by hand before WARHOG sees a fix. Community walkthrough: ["The Great Warhog"](https://www.youtube.com/watch?v=0oI8loqHycQ). |
 | [**GhostESP (Revival)**](https://github.com/GhostESP-Revival/GhostESP) | 46 board targets per README, spanning Wi-Fi, BLE, NFC, IR, sub-GHz, NRF24, Ethernet, GPS, USB HID, 802.15.4. | README states *"WiGLE CSV"* among the capture workflows, plus *"Wardriving exports (WiFi/BLE/GPS)"* and split-channel wardriving over the GhostLink dual-ESP32 bridge. | 834★, pushed 2026-07-25, site [ghostesp.net](https://ghostesp.net) | **This is the maintained GhostESP.** The original [Spooks4576/Ghost_ESP](https://github.com/Spooks4576/Ghost_ESP) is archived on GitHub (verified via API 2026-07-25) with its last push 2025-04-22, so the §3 and §4 GhostESP rows describe a frozen tree. If you flashed GhostESP recently, check which one you have. |
-| [**projectZero**](https://github.com/C5Lab/projectZero) / [**M5MonsterC5**](https://github.com/C5Lab/M5MonsterC5-CardputerADV) (C5Lab) | ESP32-C5 by CLI, Flipper Zero Pager via the LAB ESP32C5 add-on, Cardputer ADV and Tab5 via the M5MonsterC5 add-on. | Evil twin, deauther, WPA3-SAE overflow, captive portal per repo description. | projectZero 181★ (pushed 2026-07-23); M5MonsterC5 193★ (pushed 2026-06-21) | LOCOSP's press page calls the ESP32-C5 running projectZero *"the absolute foundation"* of the WDGoWars rig, but the C5Lab firmware itself has no WDGoWars uploader: the game reads it. The add-ons are what put sub-1 GHz on chips that otherwise cannot do it. |
-| [**Minino**](https://github.com/ElectronicCats/Minino) (Electronic Cats) | Purpose-built board: ESP32-C6 + GPS + microSD + OLED. Multiband, includes 802.15.4/Zigbee. | Feature list includes *"GPS (WarDriving)"* and a checked *"Wardriving"* roadmap item. Format not specified. | 168★, pushed 2026-05-07, vendor [electroniccats.com](https://www.electroniccats.com) | Commercially manufactured with open firmware, which is rare in this space. The Zigbee/802.15.4 side has no WDGoWars slot today (see §9). |
+| [**projectZero**](https://github.com/C5Lab/projectZero) / [**M5MonsterC5**](https://github.com/C5Lab/M5MonsterC5-CardputerADV) (C5Lab) | ESP32-C5 by CLI, Flipper Zero Pager via the LAB ESP32C5 add-on, Cardputer ADV and Tab5 via the M5MonsterC5 add-on. | Evil twin, deauther, WPA3-SAE overflow, captive portal per repo description. | projectZero 181★ (pushed 2026-07-23); M5MonsterC5 193★ (pushed 2026-06-21) | LOCOSP's press page calls the ESP32-C5 running projectZero *"the absolute foundation"* of the WDGWars rig, but the C5Lab firmware itself has no WDGWars uploader: the game reads it. The add-ons are what put sub-1 GHz on chips that otherwise cannot do it. |
+| [**Minino**](https://github.com/ElectronicCats/Minino) (Electronic Cats) | Purpose-built board: ESP32-C6 + GPS + microSD + OLED. Multiband, includes 802.15.4/Zigbee. | Feature list includes *"GPS (WarDriving)"* and a checked *"Wardriving"* roadmap item. Format not specified. | 168★, pushed 2026-05-07, vendor [electroniccats.com](https://www.electroniccats.com) | Commercially manufactured with open firmware, which is rare in this space. The Zigbee/802.15.4 side has no WDGWars slot today (see §9). |
 | [**AtomGPS Wigler**](https://github.com/lozaning/AtomGPS_wigler) (lozaning) | M5Stack Atom GPS Kit, no soldering. | README: *"saving found networks to a Wigle.net compatible CSV file"*, SD files stamped with UTC date and run number. | 27★, pushed 2024-01-12 | Smallest credible turnkey build in the catalog and a straight fit for wigle-to-wdgwars. Stale but simple enough that stale matters less. |
 | [**ESP32 Wardriver Pro**](https://github.com/dkyazzentwatwa/esp32-gps-wifi-wigle) (dkyazzentwatwa) | ESP32 + GPS + 128x64 OLED, SD card. | README: *"Writes `WigleWifi-1.4` CSV files"*, with SSID, BSSID, auth, channel, frequency, RSSI, position, altitude, HDOP. | 35★, pushed 2026-05-18 | Same 1.4 column caveat as Marauder, same fix (the feeder pads it). |
 | [**NetLog MK1**](https://github.com/leokrebber/NetLog_MK1) (leokrebber) | ESP32-S3 + inexpensive GPS module. | *"stored in a CSV file on a FAT12 or FAT16 filesystem"*. README does not claim WiGLE format, so verify the header before uploading. | 25★, pushed 2025-03-26 | LED-status build, no screen. |
@@ -162,9 +162,9 @@ Three projects that would otherwise headline this section are already covered in
 | [**MoMo**](https://github.com/M0M0Sec/MoMo) | Raspberry Pi 5 platform, Wi-Fi + BLE + SDR. | Feature table marks *"Wardriving"* as done, described as *"GPS-correlated AP scanning with SQLite persistence"*. SQLite, not WiGLE CSV, so a conversion step is on you. | 25★, pushed 2026-07-17 | Newer and broader than it is proven. Installs hcxdumptool, hcxtools, aircrack-ng, gpsd underneath. |
 | [**warpi**](https://github.com/designer2k2/warpi) (designer2k2) | Raspberry Pi + Kismet + GPS, headless with a small display. | A UI for driving Kismet in the car. Kismet does the capture and the format. | 56★, pushed 2026-07-18 | Author's full build writeup is linked from the README. Sensible middle ground between a laptop and an ESP32. |
 | [**rpi-wardriving**](https://github.com/willcurtis/rpi-wardriving) (willcurtis) | Vanilla Raspberry Pi. | Deployment toolkit: Kismet rig plus a web dashboard for capture control, GPS status, and *"WiGLE uploads"* per the repo description. | 0★, pushed 2026-07-24 | Brand new and unproven, listed because it targets exactly the Tier 5 always-on case in §6. |
-| [**Raspyjack**](https://github.com/7h30th3r0n3/Raspyjack) (7h30th3r0n3) | Pi + Waveshare 1.44" LCD HAT. | Already in §2: the WDGoWars payload ships in the repo. Listed here only so the Pi family reads complete. | 1121★, pushed 2026-06-19 | See §2 for the upload path. |
+| [**Raspyjack**](https://github.com/7h30th3r0n3/Raspyjack) (7h30th3r0n3) | Pi + Waveshare 1.44" LCD HAT. | Already in §2: the WDGWars payload ships in the repo. Listed here only so the Pi family reads complete. | 1121★, pushed 2026-06-19 | See §2 for the upload path. |
 | [**Bjorn**](https://github.com/infinition/Bjorn) | Pi Zero / Pi with a 2.13" e-Paper HAT. | Network scanning and offensive tooling. Not a wardriver: no GPS-tagged AP logging in the feature set. | 6188★, pushed 2026-07-20 | Included because newcomers routinely buy one expecting a wardriver. It is the same shape of mistake as buying a Pwnagotchi for leaderboard points (see the pitfalls table in the onramp). |
-| [**Pwnagotchi**](https://github.com/jayofelony/pwnagotchi) (jayofelony fork) + [**wardriver plugin**](https://github.com/cyberartemio/wardriver-pwnagotchi-plugin) (cyberartemio) | Pi Zero W / Pi Zero 2 W. | The plugin *"saves all networks seen by bettercap, not only the ones whose handshakes has been collected"* and uploads to WiGLE once internet is available. | Fork 2811★ pushed 2026-07-09; plugin 123★ pushed 2025-02-27; [original evilsocket/pwnagotchi](https://github.com/evilsocket/pwnagotchi) 9147★ but last pushed 2025-08-23 | This is the missing piece behind the "Pwnagotchi is handshake-only" line in §3. With the plugin the device does produce WiGLE-bound network lists, which makes it a viable if indirect WDGoWars source. The plugin's own release cadence has been quiet since early 2025, so verify against your Pwnagotchi build. |
+| [**Pwnagotchi**](https://github.com/jayofelony/pwnagotchi) (jayofelony fork) + [**wardriver plugin**](https://github.com/cyberartemio/wardriver-pwnagotchi-plugin) (cyberartemio) | Pi Zero W / Pi Zero 2 W. | The plugin *"saves all networks seen by bettercap, not only the ones whose handshakes has been collected"* and uploads to WiGLE once internet is available. | Fork 2811★ pushed 2026-07-09; plugin 123★ pushed 2025-02-27; [original evilsocket/pwnagotchi](https://github.com/evilsocket/pwnagotchi) 9147★ but last pushed 2025-08-23 | This is the missing piece behind the "Pwnagotchi is handshake-only" line in §3. With the plugin the device does produce WiGLE-bound network lists, which makes it a viable if indirect WDGWars source. The plugin's own release cadence has been quiet since early 2025, so verify against your Pwnagotchi build. |
 
 #### Phone apps
 
@@ -175,7 +175,7 @@ Three projects that would otherwise headline this section are already covered in
 | [**NeoStumbler**](https://github.com/mjaakko/NeoStumbler) | Android, [site](https://neostumbler.malkki.xyz/) | *"Collected data can be exported into CSV or SQLite formats"*. The README does not claim WiGLE-format CSV, so check the header before feeding it to a feeder. | 464★, pushed 2026-07-22 | Aimed at geolocation databases ([beacondb](https://github.com/beacondb/beacondb), Radiocells) rather than WiGLE. The modern successor to the dead Mozilla Stumbler lineage: [openbmap/radiocells-scanner-android](https://github.com/openbmap/radiocells-scanner-android) last pushed 2019-09-06. |
 | [**GeoGrabber**](https://github.com/arn-c0de/Geograbber) | Android | Wi-Fi + BLE scanning with per-scan GPS, stored locally, with Python-side analysis tools. | 37★, pushed 2026-04-06 | Small project, useful if you want the raw local database rather than an upload pipeline. |
 | [**MeshCore Wardrive**](https://github.com/mintylinux/Meshcore-Wardrive-Android) + [**MeshMapper**](https://github.com/MeshMapper/MeshMapper_Project) | Android (Flutter) | MeshCore LoRa coverage mapping in real time. | 95★ pushed 2026-07-12; MeshMapper tracker 59★ pushed 2026-06-23 | Feeds the `meshcore_nodes` slot indirectly: [Heimdall](https://github.com/HiroAlleyCat/meshcore-to-wdgwars) ingests MeshMapper exports. This is the mobile half of the LoRa slot. |
-| [**TowerCollector**](https://github.com/zamojski/TowerCollector) | Android | Cell towers, not Wi-Fi. Contributes to OpenCellID and BeaconDB. | 339★, pushed 2026-06-16 | No WDGoWars slot for cell towers today (§9). Listed so the phone row is honest about what is not playable. |
+| [**TowerCollector**](https://github.com/zamojski/TowerCollector) | Android | Cell towers, not Wi-Fi. Contributes to OpenCellID and BeaconDB. | 339★, pushed 2026-06-16 | No WDGWars slot for cell towers today (§9). Listed so the phone row is honest about what is not playable. |
 
 #### Desktop and laptop capture stacks
 
@@ -261,9 +261,9 @@ Tiers reframed as form-factor + skill investment:
 | **M5 Cardputer + LOCOSP Bruce fork** | Cardputer + GPS unit, flash [LOCOSP `v1.0-wdgwars`](https://github.com/LOCOSP/bruce-firmware-wdgwars/releases/tag/v1.0-wdgwars) | handheld w/ keyboard + screen | Easiest end-to-end: on-device upload, no PC step. The "just works" target. |
 | **CYD 2.8"** | ESP32-2432S028 board + GPS, flash Marauder OR Bruce | small display | Cheap second device. Either firmware works. |
 | **M5 Tab5 Wardriver** | M5Stack Tab5 + M5 GPS/BDS Unit, custom firmware | tablet | High-end purchased option. Firmware is custom — Hackster post is the recipe. |
-| **Hak5 Pineapple Pager** | Pager + u-blox 7 USB GPS, [LOCOSP Pineapple payload](https://github.com/LOCOSP/pineapple_pager_wdgwars) | pocket | Second confirmed on-device WDGoWars uploader. APP_HANDOFF-compatible per README. |
+| **Hak5 Pineapple Pager** | Pager + u-blox 7 USB GPS, [LOCOSP Pineapple payload](https://github.com/LOCOSP/pineapple_pager_wdgwars) | pocket | Second confirmed on-device WDGWars uploader. APP_HANDOFF-compatible per README. |
 | **Flipper Zero + WiFi DevBoard** | Flipper Zero + Flipper WiFi DevBoard (ESP32-S2) + GPS module, flash Marauder `flipper.bin` to the DevBoard | handheld | Flipper itself has no 2.4 GHz radio — the DevBoard is what scans Wi-Fi. SD output → wigle-to-wdgwars. |
-| **Pwnagotchi (handshake build, not WiGLE-CSV native)** | Pi Zero 2 W + Waveshare 2.13" e-paper HAT + PiSugar 3 + USB GPS, [jayofelony/pwnagotchi](https://github.com/jayofelony/pwnagotchi) | handheld | Captures PCAP handshakes (WPA), not WiGLE CSV. Conversion to WDGoWars is not a one-liner. Don't expect Marauder-rig parity. |
+| **Pwnagotchi (handshake build, not WiGLE-CSV native)** | Pi Zero 2 W + Waveshare 2.13" e-paper HAT + PiSugar 3 + USB GPS, [jayofelony/pwnagotchi](https://github.com/jayofelony/pwnagotchi) | handheld | Captures PCAP handshakes (WPA), not WiGLE CSV. Conversion to WDGWars is not a one-liner. Don't expect Marauder-rig parity. |
 | **Raspberry Pi + Kismet** | Pi 4 + monitor-mode USB WiFi + GPS + battery | small box / car-mount | Linux familiarity. Best capture quality. Capture → wigle-to-wdgwars. |
 | **SDR add-on (ADS-B)** | RTL-SDR + 1090 MHz antenna + Pi → Muninn | small box | Different game — feeds `aircraft` slot. |
 | **MeshCore radio** | LoRa node (Heltec / TTGO / similar) → Heimdall | pocket | Feeds `meshcore_nodes` slot. |
@@ -276,7 +276,7 @@ Tiers reframed as form-factor + skill investment:
 | **HackRF PortaPack (standalone handheld)** | HackRF One + PortaPack H4M / H2M shell + screen + keypad + battery + Mayhem firmware | handheld | Captures and transmits 1 MHz–6 GHz without a computer. SD output flows to Muninn / wigle-to-wdgwars on a PC afterward. |
 | **Outdoor antenna chain** | FlightAware 26" + Uputronics 1090 LNA at antenna + LMR-400 + lightning arrestor → Muninn; or discone / log-periodic / Yagi for wider-band or directional work | mast install | Hundreds of NM of range vs the basic dongle setup. Filter-and-LNA placement matters as much as the antenna. |
 | **Vehicle install** | 12V→USB-C PD + roof magmount Wi-Fi + magmount 1090 MHz blade + external GPS | car-permanent | Listed for tier-ladder completeness; not bench-tested by this repo. |
-| **IMSI-catcher detectors (RX-only)** | Crocodile Hunter / SnoopSnitch / srsRAN RX paths on existing SDR | desktop | Defensive use only. No WDGoWars slot. Reuses the Tier 7 SDR. |
+| **IMSI-catcher detectors (RX-only)** | Crocodile Hunter / SnoopSnitch / srsRAN RX paths on existing SDR | desktop | Defensive use only. No WDGWars slot. Reuses the Tier 7 SDR. |
 
 ## 7. Decision tree for newcomers
 
@@ -298,9 +298,9 @@ flowchart TD
     class a1,a2,a3,e1,e2,e3,e4 answer
 ```
 
-## 8. WDGoWars-specific gotchas
+## 8. WDGWars-specific gotchas
 
-From WDGoWars portal docs + field-tested integrations:
+From WDGWars portal docs + field-tested integrations:
 
 1. **One API key = one driver.** Putting the same key on two devices = one driver with two feeders, not two contesting drivers. Split-driver attribution needs two keys.
 2. **Cell grid is 0.02° lat × 0.03° lon.** Cron-rebuilds every 5 minutes server-side. Map UI can lag actual state.
@@ -329,9 +329,9 @@ Two behaviors worth designing around rather than fighting:
 
 The silent skip on the daily cap is the one that will bite hardest, because a 200 response carrying fewer new APs than you sent looks identical to a quiet day of driving. If you are running lab-scale capture (§6 Tier 5), log what you sent against what came back.
 
-## 9. Known WDGoWars feeder gaps
+## 9. Known WDGWars feeder gaps
 
-Anyone writing a new feeder should read [gungnir](https://github.com/Yggdrasil-AI-labs/gungnir) (Python transport) and LOCOSP's [WatchDogsGo `plugins/wardrive_upload.py`](https://github.com/LOCOSP/WatchDogsGo/blob/main/plugins/wardrive_upload.py) side by side — those two cover the envelope, HMAC, retry/cooldown, and the slot-typed payload shape. For the read side and a one-place map of the whole surface, see the [consolidated WDGoWars API reference](https://github.com/Yggdrasil-AI-labs/wdgwars-discord-stats/blob/main/docs/api-reference.md) in wdgwars-discord-stats.
+Anyone writing a new feeder should read [gungnir](https://github.com/Yggdrasil-AI-labs/gungnir) (Python transport) and LOCOSP's [WatchDogsGo `plugins/wardrive_upload.py`](https://github.com/LOCOSP/WatchDogsGo/blob/main/plugins/wardrive_upload.py) side by side — those two cover the envelope, HMAC, retry/cooldown, and the slot-typed payload shape. For the read side and a one-place map of the whole surface, see the [consolidated WDGWars API reference](https://github.com/Yggdrasil-AI-labs/wdgwars-discord-stats/blob/main/docs/api-reference.md) in wdgwars-discord-stats.
 
 | Gap | Status |
 |---|---|
@@ -343,7 +343,7 @@ Anyone writing a new feeder should read [gungnir](https://github.com/Yggdrasil-A
 
 ## 10. Maturity signals — the long-running repos
 
-WDGoWars is a 2026 game built on a hobby that is old enough to have reference implementations. This section separates the projects you can lean on from the ones that are simply popular right now. Everything was pulled via `gh api repos/<owner>/<repo>` on 2026-07-25.
+WDGWars is a 2026 game built on a hobby that is old enough to have reference implementations. This section separates the projects you can lean on from the ones that are simply popular right now. Everything was pulled via `gh api repos/<owner>/<repo>` on 2026-07-25.
 
 How to read maturity here, in rough order of how much it should move your decision:
 
@@ -359,10 +359,10 @@ How to read maturity here, in rough order of how much it should move your decisi
 | [bettercap](https://github.com/bettercap/bettercap) | 19550 | 2026-07-16 | The 802.11/BLE recon engine other tools embed, Pwnagotchi included. |
 | [ESP32Marauder](https://github.com/justcallmekoko/ESP32Marauder) | 11682 | 2026-07-22 | The de facto ESP32 wardriving firmware. Near-daily nightlies, largest board asset list. Its `WigleWifi-1.4` header is why the 1.4-vs-1.6 padding problem exists at all. |
 | [aircrack-ng](https://github.com/aircrack-ng/aircrack-ng) | 7404 | 2026-06-12 | Oldest tooling in this document and still the monitor-mode reference. |
-| [Bruce](https://github.com/BruceDevices/firmware) | 6244 | 2026-07-24 | Broadest handheld support (M5 + LilyGO + CYD) and the tree LOCOSP forked for the WDGoWars uploader. |
+| [Bruce](https://github.com/BruceDevices/firmware) | 6244 | 2026-07-24 | Broadest handheld support (M5 + LilyGO + CYD) and the tree LOCOSP forked for the WDGWars uploader. |
 | [Kismet](https://github.com/kismetwireless/kismet) | 2181 | 2026-07-24 | The Linux capture stack everything else is compared against. GitHub is the maintained mirror of the canonical repo. |
 | [hcxdumptool](https://github.com/ZerBea/hcxdumptool) | 2166 | 2026-07-08 | The handshake-capture reference, paired with hcxtools. |
-| [wigle-wifi-wardriving](https://github.com/wiglenet/wigle-wifi-wardriving) | 936 | 2026-07-23 | WiGLE's own Android client. Its output is the format definition WDGoWars accepts. |
+| [wigle-wifi-wardriving](https://github.com/wiglenet/wigle-wifi-wardriving) | 936 | 2026-07-23 | WiGLE's own Android client. Its output is the format definition WDGWars accepts. |
 
 ### Large and actively shipping (2026 wave)
 
@@ -376,15 +376,15 @@ How to read maturity here, in rough order of how much it should move your decisi
 | [Sparrow-WiFi](https://github.com/ghostop14/sparrow-wifi) | 1589 | 2026-07-20 | Mature Linux GUI, drone-GPS aware. |
 | [HaleHound-CYD](https://github.com/JesseCHale/HaleHound-CYD) | 1464 | 2026-07-16 | Fastest-rising handheld firmware in this catalog. |
 | [flipperzero-wifi-marauder](https://github.com/0xchocolate/flipperzero-wifi-marauder) | 1141 | 2026-07-20 | The Flipper companion app for Marauder. Required if the Flipper is your UI. |
-| [Raspyjack](https://github.com/7h30th3r0n3/Raspyjack) | 1121 | 2026-06-19 | Pi toolkit that already carries a WDGoWars payload (§2). |
+| [Raspyjack](https://github.com/7h30th3r0n3/Raspyjack) | 1121 | 2026-06-19 | Pi toolkit that already carries a WDGWars payload (§2). |
 | [GhostESP-Revival](https://github.com/GhostESP-Revival/GhostESP) | 834 | 2026-07-25 | 46 board targets, WiGLE CSV export, daily pushes. |
 | [M5PORKCHOP](https://github.com/0ct0sec/M5PORKCHOP) | 745 | 2026-06-27 | Cardputer wardriving with an RPG bolted on. |
 | [NeoStumbler](https://github.com/mjaakko/NeoStumbler) | 464 | 2026-07-22 | Modern Android stumbler for the geolocation-DB side of the hobby. |
 | [wardriver_rev3](https://github.com/JosephHewitt/wardriver_rev3) | 359 | 2026-05-25 | Purpose-built wardriver with a real wiki. |
 | [Vistumbler](https://github.com/acalcutt/Vistumbler) | 247 | 2026-04-21 | The Windows option. |
-| [piglet](https://github.com/hamspiced/piglet) | 198 | 2026-07-23 | On-device WDGoWars uploader (§2). Star count corrected from 148 in the 2026-06-02 pass. |
+| [piglet](https://github.com/hamspiced/piglet) | 198 | 2026-07-23 | On-device WDGWars uploader (§2). Star count corrected from 148 in the 2026-06-02 pass. |
 | [projectZero](https://github.com/C5Lab/projectZero) | 181 | 2026-07-23 | The C5 firmware LOCOSP's press page calls the foundation of the rig. |
-| [ESP32DualBandWardriver](https://github.com/justcallmekoko/ESP32DualBandWardriver) | 190 | 2026-07-09 | Koko's C5 dual-band wardriver, README points at the WDGoWars leaderboard. |
+| [ESP32DualBandWardriver](https://github.com/justcallmekoko/ESP32DualBandWardriver) | 190 | 2026-07-09 | Koko's C5 dual-band wardriver, README points at the WDGWars leaderboard. |
 
 ### Popular but frozen (check before you build on these)
 
@@ -397,15 +397,15 @@ How to read maturity here, in rough order of how much it should move your decisi
 | [wardriver-pwnagotchi-plugin](https://github.com/cyberartemio/wardriver-pwnagotchi-plugin) | 123 | 2025-02-27 | Still the standard Pwnagotchi wardriving plugin; verify against your build. |
 | [openbmap/radiocells-scanner-android](https://github.com/openbmap/radiocells-scanner-android) | 66 | 2019-09-06 | Effectively dead. NeoStumbler replaced this niche. |
 
-Nothing in this section is a WDGoWars uploader by itself. §2 is still the short list for that. This section exists so that when you pick a capture tool you can tell the difference between "old and load-bearing", "new and moving fast", and "popular in 2023".
+Nothing in this section is a WDGWars uploader by itself. §2 is still the short list for that. This section exists so that when you pick a capture tool you can tell the difference between "old and load-bearing", "new and moving fast", and "popular in 2023".
 
 ## 11. WiGLE — the parent hobby database
 
-WiGLE.net is the long-running community wardriving database that WDGoWars's CSV upload format is derived from. Most of what someone learns capturing for WDGoWars is directly portable to WiGLE, and vice versa. Worth understanding the relationship before deciding which platform to feed (or both).
+WiGLE.net is the long-running community wardriving database that WDGWars's CSV upload format is derived from. Most of what someone learns capturing for WDGWars is directly portable to WiGLE, and vice versa. Worth understanding the relationship before deciding which platform to feed (or both).
 
-### 11.1 Relationship to WDGoWars
+### 11.1 Relationship to WDGWars
 
-| Aspect | WiGLE.net | WDGoWars |
+| Aspect | WiGLE.net | WDGWars |
 |---|---|---|
 | Founded | Long-running (pre-2010s) | Newer, game-style overlay |
 | Model | Free hobby project, no ads, no user monetization ([WiGLE FAQ](https://wigle.net/faq) — *"This is a free hobby project. We don't run ads or monetize our users."*) | Free hobby game by LOCOSP |
@@ -419,21 +419,21 @@ WiGLE.net is the long-running community wardriving database that WDGoWars's CSV 
 ### 11.2 Practical implications
 
 - **Same capture can feed both.** If you're running WiGLE Wifi Wardriving on Android, the `.wiglecsv.gz` it produces is exactly what [wigle-to-wdgwars](https://github.com/Yggdrasil-AI-labs/wigle-to-wdgwars) ingests. One Android session can submit to both platforms.
-- **WiGLE has a much larger network database.** Network ID claim ("first to see" credit) is WiGLE-side. WDGoWars doesn't change that.
-- **WiGLE has no aircraft / MeshCore slots.** ADS-B (Muninn) and MeshCore (Heimdall) are WDGoWars-only feeders — WiGLE doesn't accept those data types.
-- **WiGLE API is read-heavy, WDGoWars API is write-heavy.** WiGLE rate-limits queries; WDGoWars rate-limits the *write* path via CF L7 on `/api/*`.
+- **WiGLE has a much larger network database.** Network ID claim ("first to see" credit) is WiGLE-side. WDGWars doesn't change that.
+- **WiGLE has no aircraft / MeshCore slots.** ADS-B (Muninn) and MeshCore (Heimdall) are WDGWars-only feeders — WiGLE doesn't accept those data types.
+- **WiGLE API is read-heavy, WDGWars API is write-heavy.** WiGLE rate-limits queries; WDGWars rate-limits the *write* path via CF L7 on `/api/*`.
 - **WiGLE's CSV spec is the canonical source for WigleWifi-1.6.** [api.wigle.net/csvFormat.html](https://api.wigle.net/csvFormat.html) — confirmed live 2026-06-02 to define the 14-column header `MAC,SSID,AuthMode,FirstSeen,Channel,Frequency,RSSI,CurrentLatitude,CurrentLongitude,AltitudeMeters,AccuracyMeters,RCOIs,MfgrId,Type` plus a pre-header device-info row.
 - **Marauder's dump format is older.** Marauder writes 11-column WigleWifi-1.4 dumps missing `Frequency`, `RCOIs`, and `MfgrId` — verified at [`WiFiScan.h:682`](https://github.com/justcallmekoko/ESP32Marauder/blob/master/esp32_marauder/WiFiScan.h#L682). Any feeder padding Marauder dumps to WigleWifi-1.6 needs to know which columns to fill and with what defaults.
 
 ### 11.3 Submitting to WiGLE directly
 
-If a user just wants to feed WiGLE (not WDGoWars), the simplest paths:
+If a user just wants to feed WiGLE (not WDGWars), the simplest paths:
 
 1. **Phone-only:** Install WiGLE Wifi Wardriving from Google Play, sign up at wigle.net, the app uploads automatically when WiFi is available.
 2. **From a hardware capture rig:** SD-pull the WigleWifi-1.6 CSV from your device (Bruce, etc.) and upload via wigle.net's web upload form.
 3. **Programmatic:** WiGLE has a documented HTTP API at api.wigle.net — see their FAQ for query/submission patterns.
 
-For users feeding both: [wigle-to-wdgwars](https://github.com/Yggdrasil-AI-labs/wigle-to-wdgwars) handles the WDGoWars side; the same source CSV goes to WiGLE via their own tooling.
+For users feeding both: [wigle-to-wdgwars](https://github.com/Yggdrasil-AI-labs/wigle-to-wdgwars) handles the WDGWars side; the same source CSV goes to WiGLE via their own tooling.
 
 ### 11.4 Things WiGLE confirms about WigleWifi-1.6 (for spec verification)
 
@@ -449,8 +449,8 @@ Things that look like obvious facts about this ecosystem but turn out to be wron
 
 | Common claim | The actual story |
 |---|---|
-| "Biscuit / Piglet / Raspyjack / M5MonsterC5 all upload to WDGoWars on-device." | Mixed. Piglet does ([hamspiced/piglet](https://github.com/hamspiced/piglet) with web-UI WDGoWars upload). Raspyjack has a payload script ([7h30th3r0n3/Raspyjack `payloads/exfiltration/wdgwars_upload.py`](https://github.com/7h30th3r0n3/Raspyjack/blob/main/payloads/exfiltration/wdgwars_upload.py)) but the repo description doesn't say so — grep the code, not the README. M5MonsterC5 ([C5Lab/M5MonsterC5-CardputerADV](https://github.com/C5Lab/M5MonsterC5-CardputerADV)) is based on JanOS / Project Zero and doesn't upload to WDGoWars at all. Biscuit **does** exist — it's a commercial WiFi/BLE research device line by codehedge, sold at [biscuitshop.us](https://biscuitshop.us): the dual-ESP32 Biscuit Pro / Ultra, a single-chip Biscuit DIY (ESP32-C5), and a BiscuitNode mesh satellite. Phone-app controlled, with a GPS wardrive mode and community-platform upload. It is **not** HellzGate C5 ([Hellz0wnzJ00/hellzgate](https://github.com/Hellz0wnzJ00/hellzgate)) — that's a separate in-development ESP32-C5 multi-node array by Hellz (§2) — and not HaleHound (§3). See §3 for Biscuit. |
-| "WDGoWars is the current name of the game." | **Not since the rebrand.** LOCOSP's [press page](https://wdgwars.pl/press) branding section (read 2026-07-25) says: full name **WDGWars** (one word), acceptable variants Watch Dogs Go Wars / WDG / wdgwars, and explicitly *"DO NOT use: WDGoWars (old pre-rebrand spelling)"*. This repo, its filenames, and its sibling feeders still use WDGoWars throughout, which is now the outdated spelling. Flagged rather than silently mass-renamed, because the repo name, the Pages URL, and five sibling repos all carry the old string. |
+| "Biscuit / Piglet / Raspyjack / M5MonsterC5 all upload to WDGoWars on-device." | Mixed. Piglet does ([hamspiced/piglet](https://github.com/hamspiced/piglet) with web-UI WDGWars upload). Raspyjack has a payload script ([7h30th3r0n3/Raspyjack `payloads/exfiltration/wdgwars_upload.py`](https://github.com/7h30th3r0n3/Raspyjack/blob/main/payloads/exfiltration/wdgwars_upload.py)) but the repo description doesn't say so — grep the code, not the README. M5MonsterC5 ([C5Lab/M5MonsterC5-CardputerADV](https://github.com/C5Lab/M5MonsterC5-CardputerADV)) is based on JanOS / Project Zero and doesn't upload to WDGWars at all. Biscuit **does** exist — it's a commercial WiFi/BLE research device line by codehedge, sold at [biscuitshop.us](https://biscuitshop.us): the dual-ESP32 Biscuit Pro / Ultra, a single-chip Biscuit DIY (ESP32-C5), and a BiscuitNode mesh satellite. Phone-app controlled, with a GPS wardrive mode and community-platform upload. It is **not** HellzGate C5 ([Hellz0wnzJ00/hellzgate](https://github.com/Hellz0wnzJ00/hellzgate)) — that's a separate in-development ESP32-C5 multi-node array by Hellz (§2) — and not HaleHound (§3). See §3 for Biscuit. |
+| "WDGoWars is the current name of the game." | **Not since the rebrand.** LOCOSP's [press page](https://wdgwars.pl/press) branding section (read 2026-07-25) says: full name **WDGWars** (one word), acceptable variants Watch Dogs Go Wars / WDG / wdgwars, and explicitly *"DO NOT use: WDGoWars (old pre-rebrand spelling)"*. This repo, its filenames, and its sibling feeders still use WDGWars throughout, which is now the outdated spelling. Flagged rather than silently mass-renamed, because the repo name, the Pages URL, and five sibling repos all carry the old string. |
 | "WiGLE-1.4 and WiGLE-1.6 differ by three columns (Frequency, RCOIs, MfgrId)." | True, but WiGLE's [own spec page](https://api.wigle.net/csvFormat.html) only documents 1.6 today. The 1.4 column list is citable from [Marauder's `WiFiScan.h:682`](https://github.com/justcallmekoko/ESP32Marauder/blob/master/esp32_marauder/WiFiScan.h#L682) which still hard-codes the `WigleWifi-1.4,…` header + 11 fields. So the delta is real, just not described in any one place by WiGLE. |
 | "Marauder works fine without a GPS module — it just won't tag coordinates." | Wrong. [`WiFiScan.cpp:515-551`](https://github.com/justcallmekoko/ESP32Marauder/blob/master/esp32_marauder/WiFiScan.cpp#L515) gates the `wardrive_line` construction behind `gps_obj.getGpsModuleStatus()` AND `getFixStatus()`. No GPS module → no line written. The dumps will be empty. |
 | "GhostESP on bare ESP32-C3 works fine for wardriving." | The current release (`VA1.4.8`, 2025-03-31) flashes and boots on C3, but `list -a` output lacks BSSID and channel on some commands when running headless USB-CDC. There's been no release in 15+ months. If you flash a C3 today and care about BSSID for WiGLE-compatible CSV, verify before depending on it. |
@@ -485,7 +485,7 @@ Tertiary (background, not directly cited above):
 - [agucova/awesome-esp](https://github.com/agucova/awesome-esp) — broader ESP curation
 - [FusedStamen/antenna-database](https://github.com/FusedStamen/antenna-database) — empirical WiFi antenna SWR measurements (LiteVNA 64), fetched 2026-06-14
 
-WDGoWars portal: [wdgwars.pl](https://wdgwars.pl) / [API help](https://wdgwars.pl/help/)
+WDGWars portal: [wdgwars.pl](https://wdgwars.pl) / [API help](https://wdgwars.pl/help/)
 
 HiroAlleyCat feeders (this repo's siblings):
 - [adsb-to-wdgwars (Muninn)](https://github.com/Yggdrasil-AI-labs/adsb-to-wdgwars)

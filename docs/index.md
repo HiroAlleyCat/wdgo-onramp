@@ -5,11 +5,11 @@ brand: WDGOWARS
 tagline: / on-ramp / shopping / hardware / spec / credits /
 ---
 
-A leveled guide for new players coming to [WDGoWars](https://wdgwars.pl), the community wardriving game by LOCOSP. Five steps from "I have an Android phone" to "I run a multi-source capture lab," with every product fact cited from a primary source.
+A leveled guide for new players coming to [WDGWars](https://wdgwars.pl), the community wardriving game by LOCOSP. Five steps from "I have an Android phone" to "I run a multi-source capture lab," with every product fact cited from a primary source.
 
 ## Read order
 
-1. **[Newcomer onramp](onramp.md)** — start here. Five sequenced steps from zero to scoring on WDGoWars leaderboards.
+1. **[Newcomer onramp](onramp.md)** — start here. Five sequenced steps from zero to scoring on WDGWars leaderboards.
 2. **[Capture flow diagram](flow.md)** — the same progression as a flow diagram (Mermaid here, interactive Obsidian canvas in the repo root).
 3. **[Shopping list](shopping.md)** — buyer's checklist for each tier with vendor links.
 4. **[Hardware survey](survey.md)** — reference: every firmware × chip combination, every community tool, decision tree, API gotchas.
@@ -25,7 +25,7 @@ A leveled guide for new players coming to [WDGoWars](https://wdgwars.pl), the co
 
 ## What this is not
 
-- Not affiliated with LOCOSP. WDGoWars is theirs. This is a community-maintained orientation guide.
+- Not affiliated with LOCOSP. WDGWars is theirs. This is a community-maintained orientation guide.
 - Not a CLI tutorial for the feeders themselves. Each feeder's own README is the source of truth for its options.
 - Not a complete API reference — that lives at [wdgwars.pl/help](https://wdgwars.pl/help/). This guide covers the gotchas working integrations trip over, not the surface itself.
 

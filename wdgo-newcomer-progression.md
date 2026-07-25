@@ -7,7 +7,7 @@ related:
   - "[[wdgo-capture-flow]]"
 ---
 
-# WDGoWars onramp — from WiGLE to advanced
+# WDGWars onramp — from WiGLE to advanced
 
 The fastest legitimate path from zero to scoring points on wdgwars.pl. Each level builds on the one before it. Stop wherever the next step doesn't sound fun yet, come back when it does.
 
@@ -20,9 +20,9 @@ Wardriving is capturing wireless signals (Wi-Fi APs, Bluetooth devices, ADS-B ai
 | Platform | Role |
 |---|---|
 | [WiGLE.net](https://wigle.net) | The long-running community database. Most veteran wardrivers say "I'm WiGLE'ing." Free hobby project, no ads. |
-| [WDGoWars (wdgwars.pl)](https://wdgwars.pl) | A community wardriving game by LOCOSP. Same captures, adds gang play, cell-grid territory, leaderboards, and accepts aircraft + LoRa mesh slots WiGLE doesn't have. |
+| [WDGWars (wdgwars.pl)](https://wdgwars.pl) | A community wardriving game by LOCOSP. Same captures, adds gang play, cell-grid territory, leaderboards, and accepts aircraft + LoRa mesh slots WiGLE doesn't have. |
 
-You can play either, or both. Same hardware feeds both. The progression below points you at WiGLE first because it's the lowest-friction entry, then crosses you over to WDGoWars without losing the WiGLE captures.
+You can play either, or both. Same hardware feeds both. The progression below points you at WiGLE first because it's the lowest-friction entry, then crosses you over to WDGWars without losing the WiGLE captures.
 
 ## Step 1 — Phone only (free)
 
@@ -41,7 +41,7 @@ The lowest-effort start.
 
 **Time to first WiGLE points:** under an hour if you live near anything populated.
 
-## Step 2 — Cross-post the same captures to WDGoWars (free, ~15 min one-time setup)
+## Step 2 — Cross-post the same captures to WDGWars (free, ~15 min one-time setup)
 
 Same captures from Step 1, second leaderboard.
 
@@ -51,7 +51,7 @@ Same captures from Step 1, second leaderboard.
 4. Install [wigle-to-wdgwars](https://github.com/Yggdrasil-AI-labs/wigle-to-wdgwars):
    - Linux/Mac: `./run.sh --setup`
    - Windows: `run.bat --setup`
-   - The wizard prompts for both keys (WiGLE + WDGoWars), validates them, optionally installs a daily timer
+   - The wizard prompts for both keys (WiGLE + WDGWars), validates them, optionally installs a daily timer
 5. Drop the file in the watched directory, or run with `--schedule` for hands-off
 
 That's it — one capture, two leaderboards.
@@ -69,7 +69,7 @@ If you don't solder and don't want to learn yet, the solderless paths are: M5 Ca
 
 ### 3a. Easiest path: on-device upload
 
-Four firmwares verified to upload directly to WDGoWars from the capture device. All write WigleWifi-1.6 CSV and POST to `/api/upload-csv` with your API key.
+Four firmwares verified to upload directly to WDGWars from the capture device. All write WigleWifi-1.6 CSV and POST to `/api/upload-csv` with your API key.
 
 | Hardware | Firmware | Form factor | How it uploads |
 |---|---|---|---|
@@ -84,7 +84,7 @@ There is also a fifth path where the **phone** does the uploading instead of the
 |---|---|---|---|
 | **Biscuit Pro / Biscuit Ultra** ([biscuitshop.us](https://biscuitshop.us)), or a **DIY Biscuit** on any ESP32-C5 board with 8 MB flash + 8 MB PSRAM (T-Dongle C5, XIAO ESP32C5, Waveshare or generic C5 dev board) | Closed-source Biscuit firmware. DIY version is free, flashed from the browser at [flasher.biscuitshop.us](https://flasher.biscuitshop.us) | headless, no screen, pocket or bag | Paired phone app (iOS + Android) over Bluetooth. The phone supplies GPS and does the logging and uploading, so the board never needs Wi-Fi credentials or a GPS module. WiGLE goes over WiGLE's own API from the app. LOCOSP lists Biscuit as natively supported on [wdgwars.pl/press](https://wdgwars.pl/press) with *"integration in progress"* — read that literally before you count on leaderboard points. |
 
-If you're picking ONE for a clean newcomer experience, **Cardputer + Bruce fork** is the most turnkey (built-in keyboard + screen, no external web UI needed). If you like web dashboards over device menus, **Piglet on a XIAO C5** is the most modern. If you'd rather carry nothing with a screen and run everything from your phone, the Biscuit route is the least fiddly of all of them, at the cost of closed-source firmware and a WDGoWars path that is still being finished. The Pineapple Pager path is best only if you already own a Pager.
+If you're picking ONE for a clean newcomer experience, **Cardputer + Bruce fork** is the most turnkey (built-in keyboard + screen, no external web UI needed). If you like web dashboards over device menus, **Piglet on a XIAO C5** is the most modern. If you'd rather carry nothing with a screen and run everything from your phone, the Biscuit route is the least fiddly of all of them, at the cost of closed-source firmware and a WDGWars path that is still being finished. The Pineapple Pager path is best only if you already own a Pager.
 
 ### 3b. Cheapest path: capture-only, upload from PC
 
@@ -96,7 +96,7 @@ Buy less, do more steps per upload.
 - Capture wardrive sessions, pull the SD card to your PC
 - Run wigle-to-wdgwars on the SD dump
 
-> **Critical: Marauder writes WigleWifi-1.4 with only 11 columns** (verified at [`WiFiScan.h:682`](https://github.com/justcallmekoko/ESP32Marauder/blob/master/esp32_marauder/WiFiScan.h#L682) — missing the `Frequency`, `RCOIs`, `MfgrId` that WDGoWars expects from 1.6). wigle-to-wdgwars handles the padding, so this is not a blocker — just don't expect Marauder dumps to be byte-compatible with WiGLE web upload either.
+> **Critical: Marauder writes WigleWifi-1.4 with only 11 columns** (verified at [`WiFiScan.h:682`](https://github.com/justcallmekoko/ESP32Marauder/blob/master/esp32_marauder/WiFiScan.h#L682) — missing the `Frequency`, `RCOIs`, `MfgrId` that WDGWars expects from 1.6). wigle-to-wdgwars handles the padding, so this is not a blocker — just don't expect Marauder dumps to be byte-compatible with WiGLE web upload either.
 
 > **Critical: Marauder needs a GPS module attached** or the wardrive dumps are empty (verified in source at [`WiFiScan.cpp:515-551`](https://github.com/justcallmekoko/ESP32Marauder/blob/master/esp32_marauder/WiFiScan.cpp#L515) — the `wardrive_line` is only written when `gps_obj.getGpsModuleStatus()` AND `getFixStatus()` are both true).
 
@@ -106,7 +106,7 @@ If you want a pre-flashed device without doing the GPS mod yourself, the [Apex 5
 
 ### 3c. Already own something else? It probably still plays
 
-The five paths above are the ones with a WDGoWars story out of the box. They are not the only firmwares that wardrive, and you do not need to rebuy hardware to join.
+The five paths above are the ones with a WDGWars story out of the box. They are not the only firmwares that wardrive, and you do not need to rebuy hardware to join.
 
 LOCOSP's [developer page](https://wdgwars.pl/press) accepts a raw WigleWifi-1.6 file at `POST /api/upload-csv` with your API key, and says outright that the CSV route is the recommended one for firmware. **So the working rule is: if your firmware writes a WigleWifi-format CSV, you're one upload away.** Pull the SD card, run [wigle-to-wdgwars](https://github.com/HiroAlleyCat/wigle-to-wdgwars), or drop the file into the upload form on your wdgwars.pl profile.
 
@@ -125,9 +125,9 @@ That covers a lot of hardware people already have on the shelf:
 
 The full catalog, including what each project's docs actually claim about output format (and where they claim nothing), is in [[wardriving-hardware-survey]] §3e. Maturity signals for the long-running projects are in §10 of the same doc.
 
-## Step 4 — Pick up the WDGoWars-only slots (aircraft + LoRa mesh)
+## Step 4 — Pick up the WDGWars-only slots (aircraft + LoRa mesh)
 
-WiGLE doesn't track aircraft or LoRa mesh nodes. WDGoWars does. These are points only available on WDGoWars.
+WiGLE doesn't track aircraft or LoRa mesh nodes. WDGWars does. These are points only available on WDGWars.
 
 | Slot | Tool | What you need |
 |---|---|---|
@@ -145,7 +145,7 @@ If you got here, you're not asking how to start. You're asking how to scale.
 - Raspberry Pi 4 + Kismet with a monitor-mode USB Wi-Fi adapter for best capture quality
 - A fleet of ESP32s on different channels and bands (mix of Bruce, Piglet, Marauder)
 - Stationary ADS-B with an outdoor antenna for hundreds of nautical miles of range
-- Multiple WDGoWars API keys for split-driver attribution (one key = one driver — same key on two devices counts as one driver with two feeders)
+- Multiple WDGWars API keys for split-driver attribution (one key = one driver — same key on two devices counts as one driver with two feeders)
 - Alternative firmwares to test: [Evil-M5Project](https://github.com/7h30th3r0n3/Evil-M5Project), [Bruce upstream](https://github.com/BruceDevices/firmware), [Ghost_ESP](https://github.com/Spooks4576/Ghost_ESP)
 - Custom feeders for sources nobody's built yet (see [[wardriving-hardware-survey]] §9 for the gap list)
 
@@ -159,7 +159,7 @@ If you've gone through Steps 1–5 and still want more headroom, the hobby has t
 
 **Upgrade the RF chain.** A bare RTL-SDR + the included whip antenna typically maxes out around 20–50 nm of ADS-B range. A real outdoor antenna (FlightAware 26"), an LNA mounted at the antenna, LMR-400 coax, and a lightning arrestor push that into the hundreds of nautical miles. The computer-attached SDR ladder runs AirSpy R2 / HF+ Discovery → SDRplay RSPdx-R2 / RSPduo → ADALM-Pluto → LimeSDR Mini 2.0 / USB → bladeRF 2.0 micro → Ettus USRP B200mini, with TX capability appearing from the Pluto onward. KrakenSDR + its 5-antenna array kit is the dedicated direction-finding option.
 
-**Go handheld with the HackRF PortaPack.** A HackRF One in a PortaPack H4M / H2M shell with [Mayhem firmware](https://github.com/portapack-mayhem/mayhem-firmware) becomes a standalone capture + TX tool across 1 MHz–6 GHz with no computer attached. It doesn't upload to WDGoWars on its own, but SD output flows to Muninn or wigle-to-wdgwars on a PC afterward.
+**Go handheld with the HackRF PortaPack.** A HackRF One in a PortaPack H4M / H2M shell with [Mayhem firmware](https://github.com/portapack-mayhem/mayhem-firmware) becomes a standalone capture + TX tool across 1 MHz–6 GHz with no computer attached. It doesn't upload to WDGWars on its own, but SD output flows to Muninn or wigle-to-wdgwars on a PC afterward.
 
 See [[shopping-list]] Tiers 6–8 for the gear list at each step (including discone, log-periodic, Yagi antennas, RF filters, GPSDO, and [DragonOS Focal](https://sourceforge.net/projects/dragonos-focal/) for the software side). The associated form factors are also in [[wardriving-hardware-survey]] §6.
 
@@ -169,7 +169,7 @@ See [[shopping-list]] Tiers 6–8 for the gear list at each step (including disc
 |---|---|
 | Bought a bare ESP32-C3 and can't find good firmware | Marauder has no C3 binary. Bruce has no C3 port. GhostESP has a C3 binary but the output lacks BSSID on some commands. C3 is poorly served by stock firmware — avoid unless you want to write your own. |
 | Bought a Flipper Zero expecting it to wardrive on its own | The Flipper has no 2.4 GHz radio. You need the WiFi DevBoard (or a side device like the Apex 5) running Marauder, plus a GPS module, plus an SD pull → wigle-to-wdgwars. See [[shopping-list]] Tier 3b. |
-| Bought a Pwnagotchi expecting WiGLE CSV / WDGoWars parity | Pwnagotchi captures PCAP handshakes, not the WigleWifi-1.6 CSV that wigle-to-wdgwars ingests. Use it for the handshake side of the hobby; pair it with a Marauder/Bruce rig if you also want leaderboard points. |
+| Bought a Pwnagotchi expecting WiGLE CSV / WDGWars parity | Pwnagotchi captures PCAP handshakes, not the WigleWifi-1.6 CSV that wigle-to-wdgwars ingests. Use it for the handshake side of the hobby; pair it with a Marauder/Bruce rig if you also want leaderboard points. |
 | Bought Meshtastic gear expecting Heimdall to ingest it | Heimdall is MeshCore-specific today. Most modern LoRa boards run either firmware — re-flash to MeshCore if your goal is the `meshcore_nodes` slot. The Meshtastic-native parser is on the gap list at [[wardriving-hardware-survey]] §9. |
 | Bought Marauder without a GPS module | Wardrive dumps will be empty. GPS is mandatory, not optional. |
 | Same API key on multiple devices | All captures attribute to one driver. Need separate keys for split-driver attribution. |
@@ -184,7 +184,7 @@ Wardriving is mostly figured out by talking to other wardrivers. The fastest way
 
 | Community | How to find it |
 |---|---|
-| WDGoWars (LOCOSP) | DM `@locosp` on Discord, or use the contact channels at [wdgwars.pl/press](https://wdgwars.pl/press). LOCOSP runs the game and answers questions in the WDGoWars Discord. |
+| WDGWars (LOCOSP) | DM `@locosp` on Discord, or use the contact channels at [wdgwars.pl/press](https://wdgwars.pl/press). LOCOSP runs the game and answers questions in the WDGWars Discord. |
 | KokosStripClub (Marauder) | justcallmekoko's Discord, linked from [his GitHub profile](https://github.com/justcallmekoko). Marauder firmware questions live here. |
 | Bruce | Active Discord, linked from the [BruceDevices/firmware README](https://github.com/BruceDevices/firmware). Bruce-specific build issues live here. |
 | MeshCore | Discord linked from the [meshcore-dev/MeshCore README](https://github.com/meshcore-dev/MeshCore). LoRa node questions live here. |
@@ -203,8 +203,8 @@ Wardriving content is sparse on YouTube compared to nearby hobbies, so the short
 
 | Creator | Where | What they cover |
 |---|---|---|
-| Talking Sasquach | [YouTube](https://www.youtube.com/@TalkingSasquach), [Odysee](https://odysee.com/@talkingsasquach:1) | The device shootouts. His [WDGoWars device comparison](https://odysee.com/@talkingsasquach:1/i-tested-every-wardriving-device-for:f) puts Marauder, the Pineapple Pager, a Cardputer running Porkchop, HaleHound, Biscuit Pro, and Piglet against the same game. Also Flipper Zero and HackRF. |
-| Valley Tech Solutions | [YouTube](https://www.youtube.com/@Valleytechsolutions) | WDGoWars collabs, wardriving rigs, on-device walkthroughs. |
+| Talking Sasquach | [YouTube](https://www.youtube.com/@TalkingSasquach), [Odysee](https://odysee.com/@talkingsasquach:1) | The device shootouts. His [WDGWars device comparison](https://odysee.com/@talkingsasquach:1/i-tested-every-wardriving-device-for:f) puts Marauder, the Pineapple Pager, a Cardputer running Porkchop, HaleHound, Biscuit Pro, and Piglet against the same game. Also Flipper Zero and HackRF. |
+| Valley Tech Solutions | [YouTube](https://www.youtube.com/@Valleytechsolutions) | WDGWars collabs, wardriving rigs, on-device walkthroughs. |
 | justcallmekoko | [YouTube](https://www.youtube.com/justcallmekoko) | Marauder firmware demos and hardware tours from the firmware author. |
 | GhostStrats (Spooks4576) | [YouTube](https://www.youtube.com/channel/UCzSZPWtTRA4G946XRAn2XLQ) | Ghost_ESP author. ESP firmware walkthroughs across many chips. |
 | 7h30th3r0n3 | [YouTube](https://www.youtube.com/channel/UCN1sTrFbvdliXTUOsY5DkyA) | Evil-M5Project and Raspyjack demos from their author. |
@@ -212,7 +212,7 @@ Wardriving content is sparse on YouTube compared to nearby hobbies, so the short
 
 A longer list of channels, plus specific videos worth the click, is in [[CREDITS]] under "YouTube and video coverage".
 
-LOCOSP also maintains [wdgwars.pl/press](https://wdgwars.pl/press) for content creators covering the game, which is the canonical place to discover new WDGoWars-specific coverage as it ships. **Making videos yourself?** Put `#wdgwars` in the title or description and LOCOSP's tracker auto-features them on the game map and the press page (RSS polling, roughly every 30 minutes, no approval step). One manual step first: DM `@locosp` on Discord or GitHub to get your channel added to the tracker, since only tracked channels get scanned.
+LOCOSP also maintains [wdgwars.pl/press](https://wdgwars.pl/press) for content creators covering the game, which is the canonical place to discover new WDGWars-specific coverage as it ships. **Making videos yourself?** Put `#wdgwars` in the title or description and LOCOSP's tracker auto-features them on the game map and the press page (RSS polling, roughly every 30 minutes, no approval step). One manual step first: DM `@locosp` on Discord or GitHub to get your channel added to the tracker, since only tracked channels get scanned.
 
 ### Community shops
 
@@ -230,13 +230,13 @@ The manufacturer storefronts already linked in [[shopping-list]] are usually che
 
 For Cheap Yellow Display boards there is no canonical reseller. The community hub is [witnessmenow/ESP32-Cheap-Yellow-Display](https://github.com/witnessmenow/ESP32-Cheap-Yellow-Display); the boards themselves are sold through AliExpress, Amazon, and eBay.
 
-> **Want your community, channel, or shop on this list?** Open an issue or PR at [github.com/HiroAlleyCat/wdgo-onramp](https://github.com/HiroAlleyCat/wdgo-onramp), or ask HiroAlleyCat (or another contributor) on the WDGoWars Discord. We just need a primary source to verify (your README, channel About page, or storefront).
+> **Want your community, channel, or shop on this list?** Open an issue or PR at [github.com/HiroAlleyCat/wdgo-onramp](https://github.com/HiroAlleyCat/wdgo-onramp), or ask HiroAlleyCat (or another contributor) on the WDGWars Discord. We just need a primary source to verify (your README, channel About page, or storefront).
 
 ## Where to go next
 
 - [[wardriving-hardware-survey]] — the reference doc behind this onramp. Full firmware × chip matrix, every community tool I could verify, decision tree.
 - Writing a feeder in a new language? Read [gungnir](https://github.com/Yggdrasil-AI-labs/gungnir) (Python transport) and LOCOSP's [WatchDogsGo `plugins/wardrive_upload.py`](https://github.com/LOCOSP/WatchDogsGo/blob/main/plugins/wardrive_upload.py) side by side — between them they cover the auth header, HMAC construction, retry/cooldown, and the slot-typed payload shape.
-- [WDGoWars portal](https://wdgwars.pl) and [API help](https://wdgwars.pl/help/) — the source of truth for game mechanics and the API surface.
+- [WDGWars portal](https://wdgwars.pl) and [API help](https://wdgwars.pl/help/) — the source of truth for game mechanics and the API surface.
 
 ---
 

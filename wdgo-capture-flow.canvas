@@ -4,7 +4,7 @@
     {"id": "a1b2c3d4e5f60002", "type": "text", "x": 20, "y": 60, "width": 280, "height": 140, "text": "## Android phone\n\nWi-Fi + BT radios\nbuilt-in GPS\nzero hardware spend"},
     {"id": "a1b2c3d4e5f60003", "type": "text", "x": 380, "y": 60, "width": 280, "height": 140, "text": "## WiGLE Wifi Wardriving\n\nofficial Android app\nlogs networks + locations\nuploads when on Wi-Fi", "color": "4"},
 
-    {"id": "a1b2c3d4e5f60010", "type": "group", "x": -20, "y": 300, "width": 1620, "height": 280, "label": "Step 2 — Cross-post the same captures to WDGoWars (free, ~15 min setup)", "color": "5"},
+    {"id": "a1b2c3d4e5f60010", "type": "group", "x": -20, "y": 300, "width": 1620, "height": 280, "label": "Step 2 — Cross-post the same captures to WDGWars (free, ~15 min setup)", "color": "5"},
     {"id": "a1b2c3d4e5f60011", "type": "text", "x": 20, "y": 380, "width": 280, "height": 140, "text": "## Android phone\n\n*(same as Step 1)*\nWiGLE Wifi Wardriving app"},
     {"id": "a1b2c3d4e5f60012", "type": "text", "x": 380, "y": 380, "width": 280, "height": 140, "text": "## .wiglecsv.gz\n\nWiGLE Android export\nShare → save file\nWigleWifi-1.6 format"},
     {"id": "a1b2c3d4e5f60013", "type": "text", "x": 740, "y": 380, "width": 280, "height": 140, "text": "## wigle-to-wdgwars\n\nv1.6.2 — `--setup` wizard\n`--schedule` for daily auto\nPython, cross-platform", "color": "5"},
@@ -27,7 +27,7 @@
     {"id": "a1b2c3d4e5f60032", "type": "text", "x": 380, "y": 1460, "width": 280, "height": 140, "text": "## Marauder v1.13.0\n\njustcallmekoko/ESP32Marauder\n**writes WigleWifi-1.4 to SD**\n(11 cols, missing 3)", "color": "2"},
     {"id": "a1b2c3d4e5f60033", "type": "text", "x": 740, "y": 1460, "width": 280, "height": 140, "text": "## SD card pull\n\nthen feed to\n**wigle-to-wdgwars**\n(pads 1.4 → 1.6)"},
 
-    {"id": "a1b2c3d4e5f60040", "type": "group", "x": -20, "y": 1700, "width": 1620, "height": 460, "label": "Step 4 — WDGoWars-only data slots (aircraft + LoRa mesh)", "color": "6"},
+    {"id": "a1b2c3d4e5f60040", "type": "group", "x": -20, "y": 1700, "width": 1620, "height": 460, "label": "Step 4 — WDGWars-only data slots (aircraft + LoRa mesh)", "color": "6"},
     {"id": "a1b2c3d4e5f60041", "type": "text", "x": 20, "y": 1780, "width": 280, "height": 140, "text": "## RTL-SDR + 1090 MHz antenna\n\nstationary, sky view\nsmall Linux box (Pi works)"},
     {"id": "a1b2c3d4e5f60042", "type": "text", "x": 380, "y": 1780, "width": 280, "height": 140, "text": "## dump1090 / readsb\n\ndecodes ADS-B\nwrites aircraft.json"},
     {"id": "a1b2c3d4e5f60043", "type": "text", "x": 740, "y": 1780, "width": 280, "height": 140, "text": "## Muninn (adsb-to-wdgwars)\n\nv2.0.16, CLI + Pyodide\nwatches dir, uploads", "color": "6"},
@@ -49,7 +49,7 @@
     {"id": "a1b2c3d4e5f60074", "type": "text", "x": 1720, "y": 1380, "width": 460, "height": 200, "text": "### Game mechanics\n\n- cell grid 0.02° lat × 0.03° lon\n- rebuilds every 5 min\n- one API key = one driver\n- caller-scope reads only"},
     {"id": "a1b2c3d4e5f60075", "type": "text", "x": 1720, "y": 1600, "width": 460, "height": 200, "text": "### Watch out\n\n- CF L7 → 429 on /api/* cold-IP bursts\n- pin gungnir ≥ 0.1.2 OR use /endpoint/*\n- 429 mid-batch → ABORT whole batch\n- silent drops: 200 + 0 records = malformed payload"},
 
-    {"id": "a1b2c3d4e5f60080", "type": "text", "x": -20, "y": 2200, "width": 800, "height": 200, "text": "## Legend\n\n- **Green** = on-device upload, no PC step\n- **Cyan** = PC-side feeder path\n- **Yellow** = dedicated device w/ direct upload\n- **Orange** = capture-only, you upload from PC\n- **Purple** = WDGoWars-only data slots (ADS-B / LoRa)\n- **Red** = shared transport library / API gotchas"},
+    {"id": "a1b2c3d4e5f60080", "type": "text", "x": -20, "y": 2200, "width": 800, "height": 200, "text": "## Legend\n\n- **Green** = on-device upload, no PC step\n- **Cyan** = PC-side feeder path\n- **Yellow** = dedicated device w/ direct upload\n- **Orange** = capture-only, you upload from PC\n- **Purple** = WDGWars-only data slots (ADS-B / LoRa)\n- **Red** = shared transport library / API gotchas"},
     {"id": "a1b2c3d4e5f60081", "type": "file", "x": 820, "y": 2200, "width": 780, "height": 200, "file": "wdgo-newcomer-progression.md"}
   ],
   "edges": [

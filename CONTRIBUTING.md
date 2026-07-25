@@ -117,9 +117,9 @@ Process:
      } > "$out"
    done <<'EOF'
    wdgo-newcomer-progression|onramp|On-ramp|Five-step progression from WiGLE on your phone to advanced multi-source capture|ON-RAMP|/ wigle on phone <span>→</span> on-device upload <span>→</span> multi-source capture /
-   shopping-list|shopping|Shopping|Buyer's checklist for each tier of the WDGoWars onramp|SHOPPING|/ tier-by-tier buyer's checklist / no fabricated prices /
+   shopping-list|shopping|Shopping|Buyer's checklist for each tier of the WDGWars onramp|SHOPPING|/ tier-by-tier buyer's checklist / no fabricated prices /
    wardriving-hardware-survey|survey|Hardware survey|Firmware × chip support matrix, community tools catalog, decision tree, API gotchas|HARDWARE SURVEY|/ firmware <span>×</span> chip matrix / decision tree / community tools /
-   CREDITS|credits|Credits|The maintainers, projects, and vendors that make the WDGoWars ecosystem possible|CREDITS|/ maintainers <span>·</span> projects <span>·</span> vendors <span>·</span> communities /
+   CREDITS|credits|Credits|The maintainers, projects, and vendors that make the WDGWars ecosystem possible|CREDITS|/ maintainers <span>·</span> projects <span>·</span> vendors <span>·</span> communities /
    EOF
    ```
 

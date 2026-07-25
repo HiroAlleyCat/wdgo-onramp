@@ -9,18 +9,18 @@ related:
 
 # Credits
 
-This guide stands on a lot of community work. Acknowledging it here, organized by what each project contributes to the WDGoWars-or-WiGLE pipeline.
+This guide stands on a lot of community work. Acknowledging it here, organized by what each project contributes to the WDGWars-or-WiGLE pipeline.
 
-> **Want to be listed?** Run a wardriving Discord, ship a relevant GitHub project, sell wardriving hardware, or cover WDGoWars / wardriving on YouTube? Open an issue or PR at [github.com/HiroAlleyCat/wdgo-onramp](https://github.com/HiroAlleyCat/wdgo-onramp), or ask HiroAlleyCat (or any active contributor) on the WDGoWars Discord. Bar to be added: one primary source we can verify (your README, channel About page, or storefront).
+> **Want to be listed?** Run a wardriving Discord, ship a relevant GitHub project, sell wardriving hardware, or cover WDGWars / wardriving on YouTube? Open an issue or PR at [github.com/HiroAlleyCat/wdgo-onramp](https://github.com/HiroAlleyCat/wdgo-onramp), or ask HiroAlleyCat (or any active contributor) on the WDGWars Discord. Bar to be added: one primary source we can verify (your README, channel About page, or storefront).
 
 ## The game
 
-**LOCOSP** — created [WDGoWars (wdgwars.pl)](https://wdgwars.pl) and maintains the firmware family that uploads to it. The whole reason this repo exists. Repos:
+**LOCOSP** — created [WDGWars (wdgwars.pl)](https://wdgwars.pl) and maintains the firmware family that uploads to it. The whole reason this repo exists. Repos:
 
 | Repo | What it is |
 |---|---|
 | [WatchDogsGo](https://github.com/LOCOSP/WatchDogsGo) | The game source itself (Pyxel frontend for ESP32-C5 + ClockworkPi uConsole). The `plugins/wardrive_upload.py` is the reference HMAC implementation. |
-| [bruce-firmware-wdgwars](https://github.com/LOCOSP/bruce-firmware-wdgwars) | Bruce fork with on-device WDGoWars upload (`src/modules/gps/wdgwars.cpp`). Tag `v1.0-wdgwars`. |
+| [bruce-firmware-wdgwars](https://github.com/LOCOSP/bruce-firmware-wdgwars) | Bruce fork with on-device WDGWars upload (`src/modules/gps/wdgwars.cpp`). Tag `v1.0-wdgwars`. |
 | [pineapple_pager_wdgwars](https://github.com/LOCOSP/pineapple_pager_wdgwars) | Hak5 WiFi Pineapple Pager payload — WigleWifi-1.6 CSV, GPS required, `/api/upload-csv`. |
 | [WDGWatch](https://github.com/LOCOSP/WDGWatch) | LilyGO T-Watch Ultra companion firmware. |
 
@@ -33,9 +33,9 @@ This guide stands on a lot of community work. Acknowledging it here, organized b
 | Repo | Role |
 |---|---|
 | [ESP32Marauder](https://github.com/justcallmekoko/ESP32Marauder) | The primary ESP32 wardriving firmware. 11.6k+ stars. |
-| [ESP32DualBandWardriver](https://github.com/justcallmekoko/ESP32DualBandWardriver) | C5 dual-band wardriver; its README points users at the WDGoWars leaderboard alongside WiGLE. |
+| [ESP32DualBandWardriver](https://github.com/justcallmekoko/ESP32DualBandWardriver) | C5 dual-band wardriver; its README points users at the WDGWars leaderboard alongside WiGLE. |
 
-**pr3y and the Bruce contributors** — [Bruce upstream firmware (BruceDevices/firmware)](https://github.com/BruceDevices/firmware). LOCOSP's WDGoWars-flavored Bruce is a fork; the upstream is what gives Bruce its broad M5 + LilyGO + CYD support.
+**pr3y and the Bruce contributors** — [Bruce upstream firmware (BruceDevices/firmware)](https://github.com/BruceDevices/firmware). LOCOSP's WDGWars-flavored Bruce is a fork; the upstream is what gives Bruce its broad M5 + LilyGO + CYD support.
 
 **Spooks4576** — [Ghost_ESP](https://github.com/Spooks4576/Ghost_ESP). Wide chip support (classic + S2 + S3 + C3 + C6). The only stock binary for bare ESP32-C3, with the caveat that some commands lack BSSID on that chip. **This repo is archived** as of the 2026-07-25 check (last push 2025-04-22); see GhostESP Revival below for the maintained continuation.
 
@@ -44,15 +44,15 @@ This guide stands on a lot of community work. Acknowledging it here, organized b
 | Repo | Role |
 |---|---|
 | [Evil-M5Project](https://github.com/7h30th3r0n3/Evil-M5Project) | M5-family pentest suite — Cardputer, AtomS3, Core2/CoreS3/Fire/AWS support. |
-| [Raspyjack](https://github.com/7h30th3r0n3/Raspyjack) | Pi-based redteam toolkit. Ships the WDGoWars upload payload at `payloads/exfiltration/wdgwars_upload.py`. |
+| [Raspyjack](https://github.com/7h30th3r0n3/Raspyjack) | Pi-based redteam toolkit. Ships the WDGWars upload payload at `payloads/exfiltration/wdgwars_upload.py`. |
 
-**hamspiced** — [Piglet (`hamspiced/piglet`)](https://github.com/hamspiced/piglet). Modern XIAO ESP32 wardriving firmware (198★ as of 2026-07-25, actively shipping) with a clean web UI for WDGoWars uploads. Adds XIAO C5/S3/C6 to the on-device-uploader chip set. The fourth confirmed on-device WDGoWars uploader. Piglet hardware is sold via [hamspiced on Tindie](https://www.tindie.com/stores/hamspiced/) and [Midwest Gadgets](https://www.midwestgadgets.org/product-page/piglet).
+**hamspiced** — [Piglet (`hamspiced/piglet`)](https://github.com/hamspiced/piglet). Modern XIAO ESP32 wardriving firmware (198★ as of 2026-07-25, actively shipping) with a clean web UI for WDGWars uploads. Adds XIAO C5/S3/C6 to the on-device-uploader chip set. The fourth confirmed on-device WDGWars uploader. Piglet hardware is sold via [hamspiced on Tindie](https://www.tindie.com/stores/hamspiced/) and [Midwest Gadgets](https://www.midwestgadgets.org/product-page/piglet).
 
-**codehedge** — [Biscuit (`biscuitshop.us`)](https://biscuitshop.us), docs at the [Biscuit Wiki](https://codehedge.github.io/Biscuit-Wiki/). Commercial, phone-app-controlled WiFi/BLE research device line: dual-ESP32 Biscuit Pro / Ultra (dual-band WiFi 6 + BLE), a single-chip ESP32-C5 Biscuit DIY, and BiscuitNode mesh satellites. Has a GPS wardrive mode with WiGLE upload and a multi-destination upload framework. Feed WDGoWars via WiGLE data → wigle-to-wdgwars. **Support status updated 2026-07-25:** LOCOSP's press page now lists Biscuit under THE GEAR as *"community-built portable wardriving devices, natively supported by WDGWars (integration in progress)"* and names Biscuit as a consumer of `GET /api/me` for key validation, so integration work is real but unfinished. The free [DIY Biscuit](https://biscuitshop.us/pages/diy-biscuits) firmware runs on any ESP32-C5 with 8 MB flash + 8 MB PSRAM (T-Dongle C5, XIAO ESP32C5, generic C5 dev boards) via the browser flasher at [flasher.biscuitshop.us](https://flasher.biscuitshop.us).
+**codehedge** — [Biscuit (`biscuitshop.us`)](https://biscuitshop.us), docs at the [Biscuit Wiki](https://codehedge.github.io/Biscuit-Wiki/). Commercial, phone-app-controlled WiFi/BLE research device line: dual-ESP32 Biscuit Pro / Ultra (dual-band WiFi 6 + BLE), a single-chip ESP32-C5 Biscuit DIY, and BiscuitNode mesh satellites. Has a GPS wardrive mode with WiGLE upload and a multi-destination upload framework. Feed WDGWars via WiGLE data → wigle-to-wdgwars. **Support status updated 2026-07-25:** LOCOSP's press page now lists Biscuit under THE GEAR as *"community-built portable wardriving devices, natively supported by WDGWars (integration in progress)"* and names Biscuit as a consumer of `GET /api/me` for key validation, so integration work is real but unfinished. The free [DIY Biscuit](https://biscuitshop.us/pages/diy-biscuits) firmware runs on any ESP32-C5 with 8 MB flash + 8 MB PSRAM (T-Dongle C5, XIAO ESP32C5, generic C5 dev boards) via the browser flasher at [flasher.biscuitshop.us](https://flasher.biscuitshop.us).
 
-**Hellz (Sean Clossey)** — [HellzGate C5 (`Hellz0wnzJ00/hellzgate`)](https://github.com/Hellz0wnzJ00/hellzgate), site [hellzgate.com](https://hellzgate.com). An in-development ESP32-C5 multi-node passive survey array (one master + up to nine scanner nodes over an I²C backplane, dual-band Wi-Fi + BLE, GPS). Firmware closed-source; on-device WiGLE / WDGoWars upload is on the Phase 3 roadmap. WDGoWars Discord mod.
+**Hellz (Sean Clossey)** — [HellzGate C5 (`Hellz0wnzJ00/hellzgate`)](https://github.com/Hellz0wnzJ00/hellzgate), site [hellzgate.com](https://hellzgate.com). An in-development ESP32-C5 multi-node passive survey array (one master + up to nine scanner nodes over an I²C backplane, dual-band Wi-Fi + BLE, GPS). Firmware closed-source; on-device WiGLE / WDGWars upload is on the Phase 3 roadmap. WDGWars Discord mod.
 
-**JesseCHale** — [HaleHound (`JesseCHale/HaleHound-CYD`)](https://github.com/JesseCHale/HaleHound-CYD), web flasher at [flash.halehound.com](https://flash.halehound.com). ESP32-DIV-lineage multi-protocol CYD toolkit (1.4k+★); its wardrive mode writes WiGLE-compatible CSV to SD that feeds wigle-to-wdgwars. Capture-only — no native WDGoWars upload. Also does passive Flock Safety ALPR and Raven detection by BLE fingerprint, which overlaps DeflockJoplin/pack. Docs at [segfault.solutions/halehound](https://segfault.solutions/halehound); built units sold at [halehound.com](https://halehound.com/). Upstream is [cifertech/ESP32-DIV](https://github.com/cifertech/ESP32-DIV).
+**JesseCHale** — [HaleHound (`JesseCHale/HaleHound-CYD`)](https://github.com/JesseCHale/HaleHound-CYD), web flasher at [flash.halehound.com](https://flash.halehound.com). ESP32-DIV-lineage multi-protocol CYD toolkit (1.4k+★); its wardrive mode writes WiGLE-compatible CSV to SD that feeds wigle-to-wdgwars. Capture-only — no native WDGWars upload. Also does passive Flock Safety ALPR and Raven detection by BLE fingerprint, which overlaps DeflockJoplin/pack. Docs at [segfault.solutions/halehound](https://segfault.solutions/halehound); built units sold at [halehound.com](https://halehound.com/). Upstream is [cifertech/ESP32-DIV](https://github.com/cifertech/ESP32-DIV).
 
 
 **cifertech** — [ESP32-DIV](https://github.com/cifertech/ESP32-DIV), the ESP32-S3 multi-band handheld HaleHound forked from, plus the earlier [wardriver3000](https://github.com/cifertech/wardriver3000). Site: [cifertech.net](https://cifertech.net/).
@@ -66,7 +66,7 @@ This guide stands on a lot of community work. Acknowledging it here, organized b
 
 **Jabari Lucien (NSM-Barii)** — [flock-back](https://github.com/NSM-Barii/flock-back) (passive ALPR camera detection while wardriving) and [Dooku](https://github.com/NSM-Barii/Dooku), the hardened Pi 5 + Kismet + 4-adapter rig built around it.
 
-**LAB5 / C5Lab (Labolatorium, Wrocław PL)** — hardware + firmware group focused on the ESP32-C5. Their [projectZero firmware](https://github.com/C5Lab/projectZero) (181★ as of 2026-07-25) runs on the Flipper Zero Pager via their LAB ESP32C5 add-on PCB, and on Cardputer ADV / Tab5 via their M5MonsterC5 add-on (193★ for the [M5MonsterC5-CardputerADV repo](https://github.com/C5Lab/M5MonsterC5-CardputerADV)). LOCOSP's press page calls the C5 running projectZero *"the absolute foundation"* of the WDGoWars rig. The add-ons expose sub-1 GHz capture on chips that otherwise can't do it. Hardware sold from [Tindie store](https://www.tindie.com/stores/lab/) and [lab5-11 Shopify](https://lab5-11.myshopify.com/); quick-start at [c5lab.github.io/projectZero](https://c5lab.github.io/projectZero/).
+**LAB5 / C5Lab (Labolatorium, Wrocław PL)** — hardware + firmware group focused on the ESP32-C5. Their [projectZero firmware](https://github.com/C5Lab/projectZero) (181★ as of 2026-07-25) runs on the Flipper Zero Pager via their LAB ESP32C5 add-on PCB, and on Cardputer ADV / Tab5 via their M5MonsterC5 add-on (193★ for the [M5MonsterC5-CardputerADV repo](https://github.com/C5Lab/M5MonsterC5-CardputerADV)). LOCOSP's press page calls the C5 running projectZero *"the absolute foundation"* of the WDGWars rig. The add-ons expose sub-1 GHz capture on chips that otherwise can't do it. Hardware sold from [Tindie store](https://www.tindie.com/stores/lab/) and [lab5-11 Shopify](https://lab5-11.myshopify.com/); quick-start at [c5lab.github.io/projectZero](https://c5lab.github.io/projectZero/).
 
 ## Communities
 
@@ -74,7 +74,7 @@ The Discord servers and forums where the people behind the above firmwares answe
 
 | Community | Reference link | What it's for |
 |---|---|---|
-| WDGoWars / LOCOSP | [wdgwars.pl/press](https://wdgwars.pl/press), [LOCOSP on GitHub](https://github.com/LOCOSP) | Game itself, leaderboard, upload pipeline questions. Direct contact via Discord DM to `@locosp`. |
+| WDGWars / LOCOSP | [wdgwars.pl/press](https://wdgwars.pl/press), [LOCOSP on GitHub](https://github.com/LOCOSP) | Game itself, leaderboard, upload pipeline questions. Direct contact via Discord DM to `@locosp`. |
 | KokosStripClub (Marauder) | [justcallmekoko on GitHub](https://github.com/justcallmekoko), [server listing](https://discord.com/servers/willstunforfood-776211399918878760) | Marauder firmware, chip-specific gotchas, nightly-build chat. Server name is "WillStunForFood" on the public listing. |
 | Bruce | [BruceDevices/firmware README](https://github.com/BruceDevices/firmware) | Upstream Bruce builds across M5 + LilyGO + CYD targets. |
 | MeshCore | [meshcore-dev/MeshCore README](https://github.com/meshcore-dev/MeshCore) | MeshCore LoRa firmware and node-discovery questions. |
@@ -93,11 +93,11 @@ Tools authored outside LOCOSP and HiroAlleyCat that POST to wdgwars.pl.
 |---|---|---|
 | **phutur1st** | [intercept-wdgwars](https://github.com/phutur1st/intercept-wdgwars) | Exports ADS-B from an `intercept` PostgreSQL database into the aircraft.json shape, uploads to wdgwars. |
 | **DeflockJoplin** | [pack (P.A.C.K.)](https://github.com/DeflockJoplin/pack) | Rust passive capture suite — 802.11 + BLE + GPS, WiGLE CSV output, Flock-camera detection, wdgwars upload. |
-| **InfIux** | [Wardriving-Log-Aggregation](https://github.com/InfIux/Wardriving-Log-Aggregation) | Aggregates Marauder v8 `.log` files for upload to WDGoWars or WiGLE. |
+| **InfIux** | [Wardriving-Log-Aggregation](https://github.com/InfIux/Wardriving-Log-Aggregation) | Aggregates Marauder v8 `.log` files for upload to WDGWars or WiGLE. |
 
 ## Parent platform
 
-**[WiGLE](https://wigle.net)** — the long-running, free, ad-free hobby database. WDGoWars's bulk-upload format is WigleWifi-1.6 (WiGLE's own spec at [api.wigle.net/csvFormat.html](https://api.wigle.net/csvFormat.html)). The hobby in this corner of the internet would not exist without WiGLE.
+**[WiGLE](https://wigle.net)** — the long-running, free, ad-free hobby database. WDGWars's bulk-upload format is WigleWifi-1.6 (WiGLE's own spec at [api.wigle.net/csvFormat.html](https://api.wigle.net/csvFormat.html)). The hobby in this corner of the internet would not exist without WiGLE.
 
 The official WiGLE Android app ([Google Play](https://play.google.com/store/apps/details?id=net.wigle.wigleandroid)) is the recommended Tier-1 capture tool in [[wdgo-newcomer-progression]].
 
@@ -125,8 +125,8 @@ Video is how most newcomers see a working rig before they spend money, and wardr
 
 | Creator | Where | Coverage |
 |---|---|---|
-| **Talking Sasquach** | [YouTube](https://www.youtube.com/@TalkingSasquach), [Odysee mirror](https://odysee.com/@talkingsasquach:1) | The widest device-comparison coverage in this space. Ran a WDGoWars shootout covering Marauder, the Pineapple Pager, a Cardputer running Porkchop, HaleHound, Biscuit Pro, and Piglet, rather than reviewing one board in isolation. Also covers Flipper Zero and HackRF. |
-| **Valley Tech Solutions** | [YouTube](https://www.youtube.com/@Valleytechsolutions) | WDGoWars collabs, wardriving rigs, on-device walkthroughs. |
+| **Talking Sasquach** | [YouTube](https://www.youtube.com/@TalkingSasquach), [Odysee mirror](https://odysee.com/@talkingsasquach:1) | The widest device-comparison coverage in this space. Ran a WDGWars shootout covering Marauder, the Pineapple Pager, a Cardputer running Porkchop, HaleHound, Biscuit Pro, and Piglet, rather than reviewing one board in isolation. Also covers Flipper Zero and HackRF. |
+| **Valley Tech Solutions** | [YouTube](https://www.youtube.com/@Valleytechsolutions) | WDGWars collabs, wardriving rigs, on-device walkthroughs. |
 | **justcallmekoko** | [YouTube](https://www.youtube.com/justcallmekoko), [justcallmekokollc.com](https://www.justcallmekokollc.com) | Marauder firmware demos and hardware tours from the firmware author. |
 | **GhostStrats (Spooks4576)** | [YouTube](https://www.youtube.com/channel/UCzSZPWtTRA4G946XRAn2XLQ) | Ghost_ESP firmware walkthroughs across many chips. Note that GhostESP development has since moved to [GhostESP-Revival](https://github.com/GhostESP-Revival/GhostESP). |
 | **7h30th3r0n3** | [YouTube](https://www.youtube.com/channel/UCN1sTrFbvdliXTUOsY5DkyA) | Evil-M5Project and Raspyjack demos from their author. |
@@ -141,7 +141,7 @@ Linked by URL rather than by channel, because several of these come from small c
 | Video | Why |
 |---|---|
 | [I Tested Every Wardriving Device for Watchdog Go Wars](https://odysee.com/@talkingsasquach:1/i-tested-every-wardriving-device-for:f) | Side-by-side of the current device field against the same game. The single most useful thing to watch before buying anything in the shopping list. |
-| [WDG Wars Wardriving Like Never Before! (Ft Biscuit Pro)](https://www.youtube.com/watch?v=GGWn1pYOOzE) | WDGoWars gameplay with the Biscuit Pro in the loop. |
+| [WDG Wars Wardriving Like Never Before! (Ft Biscuit Pro)](https://www.youtube.com/watch?v=GGWn1pYOOzE) | WDGWars gameplay with the Biscuit Pro in the loop. |
 | [Watch Dogs Go Wars Just Turned Wardriving Into a Real Game!](https://www.youtube.com/watch?v=t9L4_y4XF2s) | Game-side overview: territory, leaderboard, what the map actually looks like in play. |
 | [Interview with Hedge, Biscuit Founder: Pro, DIY, Ultra, and the Future of the Biscuit Project](https://www.youtube.com/watch?v=vNkoFyHpOS0) | Where the Biscuit line is going, from the person building it. |
 | [Biscuit Pro: The Swiss Army Knife of Wardriving Tools](https://www.youtube.com/watch?v=7lDQLJAP3TM) | Feature tour of the app-driven workflow. |
@@ -151,18 +151,18 @@ Linked by URL rather than by channel, because several of these come from small c
 
 ### Getting your own coverage in front of players
 
-LOCOSP auto-features community wardriving videos on the WDGoWars map and on the press page. Mechanism, quoted from [wdgwars.pl/press](https://wdgwars.pl/press) (read 2026-07-25):
+LOCOSP auto-features community wardriving videos on the WDGWars map and on the press page. Mechanism, quoted from [wdgwars.pl/press](https://wdgwars.pl/press) (read 2026-07-25):
 
 - Put one of `#wdgwars`, `#WDGWars`, `#WatchDogsGoWars`, or `#WatchDogsGo` in the video **title or description**. Case doesn't matter; the title is better because it's more visible. For shorts, put it in the description too.
 - Featured videos appear as a center overlay on the main map (once per user, with a close button) and as a thumbnail grid in the Community videos section of the press page.
 - It runs on RSS polling, refreshed roughly every 30 minutes. No approval step, no API keys, no OAuth.
 - Only channels an admin has added to the tracker are scanned, so the one manual step is DMing `@locosp` on Discord or GitHub to get your channel added. After that, tagging is all it takes.
 
-That page is also the canonical place to discover new WDGoWars-specific coverage as it ships.
+That page is also the canonical place to discover new WDGWars-specific coverage as it ships.
 
 ## Adjacent open-source tooling
 
-Projects the onramp leans on without listing them as feeders themselves. Each is the reference implementation for its slot. The full catalog of wardriving-capable projects, including everything with no WDGoWars uploader at all, is in [[wardriving-hardware-survey]] §3e, with star counts and last-push dates in §10.
+Projects the onramp leans on without listing them as feeders themselves. Each is the reference implementation for its slot. The full catalog of wardriving-capable projects, including everything with no WDGWars uploader at all, is in [[wardriving-hardware-survey]] §3e, with star counts and last-push dates in §10.
 
 | Project | Repo | Role |
 |---|---|---|
@@ -188,8 +188,8 @@ The sibling repos to this one. Released under MIT, source available, primary aut
 | [meshcore-to-wdgwars (Heimdall)](https://github.com/Yggdrasil-AI-labs/meshcore-to-wdgwars) | MeshCore LoRa → wdgwars `meshcore_nodes` slot. | v0.4.5 |
 | [wigle-to-wdgwars](https://github.com/Yggdrasil-AI-labs/wigle-to-wdgwars) | WigleWifi-1.6 CSV → wdgwars bulk via multipart upload. | v1.6.2 |
 | [gungnir](https://github.com/Yggdrasil-AI-labs/gungnir) | Shared HMAC transport library used by the three above. | v0.1.3 |
-| [wdgwars-api-tester](https://github.com/Yggdrasil-AI-labs/wdgwars-api-tester) | Systematic probe of the WDGoWars HTTP API surface. | v0.13.3 |
-| [wdgwars-discord-stats](https://github.com/Yggdrasil-AI-labs/wdgwars-discord-stats) | Build-your-own WDGoWars stats display in Discord (live channels, webhook, war-feed) + a consolidated WDGoWars API reference. | v1.4.1 |
+| [wdgwars-api-tester](https://github.com/Yggdrasil-AI-labs/wdgwars-api-tester) | Systematic probe of the WDGWars HTTP API surface. | v0.13.3 |
+| [wdgwars-discord-stats](https://github.com/Yggdrasil-AI-labs/wdgwars-discord-stats) | Build-your-own WDGWars stats display in Discord (live channels, webhook, war-feed) + a consolidated WDGWars API reference. | v1.4.1 |
 
 ## Hardware vendors
 
