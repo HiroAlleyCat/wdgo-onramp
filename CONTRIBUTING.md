@@ -63,7 +63,7 @@ The flow diagram exists in **two formats** that must stay in sync:
 
 | File | Format | Rendered by |
 |---|---|---|
-| [`wdgo-capture-flow.canvas`](wdgo-capture-flow.canvas) | Obsidian Canvas (JSON) | Obsidian |
+| [`wdgwars-capture-flow.canvas`](wdgwars-capture-flow.canvas) | Obsidian Canvas (JSON) | Obsidian |
 | [`docs/flow.md`](docs/flow.md) | Mermaid in a fenced code block | GitHub repo browser + GitHub Pages |
 
 A change to one must include the matching change to the other. Diagrams drifting apart is worse than one being slightly outdated.
@@ -74,7 +74,7 @@ Each doc exists in **two flavors**:
 
 | Root (Obsidian) | docs/ (vanilla) |
 |---|---|
-| [`wdgo-newcomer-progression.md`](wdgo-newcomer-progression.md) | [`docs/onramp.md`](docs/onramp.md) |
+| [`wdgwars-newcomer-progression.md`](wdgwars-newcomer-progression.md) | [`docs/onramp.md`](docs/onramp.md) |
 | [`shopping-list.md`](shopping-list.md) | [`docs/shopping.md`](docs/shopping.md) |
 | [`wardriving-hardware-survey.md`](wardriving-hardware-survey.md) | [`docs/survey.md`](docs/survey.md) |
 | [`CREDITS.md`](CREDITS.md) | [`docs/credits.md`](docs/credits.md) |
@@ -109,14 +109,14 @@ Process:
            { phase = "in_content"; print }
          ' \
        | sed -E \
-           -e 's|\[\[wdgo-newcomer-progression\]\]|[Newcomer onramp](onramp.md)|g' \
+           -e 's|\[\[wdgwars-newcomer-progression\]\]|[Newcomer onramp](onramp.md)|g' \
            -e 's|\[\[wardriving-hardware-survey\]\]|[Hardware survey](survey.md)|g' \
-           -e 's|\[\[wdgo-capture-flow\]\]|[Capture flow diagram](flow.md)|g' \
+           -e 's|\[\[wdgwars-capture-flow\]\]|[Capture flow diagram](flow.md)|g' \
            -e 's|\[\[shopping-list\]\]|[Shopping list](shopping.md)|g' \
            -e 's|\[\[CREDITS\]\]|[Credits](credits.md)|g'
      } > "$out"
    done <<'EOF'
-   wdgo-newcomer-progression|onramp|On-ramp|Five-step progression from WiGLE on your phone to advanced multi-source capture|ON-RAMP|/ wigle on phone <span>→</span> on-device upload <span>→</span> multi-source capture /
+   wdgwars-newcomer-progression|onramp|On-ramp|Five-step progression from WiGLE on your phone to advanced multi-source capture|ON-RAMP|/ wigle on phone <span>→</span> on-device upload <span>→</span> multi-source capture /
    shopping-list|shopping|Shopping|Buyer's checklist for each tier of the WDGWars onramp|SHOPPING|/ tier-by-tier buyer's checklist / no fabricated prices /
    wardriving-hardware-survey|survey|Hardware survey|Firmware × chip support matrix, community tools catalog, decision tree, API gotchas|HARDWARE SURVEY|/ firmware <span>×</span> chip matrix / decision tree / community tools /
    CREDITS|credits|Credits|The maintainers, projects, and vendors that make the WDGWars ecosystem possible|CREDITS|/ maintainers <span>·</span> projects <span>·</span> vendors <span>·</span> communities /

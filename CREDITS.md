@@ -2,7 +2,7 @@
 tags: [wdgwars, credits, attribution]
 created: 2026-06-03
 related:
-  - "[[wdgo-newcomer-progression]]"
+  - "[[wdgwars-newcomer-progression]]"
   - "[[wardriving-hardware-survey]]"
   - "[[shopping-list]]"
 ---
@@ -11,7 +11,7 @@ related:
 
 This guide stands on a lot of community work. Acknowledging it here, organized by what each project contributes to the WDGWars-or-WiGLE pipeline.
 
-> **Want to be listed?** Run a wardriving Discord, ship a relevant GitHub project, sell wardriving hardware, or cover WDGWars / wardriving on YouTube? Open an issue or PR at [github.com/HiroAlleyCat/wdgo-onramp](https://github.com/HiroAlleyCat/wdgo-onramp), or ask HiroAlleyCat (or any active contributor) on the WDGWars Discord. Bar to be added: one primary source we can verify (your README, channel About page, or storefront).
+> **Want to be listed?** Run a wardriving Discord, ship a relevant GitHub project, sell wardriving hardware, or cover WDGWars / wardriving on YouTube? Open an issue or PR at [github.com/HiroAlleyCat/wdgwars-onramp](https://github.com/HiroAlleyCat/wdgwars-onramp), or ask HiroAlleyCat (or any active contributor) on the WDGWars Discord. Bar to be added: one primary source we can verify (your README, channel About page, or storefront).
 
 ## The game
 
@@ -99,7 +99,7 @@ Tools authored outside LOCOSP and HiroAlleyCat that POST to wdgwars.pl.
 
 **[WiGLE](https://wigle.net)** — the long-running, free, ad-free hobby database. WDGWars's bulk-upload format is WigleWifi-1.6 (WiGLE's own spec at [api.wigle.net/csvFormat.html](https://api.wigle.net/csvFormat.html)). The hobby in this corner of the internet would not exist without WiGLE.
 
-The official WiGLE Android app ([Google Play](https://play.google.com/store/apps/details?id=net.wigle.wigleandroid)) is the recommended Tier-1 capture tool in [[wdgo-newcomer-progression]].
+The official WiGLE Android app ([Google Play](https://play.google.com/store/apps/details?id=net.wigle.wigleandroid)) is the recommended Tier-1 capture tool in [[wdgwars-newcomer-progression]].
 
 ## General-hobby documentation
 
@@ -222,7 +222,7 @@ Vendors mentioned across [[shopping-list]]. Linked here for one-page reference.
 
 ## This repo
 
-[wdgo-onramp](https://github.com/HiroAlleyCat/wdgo-onramp) is [MIT licensed](LICENSE). Fork freely. If you adapt the guide for your community, an attribution link back to the repo is appreciated but not required.
+[wdgwars-onramp](https://github.com/HiroAlleyCat/wdgwars-onramp) is [MIT licensed](LICENSE). Fork freely. If you adapt the guide for your community, an attribution link back to the repo is appreciated but not required.
 
 Author: **HiroAlleyCat** on GitHub.
 

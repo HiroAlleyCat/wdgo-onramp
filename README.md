@@ -1,4 +1,4 @@
-# wdgo-onramp
+# wdgwars-onramp
 
 A leveled onramp for new players coming to [WDGWars](https://wdgwars.pl) — the community wardriving game by LOCOSP. Five steps from "I have an Android phone" to "I run a multi-source capture lab," with every product fact cited from a primary source.
 
@@ -6,21 +6,21 @@ Sits next to the sibling feeders ([adsb-to-wdgwars](https://github.com/Yggdrasil
 
 ## Two ways to read it
 
-**On the web** → [GitHub Pages site](https://hiroalleycat.github.io/wdgo-onramp/) — styled to match the [Muninn](https://github.com/Yggdrasil-AI-labs/adsb-to-wdgwars) and [Heimdall](https://github.com/Yggdrasil-AI-labs/meshcore-to-wdgwars) sibling sites (Orbitron + Share Tech Mono, CRT scanlines), Mermaid flow diagram, no Obsidian required.
+**On the web** → [GitHub Pages site](https://hiroalleycat.github.io/wdgwars-onramp/) — styled to match the [Muninn](https://github.com/Yggdrasil-AI-labs/adsb-to-wdgwars) and [Heimdall](https://github.com/Yggdrasil-AI-labs/meshcore-to-wdgwars) sibling sites (Orbitron + Share Tech Mono, CRT scanlines), Mermaid flow diagram, no Obsidian required.
 
 **In Obsidian** → clone this repo and open the root as an Obsidian vault. The `.canvas` flow diagram is interactive, internal `[[wikilinks]]` resolve.
 
 ```bash
-git clone https://github.com/HiroAlleyCat/wdgo-onramp.git
-# then in Obsidian: Open folder as vault → select wdgo-onramp/
+git clone https://github.com/HiroAlleyCat/wdgwars-onramp.git
+# then in Obsidian: Open folder as vault → select wdgwars-onramp/
 ```
 
 ## Contents
 
 | File | What it is |
 |---|---|
-| [wdgo-newcomer-progression.md](wdgo-newcomer-progression.md) | The five-step onramp. Start here. |
-| [wdgo-capture-flow.canvas](wdgo-capture-flow.canvas) | The same progression as an Obsidian canvas flow diagram. |
+| [wdgwars-newcomer-progression.md](wdgwars-newcomer-progression.md) | The five-step onramp. Start here. |
+| [wdgwars-capture-flow.canvas](wdgwars-capture-flow.canvas) | The same progression as an Obsidian canvas flow diagram. |
 | [shopping-list.md](shopping-list.md) | Buyer's checklist for each tier — hardware, software, and where to get it. Vendor links, no fabricated prices. |
 | [wardriving-hardware-survey.md](wardriving-hardware-survey.md) | Reference: full firmware × chip support matrix, the wider firmware catalog (§3e — everything that wardrives, including the firmwares with no WDGWars uploader), maturity signals for the long-running repos (§10), all WDGWars community tools, decision tree, API gotchas. |
 | [CREDITS.md](CREDITS.md) | Acknowledgments for the maintainers, projects, and vendors that make this whole ecosystem possible. Also the comprehensive repo + vendor index, the YouTube channel and video list, and the shops. |

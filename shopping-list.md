@@ -3,18 +3,18 @@ tags: [wdgwars, shopping, hardware, newcomer]
 created: 2026-06-03
 last-verified: 2026-06-03
 related:
-  - "[[wdgo-newcomer-progression]]"
+  - "[[wdgwars-newcomer-progression]]"
   - "[[wardriving-hardware-survey]]"
   - "[[CREDITS]]"
 ---
 
 # Shopping list
 
-What to buy at each level of the [[wdgo-newcomer-progression]]. Organized to match the onramp's tier numbering.
+What to buy at each level of the [[wdgwars-newcomer-progression]]. Organized to match the onramp's tier numbering.
 
 **No prices listed.** Hardware prices drift week-to-week per vendor; the canonical answer is "click the link and see today's price for today's variant." Vendor links point at manufacturers when possible (more stable than reseller listings).
 
-**Where multiple paths exist at the same tier, pick one.** More devices ≠ more leaderboard points (one API key = one driver — see [[wdgo-newcomer-progression]] § Common pitfalls).
+**Where multiple paths exist at the same tier, pick one.** More devices ≠ more leaderboard points (one API key = one driver — see [[wdgwars-newcomer-progression]] § Common pitfalls).
 
 ## Tier 1 — Phone only
 
@@ -427,7 +427,7 @@ The manufacturer storefronts above ship globally but rarely fastest or cheapest.
 ## What NOT to buy (newcomer trap)
 
 - **Bare ESP32-C3 boards as a wardriving target.** Marauder has no C3 binary, Bruce has no C3 port, GhostESP runs but the output lacks BSSID on some commands. C3 is poorly served by stock firmware. If you have one, treat it as a "build your own ESPHome probe firmware" project, not a turnkey wardriver. Details in [[wardriving-hardware-survey]] §3.
-- **A second device on the same API key thinking it doubles your points.** Same key on two devices is one driver with two feeders, not two contesting drivers. See [[wdgo-newcomer-progression]] § Common pitfalls.
+- **A second device on the same API key thinking it doubles your points.** Same key on two devices is one driver with two feeders, not two contesting drivers. See [[wdgwars-newcomer-progression]] § Common pitfalls.
 - **Marauder firmware without a GPS module.** The wardrive dumps will be empty. GPS is mandatory, not optional.
 - **iPhone alone for the capture side.** No official WiGLE app on iOS, and the third-party scanners don't feed WiGLE-format CSV cleanly. The workaround is an iPhone plus a board that pairs to it: Biscuit (Tier 3a Path E) is the current answer, where the phone supplies GPS and the upload while the board supplies the radio.
 

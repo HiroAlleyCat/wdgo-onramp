@@ -4,14 +4,14 @@ created: 2026-06-02
 last-verified: 2026-06-02
 related:
   - "[[wardriving-hardware-survey]]"
-  - "[[wdgo-capture-flow]]"
+  - "[[wdgwars-capture-flow]]"
 ---
 
 # WDGWars onramp — from WiGLE to advanced
 
 The fastest legitimate path from zero to scoring points on wdgwars.pl. Each level builds on the one before it. Stop wherever the next step doesn't sound fun yet, come back when it does.
 
-> **Visual learner?** Open [[wdgo-capture-flow]] for the same five-step progression as a flow diagram (capture device → firmware → destination). Renders in Obsidian as a canvas; readable as JSON anywhere else.
+> **Visual learner?** Open [[wdgwars-capture-flow]] for the same five-step progression as a flow diagram (capture device → firmware → destination). Renders in Obsidian as a canvas; readable as JSON anywhere else.
 
 ## Step 0 — What you're actually doing
 
@@ -230,7 +230,7 @@ The manufacturer storefronts already linked in [[shopping-list]] are usually che
 
 For Cheap Yellow Display boards there is no canonical reseller. The community hub is [witnessmenow/ESP32-Cheap-Yellow-Display](https://github.com/witnessmenow/ESP32-Cheap-Yellow-Display); the boards themselves are sold through AliExpress, Amazon, and eBay.
 
-> **Want your community, channel, or shop on this list?** Open an issue or PR at [github.com/HiroAlleyCat/wdgo-onramp](https://github.com/HiroAlleyCat/wdgo-onramp), or ask HiroAlleyCat (or another contributor) on the WDGWars Discord. We just need a primary source to verify (your README, channel About page, or storefront).
+> **Want your community, channel, or shop on this list?** Open an issue or PR at [github.com/HiroAlleyCat/wdgwars-onramp](https://github.com/HiroAlleyCat/wdgwars-onramp), or ask HiroAlleyCat (or another contributor) on the WDGWars Discord. We just need a primary source to verify (your README, channel About page, or storefront).
 
 ## Where to go next
 

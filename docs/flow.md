@@ -7,7 +7,7 @@ tagline: / five-step progression / visual map /
 
 The same five-step progression from the [newcomer onramp](onramp.md), drawn as a flow. Each lane represents one onramp step.
 
-If you're reading this in Obsidian, the [`.canvas` version](../wdgo-capture-flow.canvas) in the repo root has the same layout as an interactive board. The Mermaid version below renders directly in GitHub Pages.
+If you're reading this in Obsidian, the [`.canvas` version](../wdgwars-capture-flow.canvas) in the repo root has the same layout as an interactive board. The Mermaid version below renders directly in GitHub Pages.
 
 ```mermaid
 flowchart LR

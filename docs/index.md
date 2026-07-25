@@ -1,5 +1,5 @@
 ---
-title: wdgo-onramp
+title: wdgwars-onramp
 description: A leveled guide for new wardrivers, from WiGLE on your phone to advanced multi-source capture
 brand: WDGOWARS
 tagline: / on-ramp / shopping / hardware / spec / credits /
@@ -31,6 +31,6 @@ A leveled guide for new players coming to [WDGWars](https://wdgwars.pl), the com
 
 ## Source and contributions
 
-[Source on GitHub](https://github.com/HiroAlleyCat/wdgo-onramp). Issues and pull requests welcome — especially for product facts that have drifted (versions, retired releases, changed behavior) or new community tools worth listing.
+[Source on GitHub](https://github.com/HiroAlleyCat/wdgwars-onramp). Issues and pull requests welcome — especially for product facts that have drifted (versions, retired releases, changed behavior) or new community tools worth listing.
 
-[MIT licensed](https://github.com/HiroAlleyCat/wdgo-onramp/blob/main/LICENSE).
+[MIT licensed](https://github.com/HiroAlleyCat/wdgwars-onramp/blob/main/LICENSE).

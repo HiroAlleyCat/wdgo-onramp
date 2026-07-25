@@ -7,7 +7,7 @@ tagline: / maintainers <span>·</span> projects <span>·</span> vendors <span>·
 
 This guide stands on a lot of community work. Acknowledging it here, organized by what each project contributes to the WDGWars-or-WiGLE pipeline.
 
-> **Want to be listed?** Run a wardriving Discord, ship a relevant GitHub project, sell wardriving hardware, or cover WDGWars / wardriving on YouTube? Open an issue or PR at [github.com/HiroAlleyCat/wdgo-onramp](https://github.com/HiroAlleyCat/wdgo-onramp), or ask HiroAlleyCat (or any active contributor) on the WDGWars Discord. Bar to be added: one primary source we can verify (your README, channel About page, or storefront).
+> **Want to be listed?** Run a wardriving Discord, ship a relevant GitHub project, sell wardriving hardware, or cover WDGWars / wardriving on YouTube? Open an issue or PR at [github.com/HiroAlleyCat/wdgwars-onramp](https://github.com/HiroAlleyCat/wdgwars-onramp), or ask HiroAlleyCat (or any active contributor) on the WDGWars Discord. Bar to be added: one primary source we can verify (your README, channel About page, or storefront).
 
 ## The game
 
@@ -218,7 +218,7 @@ Vendors mentioned across [Shopping list](shopping.md). Linked here for one-page 
 
 ## This repo
 
-[wdgo-onramp](https://github.com/HiroAlleyCat/wdgo-onramp) is [MIT licensed](LICENSE). Fork freely. If you adapt the guide for your community, an attribution link back to the repo is appreciated but not required.
+[wdgwars-onramp](https://github.com/HiroAlleyCat/wdgwars-onramp) is [MIT licensed](LICENSE). Fork freely. If you adapt the guide for your community, an attribution link back to the repo is appreciated but not required.
 
 Author: **HiroAlleyCat** on GitHub.
 

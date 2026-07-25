@@ -3,8 +3,8 @@ tags: [wdgwars, wardriving, hardware, firmware, reference]
 created: 2026-06-02
 last-verified: 2026-07-25
 related:
-  - "[[wdgo-newcomer-progression]]"
-  - "[[wdgo-capture-flow]]"
+  - "[[wdgwars-newcomer-progression]]"
+  - "[[wdgwars-capture-flow]]"
 ---
 
 # Wardriving hardware + firmware survey for WDGWars
@@ -13,7 +13,7 @@ related:
 
 > **2026-07-25 pass:** §3e (the wider firmware catalog, covering everything that wardrives without a WDGWars uploader) and §10 (maturity signals for the long-running repos) are new. §4 gained a caveat because Ghost_ESP is now archived, §A gained the WDGWars rebrand note, and Biscuit's app-mediated upload path is detailed in §3. Star counts and last-push dates in the new sections came from `gh api repos/<owner>/<repo>` on 2026-07-25.
 
-> **Looking for the newcomer onramp?** See [[wdgo-newcomer-progression]] for the leveled walkthrough from "just got an Android phone" → "lab-scale capture." The companion canvas at [[wdgo-capture-flow]] visualizes the same paths as a flow diagram.
+> **Looking for the newcomer onramp?** See [[wdgwars-newcomer-progression]] for the leveled walkthrough from "just got an Android phone" → "lab-scale capture." The companion canvas at [[wdgwars-capture-flow]] visualizes the same paths as a flow diagram.
 
 ## 1. How a capture reaches wdgwars.pl
 
