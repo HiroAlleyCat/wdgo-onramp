@@ -125,6 +125,18 @@ Process:
 
 3. Commit both changes together.
 
+> **The regeneration is lossy: check for docs-only content first.** `docs/onramp.md` carries a Mermaid
+> ladder diagram and both `docs/onramp.md` and `docs/survey.md` carry a Mermaid bootstrap `<script>`
+> block that do NOT exist in their root sources. A blind run of the script above deletes them. Before
+> regenerating, diff the mirror against its root file and re-append anything docs-only afterwards:
+>
+> ```bash
+> grep -c '```mermaid\|<script' docs/onramp.md docs/survey.md   # note the counts, restore after regenerating
+> ```
+>
+> The §1 and §7 survey diagrams DO live in the root survey file, so those come through regeneration on
+> their own. Only the onramp ladder and the two `<script>` blocks need restoring by hand.
+
 Verify with `grep -rn '\[\[' docs/` after running — output should be empty (no leftover wikilinks). Also spot-check the first lines of each regenerated `docs/*.md` for the new four-field frontmatter and the absence of a duplicate `# Foo` h1.
 
 ## PR style
