@@ -13,8 +13,8 @@
     {"id": "a1b2c3d4e5f60021", "type": "text", "x": 20, "y": 700, "width": 280, "height": 120, "text": "## M5 Cardputer + GPS\n\nhandheld w/ screen + keyboard"},
     {"id": "a1b2c3d4e5f60022", "type": "text", "x": 380, "y": 700, "width": 280, "height": 120, "text": "## LOCOSP Bruce fork\n\ntag `v1.0-wdgwars`\nset key in device config\nuploads when on Wi-Fi", "color": "3"},
 
-    {"id": "a1b2c3d4e5f60023", "type": "text", "x": 20, "y": 860, "width": 280, "height": 120, "text": "## XIAO ESP32-C5 / S3 / C6\n\nor T-Dongle C5\nsmall dev board + GPS"},
-    {"id": "a1b2c3d4e5f60024", "type": "text", "x": 380, "y": 860, "width": 280, "height": 120, "text": "## Piglet firmware\n\nhamspiced/piglet (191★)\nweb UI → paste key → upload\nC++ Arduino", "color": "3"},
+    {"id": "a1b2c3d4e5f60023", "type": "text", "x": 20, "y": 860, "width": 280, "height": 120, "text": "## XIAO ESP32-C5 / S3 / C6 / C3\n\nor T-Dongle C5\nsmall dev board + GPS\nC3 is 2.4 GHz only"},
+    {"id": "a1b2c3d4e5f60024", "type": "text", "x": 380, "y": 860, "width": 280, "height": 120, "text": "## Piglet firmware\n\nhamspiced/piglet (213★)\nweb UI → paste key → upload\nC++ Arduino", "color": "3"},
 
     {"id": "a1b2c3d4e5f60025", "type": "text", "x": 20, "y": 1020, "width": 280, "height": 120, "text": "## Hak5 Pineapple Pager\n\n+ u-blox 7 USB GPS\npocket form factor"},
     {"id": "a1b2c3d4e5f60026", "type": "text", "x": 380, "y": 1020, "width": 280, "height": 120, "text": "## LOCOSP Pineapple payload\n\nWigleWifi-1.6 CSV\nSYNC NOW button\nGPS 3D fix required", "color": "3"},

@@ -24,7 +24,7 @@ flowchart LR
     %% Step 3a — On-device uploaders
     s3a_cardputer[M5 Cardputer + GPS] --> s3a_bruce[LOCOSP Bruce fork<br/>v1.0-wdgwars]
     s3a_bruce -->|direct| wdgwars_csv
-    s3a_xiao[XIAO ESP32-C5/S3/C6<br/>or T-Dongle C5] --> s3a_piglet[Piglet firmware<br/>hamspiced/piglet, 191★]
+    s3a_xiao[XIAO ESP32-C5/S3/C6/C3<br/>or T-Dongle C5<br/>C3 is 2.4 GHz only] --> s3a_piglet[Piglet firmware<br/>hamspiced/piglet, 213★]
     s3a_piglet -->|web UI direct| wdgwars_csv
     s3a_pager[Hak5 Pineapple Pager<br/>+ u-blox 7 GPS] --> s3a_payload[LOCOSP Pineapple payload<br/>SYNC NOW button]
     s3a_payload -->|direct| wdgwars_csv
