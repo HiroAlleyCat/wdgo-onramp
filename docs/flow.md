@@ -68,7 +68,8 @@ flowchart LR
 ## Notes
 
 - **One source can feed two destinations.** A WiGLE Android export is accepted by both WiGLE.net (direct) and wdgwars.pl (via wigle-to-wdgwars).
-- **Two upload paths on wdgwars.pl side.** Bulk Wi-Fi/BLE CSVs go to `/api/upload-csv` (multipart). ADS-B + MeshCore go to `/api/upload/` as signed JSON via gungnir.
+- **Two upload paths on wdgwars.pl side.** Bulk Wi-Fi/BLE CSVs go to `/api/upload-csv` (multipart). ADS-B + LoRa mesh go to `/api/upload/` as signed JSON via gungnir.
+- **The mesh slot takes MeshCore and Meshtastic, not just MeshCore.** The lane above shows the MeshCore path (LoRa node → MeshMapper CSV → Heimdall) because that's the feeder that exists today. Since 2026-08-12 the slot itself also accepts Meshtastic records, told apart by a `network` field. See the [Hardware survey](survey.md) §1a. No Meshtastic-native feeder has been built yet.
 - **The `/endpoint/*` mirror exists** as a Cloudflare-L7 bypass for clients that burst-POST. gungnir v0.1.2+ uses it by default. Hand-rolled clients should target `/endpoint/*` rather than `/api/*` if they POST in bursts.
 
 For the full progression with hardware suggestions and skill prerequisites at each level, see the [Newcomer onramp](onramp.md). For the firmware × chip support matrix behind each tier, see the [Hardware survey](survey.md).

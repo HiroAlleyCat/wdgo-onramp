@@ -17,7 +17,7 @@ flowchart TD
     s1["Step 1 · Phone only (free)<br/>WiGLE Android app"] --> s2
     s2["Step 2 · Cross-post to WDGWars (~15 min)<br/>wigle-to-wdgwars"] --> s3
     s3["Step 3 · Dedicated capture device<br/>3a on-device upload · 3b upload from PC"] --> s4
-    s4["Step 4 · WDGWars-only slots<br/>ADS-B (Muninn) + MeshCore (Heimdall)"] --> s5
+    s4["Step 4 · WDGWars-only slots<br/>ADS-B (Muninn) + LoRa mesh (Heimdall, MeshCore)"] --> s5
     s5["Step 5 · Lab-scale always-on capture<br/>Pi + Kismet + ESP32 fleet"] --> s6
     s6["Step 6 · Portable Linux + RF endgame<br/>uConsole / SDR ladder / HackRF PortaPack"]
     classDef free fill:#063312,stroke:#00e436,color:#00e436
@@ -147,11 +147,13 @@ WiGLE doesn't track aircraft or LoRa mesh nodes. WDGWars does. These are points 
 | Slot | Tool | What you need |
 |---|---|---|
 | **Aircraft** (ADS-B) | [Muninn (adsb-to-wdgwars)](https://github.com/Yggdrasil-AI-labs/adsb-to-wdgwars) v2.0.16 | RTL-SDR USB dongle (~$30 typical) + 1090 MHz antenna + a small Linux box (Pi works). Run dump1090-fa or readsb to decode; Muninn watches the output directory and uploads. Stationary — mount the antenna where it has sky view. |
-| **MeshCore LoRa** | [Heimdall (meshcore-to-wdgwars)](https://github.com/Yggdrasil-AI-labs/meshcore-to-wdgwars) v0.4.5 | LoRa node (Heltec / TTGO / similar). Export MeshMapper CSV. Heimdall uploads to the `meshcore_nodes` slot. Pocket-portable. |
+| **LoRa mesh** (MeshCore or Meshtastic) | [Heimdall (meshcore-to-wdgwars)](https://github.com/Yggdrasil-AI-labs/meshcore-to-wdgwars) v0.4.5 for MeshCore; no dedicated Meshtastic feeder exists yet (§9 gap list) | LoRa node (Heltec / TTGO / Wio Tracker / similar). Export MeshMapper CSV for MeshCore. Heimdall uploads to the `meshcore_nodes` slot. Pocket-portable. |
+
+MeshCore and Meshtastic are both LoRa firmware, often on the same hardware, but they don't talk to each other over the air. As of 2026-08-12 the WDGWars mesh slot accepts records from either network, told apart by a `network` field. See [Hardware survey](survey.md) §1a for the contract. That's a server-side change; a feeder that speaks Meshtastic natively still needs to be written.
 
 Both feeders use the signed-JSON path (HMAC envelope via gungnir), not the multipart CSV path. Same API key as your other uploads.
 
-**What this teaches:** that "wardriving" is broader than Wi-Fi — radio observation more generally. Aircraft is a stationary capture game; MeshCore is mobile. They reward different play styles.
+**What this teaches:** that "wardriving" is broader than Wi-Fi — radio observation more generally. Aircraft is a stationary capture game; LoRa mesh is mobile. They reward different play styles.
 
 ## Step 5 — Lab-scale always-on capture
 
@@ -185,7 +187,7 @@ See [Shopping list](shopping.md) Tiers 6–8 for the gear list at each step (inc
 | Bought a bare ESP32-C3 and can't find good firmware | Marauder has no C3 binary. Bruce has no C3 port. GhostESP has a C3 binary but the output lacks BSSID on some commands. C3 is poorly served by stock firmware — avoid unless you want to write your own. |
 | Bought a Flipper Zero expecting it to wardrive on its own | The Flipper has no 2.4 GHz radio. You need the WiFi DevBoard (or a side device like the Apex 5) running Marauder, plus a GPS module, plus an SD pull → wigle-to-wdgwars. See [Shopping list](shopping.md) Tier 3b. |
 | Bought a Pwnagotchi expecting WiGLE CSV / WDGWars parity | Pwnagotchi captures PCAP handshakes, not the WigleWifi-1.6 CSV that wigle-to-wdgwars ingests. Use it for the handshake side of the hobby; pair it with a Marauder/Bruce rig if you also want leaderboard points. |
-| Bought Meshtastic gear expecting Heimdall to ingest it | Heimdall is MeshCore-specific today. Most modern LoRa boards run either firmware — re-flash to MeshCore if your goal is the `meshcore_nodes` slot. The Meshtastic-native parser is on the gap list at [Hardware survey](survey.md) §9. |
+| Bought Meshtastic gear expecting Heimdall to ingest it | Heimdall only parses MeshCore exports today, but the WDGWars mesh slot itself takes Meshtastic too as of 2026-08-12 ([Hardware survey](survey.md) §1a). You no longer need to re-flash to MeshCore just to be accepted. What's missing is a feeder: nothing yet turns a Meshtastic export into the signed-JSON envelope. That gap is tracked at [Hardware survey](survey.md) §9. |
 | Bought Marauder without a GPS module | Wardrive dumps will be empty. GPS is mandatory, not optional. |
 | Same API key on multiple devices | All captures attribute to one driver. Need separate keys for split-driver attribution. |
 | Phone app reports "wrong password" | Could actually be Cloudflare returning 429 on a cold IP, not an auth failure. Try again after a minute. |
@@ -252,7 +254,6 @@ For Cheap Yellow Display boards there is no canonical reseller. The community hu
 - [Hardware survey](survey.md) — the reference doc behind this onramp. Full firmware × chip matrix, every community tool I could verify, decision tree.
 - Writing a feeder in a new language? Read [gungnir](https://github.com/Yggdrasil-AI-labs/gungnir) (Python transport) and LOCOSP's [WatchDogsGo `plugins/wardrive_upload.py`](https://github.com/LOCOSP/WatchDogsGo/blob/main/plugins/wardrive_upload.py) side by side — between them they cover the auth header, HMAC construction, retry/cooldown, and the slot-typed payload shape.
 - [WDGWars portal](https://wdgwars.pl) and [API help](https://wdgwars.pl/help/) — the source of truth for game mechanics and the API surface.
-
 
 This progression is sequenced for points-per-effort, not skill-per-effort. A determined newcomer can skip directly to Step 3 if they're hardware-comfortable and don't want the Android phase. Don't over-prescribe to yourself.
 

@@ -22,15 +22,15 @@ Two server-side upload paths exist. Picking firmware mostly reduces to which pat
 | Path | Endpoint | Auth | Format | Notes |
 |---|---|---|---|---|
 | Bulk WiFi/BLE CSV | `POST /api/upload-csv` | `X-API-Key` header, multipart | WigleWifi-1.6 CSV | Used by Bruce-WDGWars fork on-device and by the Pineapple Pager payload — confirmed in primary source READMEs cited below. |
-| Signed JSON envelope | `POST /api/upload/` | HMAC via `gungnir` | JSON, slot-typed (`aircraft`, `meshcore_nodes`, …) | Used by HiroAlleyCat feeders (Muninn, Heimdall, wigle-to-wdgwars). |
+| Signed JSON envelope | `POST /api/upload/` | HMAC via `gungnir` | JSON, slot-typed (`aircraft`, `meshcore_nodes`, …) | Used by HiroAlleyCat feeders (Muninn, Heimdall, wigle-to-wdgwars). The `meshcore_nodes` slot takes both MeshCore and Meshtastic records, told apart by a `network` field (see §1a). |
 
 A `/endpoint/*` mirror exists for clients that want to dodge Cloudflare's L7 rate limit on `/api/*` (returns 429 + code 1027 on cold-IP bursts). The shared transport handles this at the library layer — `gungnir` tag [v0.1.2](https://github.com/Yggdrasil-AI-labs/gungnir/releases/tag/v0.1.2) flipped the default base URL; pin >= v0.1.2 to inherit. Hand-rolled HTTP clients (Bruce on-device, anything you write yourself) need the URL flip too if they want the bypass.
 
 ```mermaid
 flowchart LR
-    cap["Any capture<br/>Wi-Fi / BLE / ADS-B / MeshCore"] --> route{"Which data type?"}
+    cap["Any capture<br/>Wi-Fi / BLE / ADS-B / MeshCore / Meshtastic"] --> route{"Which data type?"}
     route -->|"Wi-Fi + BLE (bulk)"| csv["WigleWifi-1.6 CSV<br/>multipart · X-API-Key"]
-    route -->|"ADS-B + MeshCore"| json["Signed JSON envelope<br/>HMAC via gungnir"]
+    route -->|"ADS-B + Mesh (MeshCore/Meshtastic)"| json["Signed JSON envelope<br/>HMAC via gungnir"]
     csv -->|"POST /api/upload-csv"| api(("wdgwars.pl<br/>/api/upload-csv"))
     json -->|"POST /api/upload/"| apij(("wdgwars.pl<br/>/api/upload/"))
     api -.->|"CF L7 429 on cold-IP bursts"| mirror["/endpoint/* mirror<br/>bypass · gungnir v0.1.2+ default"]
@@ -40,6 +40,24 @@ flowchart LR
     class api,apij dest
     class csv,json pcside
 ```
+
+### 1a. MeshCore vs Meshtastic: the mesh slot contract
+
+**MeshCore and Meshtastic are not the same thing**, and mixing them up is common enough to be worth spelling out. Both are LoRa firmware for sub-GHz radios, and they often run on identical hardware: a T-Beam, a Heltec, a Wio Tracker can boot into either one. What differs is the firmware and the on-air protocol. A MeshCore node and a Meshtastic node on the same frequency do not talk to each other; picking one means re-flashing if you later want the other.
+
+As of **2026-08-12, per LOCOSP**, the WDGWars mesh slot (`meshcore_nodes`) accepts both networks, told apart rather than mixed:
+
+- Records carry a `network` field, `meshcore` or `meshtastic`. If present, it's authoritative.
+- Omit it and the server infers from the role name: MeshCore roles are Title Case, Meshtastic roles are SCREAMING_SNAKE, and the two sets don't overlap. Any other `network` value is rejected outright with its own reason, `bad_network`. Before today an unrecognized role was silently filed as MeshCore, which is how Meshtastic data had been arriving without anyone deciding it should.
+- Node ids may carry a leading `!` or not; the server strips it.
+- Send the role exactly as captured. It's stored verbatim and mapped onto the server's own internal set feeder-side, no translation needed (`ROUTER`, `CLIENT_MUTE`, `SENSOR`, etc. all land sensibly).
+- **Ids no longer collide across networks.** A MeshCore id is a key prefix; a Meshtastic id is a device number. The same string can legitimately be two different devices, and is now stored as two separate nodes.
+- **Prefix merging stays MeshCore-only.** Resolving a short on-air id against a longer key seen elsewhere in the same capture means nothing in Meshtastic and isn't applied there.
+- **Hops never reject a sighting.** A sighting counts however it arrived. Send `path_hops` if the capture has it; omit it and the server assumes direct. A sighting can only move a node's stored position if it's at least as close as whatever set the current position, so a direct sighting always wins and a hopped one only fills in a position not already known. The practical guidance: send everything you captured, hopped or not, and tell the server the hop count if you have it.
+
+For MeshCore specifically, the canonical `node_id` is the first 8 bytes of the node's Ed25519 public key, lowercase hex, 16 characters; the server's gate is `[a-f0-9]{8,16}`. The short 2-6 hex ids you see on-air are a local disambiguator, not an identity. Feeders may optionally send the full `public_key` (64 hex), with `node_id` verified as its prefix.
+
+Today, [Heimdall](https://github.com/Yggdrasil-AI-labs/meshcore-to-wdgwars) only parses MeshCore exports (MeshMapper CSV). A Meshtastic-native feeder is still unbuilt, tracked in §9. Buying Meshtastic gear no longer means the slot won't take your data once something parses it into the envelope; it means the parser doesn't exist yet.
 
 ## 2. Firmwares that upload to WDGWars directly (on-device, no PC needed)
 
@@ -349,7 +367,7 @@ Anyone writing a new feeder should read [gungnir](https://github.com/Yggdrasil-A
 | Marauder PC feeder | Not yet built. Would read `apps_data/marauder/dumps/wardrive_*.txt` (WiGLE-1.4, 11 cols), pad to WigleWifi-1.6, multipart POST to `/api/upload-csv`. Mostly a `wigle-to-wdgwars` subcommand. |
 | Bruce SD-batch replay ergonomics | Already addressable via wigle-to-wdgwars; ergonomics gap only — better UX for "I have 20 dated CSVs, dedup + upload them all." |
 | Bare ESP32-C3 capture with BSSID on stock firmware | None of Marauder / Bruce / GhostESP solves this cleanly today. Custom ESPHome probe firmware is the practical fit. |
-| LoRa-meshtastic native exports | Heimdall handles MeshMapper exports. Sibling parser would slot in if meshtastic-native shapes differ. |
+| Meshtastic-native feeder | The `meshcore_nodes` slot itself has accepted Meshtastic records since 2026-08-12 (see §1a), so this is no longer a server-side gap. What's still missing is a parser: Heimdall only reads MeshMapper (MeshCore) exports, and nothing yet turns a Meshtastic app export into the signed-JSON envelope. A sibling feeder or a Heimdall mode addition would close it. |
 | Browser-only WiGLE Android handoff | wigle-to-wdgwars CLI exists; a Pyodide build mirroring Muninn's pattern would let users drag a `.wiglecsv.gz` into a webpage. |
 | **Kismet native upload** | **On LOCOSP's own roadmap.** The press page lists Kismet under "We're working on more integrations" alongside Pwnagotchi and generic custom ESP32 firmware. Until it ships, the route is export then `wigle-to-wdgwars`. If it does ship, the Tier 5 always-on story in §6 changes shape and §3e needs revisiting. |
 | **Pwnagotchi native upload** | Also on LOCOSP's roadmap per the same page. Community-side, [cyberartemio/wardriver-pwnagotchi-plugin](https://github.com/cyberartemio/wardriver-pwnagotchi-plugin) already logs every network bettercap sees and uploads to WiGLE, so the gap is really WiGLE-to-here rather than nothing-to-here. The plugin's last push was 2025-02-27, so a fork or a WDGWars-aware plugin is an open opportunity. |
@@ -472,6 +490,7 @@ Things that look like obvious facts about this ecosystem but turn out to be wron
 | "Marauder works fine without a GPS module — it just won't tag coordinates." | Wrong. [`WiFiScan.cpp:515-551`](https://github.com/justcallmekoko/ESP32Marauder/blob/master/esp32_marauder/WiFiScan.cpp#L515) gates the `wardrive_line` construction behind `gps_obj.getGpsModuleStatus()` AND `getFixStatus()`. No GPS module → no line written. The dumps will be empty. |
 | "GhostESP on bare ESP32-C3 works fine for wardriving." | The current release (`VA1.4.8`, 2025-03-31) flashes and boots on C3, but `list -a` output lacks BSSID and channel on some commands when running headless USB-CDC. There's been no release in 15+ months. If you flash a C3 today and care about BSSID for WiGLE-compatible CSV, verify before depending on it. |
 | "ringmast4r's homebrew page has price tiers ($20 / $55 / $110 / $200+) for builds." | The [page](https://ringmast4r.org/html-roladex/homebrew-wardriving) returned "No products found" on direct fetch 2026-06-02. Earlier guides repeating those numbers may have hallucinated them from a search snippet. Quote prices only after a fresh per-vendor pull. |
+| "The WDGWars mesh slot is MeshCore-only; Meshtastic isn't accepted." | **Was true, stopped being true 2026-08-12.** Per LOCOSP, Meshtastic support shipped that day alongside MeshCore in the same `meshcore_nodes` slot, told apart by a `network` field. See §1a for the contract. Earlier guidance (including in this repo's sibling, meshcore-to-wdgwars) said Meshtastic had nowhere to go — that's now outdated. |
 | "The M5 Tab5 wardriver is a ~$200 build." | Tab5 hardware specs (ESP32-P4 + C6 + external M5 AT6668 GPS, released early 2026) are confirmed in the [Hackster build](https://www.hackster.io/Runaque/tab5-wardriver-a-custom-gps-enabled-wardriving-platform-d5948a). Price is not in the source — don't quote it. |
 | "More dBi (or a fancy 'Wi-Fi 7' bundled antenna) means better wardriving range." | dBi is gain, not fitness — and the bundled antenna may not even resonate in-band. [FusedStamen/antenna-database](https://github.com/FusedStamen/antenna-database) measured 130+ antennas on a LiteVNA 64: a chunk of popular ones (including some bundled "Wi-Fi 7" sticks) resonate outside the WiFi band with elevated in-band SWR. The practical catch from the dataset's own README: for passive-receive wardriving, a worst in-band SWR under 2.0 is under ~11% reflected power (<0.51 dB mismatch loss) and doesn't matter in the field. So chase in-band resonance and skip the Do_Not_Use outliers, rather than paying for a marginal SWR difference. Verify a specific antenna against the dataset instead of trusting the listing's dBi number. |
 
