@@ -197,10 +197,24 @@ See [Shopping list](shopping.md) Tiers 6–8 for the gear list at each step (inc
 | Bought Meshtastic gear expecting Heimdall to ingest it | Heimdall only parses MeshCore exports today, but the WDGWars mesh slot itself takes Meshtastic too as of 2026-08-12 ([Hardware survey](survey.md) §1a). You no longer need to re-flash to MeshCore just to be accepted. What's missing is a feeder: nothing yet turns a Meshtastic export into the signed-JSON envelope. That gap is tracked at [Hardware survey](survey.md) §9. |
 | Uploaded `ADSB.TXT` from a PortaPack and it was refused | The filename is not the format. `ADSB.TXT` is just what Mayhem calls the file; what matters is how the lines inside are laid out, and Mayhem writes its own layout rather than dump1090's. Run it through the converter first and upload the JSON it gives you. Reported by two players on 2026-08-14 on both Mayhem 2.0.2 and stable v2.4. |
 | MeshCore uploads full of duplicates, or wiping the app database between uploads | Neither is necessary. Heimdall reads the app database directly and `--since-days N` skips anything older than you ask for, so you can upload repeatedly from the same database without re-sending your whole history. |
+| Opened a capture in Excel or Sheets to check it, and now uploads are rejected | Re-saving a log in a spreadsheet rewrites the timestamps into a format the importer cannot read, or into dates in the future. Since 2026-07-10 those files are rejected up front with an explanation rather than importing junk. Upload the original export straight off the device; if you want to look at it first, open a copy. |
+| Worried about hitting an upload cap | The daily cap applies only to brand new APs and sits at 500,000, raised from 20,000 and 6,000 before that. Re-scans of networks you already own always get through. |
 | Bought Marauder without a GPS module | Wardrive dumps will be empty. GPS is mandatory, not optional. |
 | Same API key on multiple devices | All captures attribute to one driver. Need separate keys for split-driver attribution. |
 | Phone app reports "wrong password" | Could actually be Cloudflare returning 429 on a cold IP, not an auth failure. Try again after a minute. |
 | Upload returned 429 in the middle of a batch | Stop the whole batch. Continuing makes the cooldown deeper. Pin gungnir >= v0.1.2 (uses `/endpoint/*` URLs which bypass CF L7) or hit `/endpoint/upload-csv` directly in your client. |
+
+
+### Where the actual rules live
+
+This guide is a community onramp, not the rulebook. The authoritative pages are
+`/rules` and `/help` on wdgwars.pl, and both need you to be logged in, so sign up
+first and read them there. `/rules#uploads` and `/help#daily-cap` are the sections
+worth reading before your first big upload.
+
+One page you can read without an account is the [changelog](https://wdgwars.pl/changelog/).
+It is the best public record of what changed and when, and the two pitfalls above
+were both announced there.
 
 ## Communities and creators
 
