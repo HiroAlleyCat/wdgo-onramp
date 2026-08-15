@@ -38,9 +38,9 @@ flowchart LR
 
     %% Step 4 — WDGWars-only slots
     s4_sdr[RTL-SDR<br/>+ 1090 MHz antenna] --> s4_dump[dump1090 / readsb]
-    s4_dump --> s4_muninn[Muninn<br/>adsb-to-wdgwars v2.0.16]
+    s4_dump --> s4_muninn[Muninn<br/>adsb-to-wdgwars v2.2.1]
     s4_lora[LoRa node<br/>Heltec / TTGO] --> s4_mm[MeshMapper CSV]
-    s4_mm --> s4_heimdall[Heimdall<br/>meshcore-to-wdgwars v0.4.5]
+    s4_mm --> s4_heimdall[Heimdall<br/>meshcore-to-wdgwars v0.8.1]
     s4_muninn --> gungnir[gungnir v0.1.3<br/>HMAC + retry + cooldown]
     s4_heimdall --> gungnir
     gungnir -->|signed JSON<br/>POST /endpoint/upload/| wdgwars_json((wdgwars.pl<br/>/api/upload/))

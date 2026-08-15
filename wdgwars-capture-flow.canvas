@@ -30,11 +30,11 @@
     {"id": "a1b2c3d4e5f60040", "type": "group", "x": -20, "y": 1700, "width": 1620, "height": 460, "label": "Step 4 — WDGWars-only data slots (aircraft + LoRa mesh)", "color": "6"},
     {"id": "a1b2c3d4e5f60041", "type": "text", "x": 20, "y": 1780, "width": 280, "height": 140, "text": "## RTL-SDR + 1090 MHz antenna\n\nstationary, sky view\nsmall Linux box (Pi works)"},
     {"id": "a1b2c3d4e5f60042", "type": "text", "x": 380, "y": 1780, "width": 280, "height": 140, "text": "## dump1090 / readsb\n\ndecodes ADS-B\nwrites aircraft.json"},
-    {"id": "a1b2c3d4e5f60043", "type": "text", "x": 740, "y": 1780, "width": 280, "height": 140, "text": "## Muninn (adsb-to-wdgwars)\n\nv2.0.16, CLI + Pyodide\nwatches dir, uploads", "color": "6"},
+    {"id": "a1b2c3d4e5f60043", "type": "text", "x": 740, "y": 1780, "width": 280, "height": 140, "text": "## Muninn (adsb-to-wdgwars)\n\nv2.2.1, CLI + Pyodide\nwatches dir, uploads", "color": "6"},
 
     {"id": "a1b2c3d4e5f60044", "type": "text", "x": 20, "y": 1960, "width": 280, "height": 140, "text": "## LoRa node\n\nHeltec / TTGO / similar\npocket-portable"},
     {"id": "a1b2c3d4e5f60045", "type": "text", "x": 380, "y": 1960, "width": 280, "height": 140, "text": "## MeshMapper export\n\nMeshCore LoRa CSV"},
-    {"id": "a1b2c3d4e5f60046", "type": "text", "x": 740, "y": 1960, "width": 280, "height": 140, "text": "## Heimdall (meshcore-to-wdgwars)\n\nv0.4.5, CLI + Pyodide", "color": "6"},
+    {"id": "a1b2c3d4e5f60046", "type": "text", "x": 740, "y": 1960, "width": 280, "height": 140, "text": "## Heimdall (meshcore-to-wdgwars)\n\nv0.8.1, CLI + Pyodide", "color": "6"},
 
     {"id": "a1b2c3d4e5f60050", "type": "text", "x": 1100, "y": 1780, "width": 220, "height": 320, "text": "## gungnir v0.1.3\n\nshared HMAC transport\nretry + cooldown\nsilent-drop detection\n\n*used by Muninn,\nHeimdall, wigle-to-wdgwars*", "color": "1"},
 

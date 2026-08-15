@@ -146,12 +146,19 @@ WiGLE doesn't track aircraft or LoRa mesh nodes. WDGWars does. These are points 
 
 | Slot | Tool | What you need |
 |---|---|---|
-| **Aircraft** (ADS-B) | [Muninn (adsb-to-wdgwars)](https://github.com/Yggdrasil-AI-labs/adsb-to-wdgwars) v2.0.16 | RTL-SDR USB dongle (~$30 typical) + 1090 MHz antenna + a small Linux box (Pi works). Run dump1090-fa or readsb to decode; Muninn watches the output directory and uploads. Stationary — mount the antenna where it has sky view. |
-| **LoRa mesh** (MeshCore or Meshtastic) | [Heimdall (meshcore-to-wdgwars)](https://github.com/Yggdrasil-AI-labs/meshcore-to-wdgwars) v0.4.5 for MeshCore; no dedicated Meshtastic feeder exists yet (§9 gap list) | LoRa node (Heltec / TTGO / Wio Tracker / similar). Export MeshMapper CSV for MeshCore. Heimdall uploads to the `meshcore_nodes` slot. Pocket-portable. |
+| **Aircraft** (ADS-B) | [Muninn (adsb-to-wdgwars)](https://github.com/Yggdrasil-AI-labs/adsb-to-wdgwars) v2.2.1 | RTL-SDR USB dongle (~$30 typical) + 1090 MHz antenna + a small Linux box (Pi works). Run dump1090-fa or readsb to decode; Muninn watches the output directory and uploads. Stationary — mount the antenna where it has sky view. A HackRF PortaPack on Mayhem also works: capture to SD, convert afterward. |
+| **LoRa mesh** (MeshCore or Meshtastic) | [Heimdall (meshcore-to-wdgwars)](https://github.com/Yggdrasil-AI-labs/meshcore-to-wdgwars) v0.8.1 for MeshCore; no dedicated Meshtastic feeder exists yet (§9 gap list) | LoRa node (Heltec / TTGO / Wio Tracker / similar). Point Heimdall at the MeshCore app's own database, which carries several times the nodes its JSON export does. MeshMapper CSV still works too. Uploads to the `meshcore_nodes` slot. Pocket-portable. |
+
+**You do not have to install anything to use either feeder.** Both ship a browser version that converts your capture on your own machine and hands you a file to upload. Nothing leaves your computer, the conversion runs in the browser:
+
+- Aircraft: [yggdrasil-ai-labs.github.io/adsb-to-wdgwars](https://yggdrasil-ai-labs.github.io/adsb-to-wdgwars/)
+- Mesh: [yggdrasil-ai-labs.github.io/meshcore-to-wdgwars](https://yggdrasil-ai-labs.github.io/meshcore-to-wdgwars/)
+
+Drag your capture onto the page, click **Download JSON**, then drag that file into the upload form on wdgwars.pl. No API key needed for that route. Use the CLI instead when you want scheduled or unattended uploads.
 
 MeshCore and Meshtastic are both LoRa firmware, often on the same hardware, but they don't talk to each other over the air. As of 2026-08-12 the WDGWars mesh slot accepts records from either network, told apart by a `network` field. See [Hardware survey](survey.md) §1a for the contract. That's a server-side change; a feeder that speaks Meshtastic natively still needs to be written.
 
-Both feeders use the signed-JSON path (HMAC envelope via gungnir), not the multipart CSV path. Same API key as your other uploads.
+Both feeders also offer the signed-JSON path (HMAC envelope via gungnir) from the CLI, using the same API key as your other uploads.
 
 **What this teaches:** that "wardriving" is broader than Wi-Fi — radio observation more generally. Aircraft is a stationary capture game; LoRa mesh is mobile. They reward different play styles.
 
@@ -188,6 +195,8 @@ See [Shopping list](shopping.md) Tiers 6–8 for the gear list at each step (inc
 | Bought a Flipper Zero expecting it to wardrive on its own | The Flipper has no 2.4 GHz radio. You need the WiFi DevBoard (or a side device like the Apex 5) running Marauder, plus a GPS module, plus an SD pull → wigle-to-wdgwars. See [Shopping list](shopping.md) Tier 3b. |
 | Bought a Pwnagotchi expecting WiGLE CSV / WDGWars parity | Pwnagotchi captures PCAP handshakes, not the WigleWifi-1.6 CSV that wigle-to-wdgwars ingests. Use it for the handshake side of the hobby; pair it with a Marauder/Bruce rig if you also want leaderboard points. |
 | Bought Meshtastic gear expecting Heimdall to ingest it | Heimdall only parses MeshCore exports today, but the WDGWars mesh slot itself takes Meshtastic too as of 2026-08-12 ([Hardware survey](survey.md) §1a). You no longer need to re-flash to MeshCore just to be accepted. What's missing is a feeder: nothing yet turns a Meshtastic export into the signed-JSON envelope. That gap is tracked at [Hardware survey](survey.md) §9. |
+| Uploaded `ADSB.TXT` from a PortaPack and it was refused | The filename is not the format. `ADSB.TXT` is just what Mayhem calls the file; what matters is how the lines inside are laid out, and Mayhem writes its own layout rather than dump1090's. Run it through the converter first and upload the JSON it gives you. Reported by two players on 2026-08-14 on both Mayhem 2.0.2 and stable v2.4. |
+| MeshCore uploads full of duplicates, or wiping the app database between uploads | Neither is necessary. Heimdall reads the app database directly and `--since-days N` skips anything older than you ask for, so you can upload repeatedly from the same database without re-sending your whole history. |
 | Bought Marauder without a GPS module | Wardrive dumps will be empty. GPS is mandatory, not optional. |
 | Same API key on multiple devices | All captures attribute to one driver. Need separate keys for split-driver attribution. |
 | Phone app reports "wrong password" | Could actually be Cloudflare returning 429 on a cold IP, not an auth failure. Try again after a minute. |
